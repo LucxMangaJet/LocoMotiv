@@ -6,7 +6,22 @@ ModelImporter:
   - first:
       74: -203655887218126122
     second: mixamo.com
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: battalion-leader-heraklios_diffuse
+    second: {fileID: 2800000, guid: fce9e04c6bf14da43b6a42e3bff8f523, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: battalion-leader-heraklios_normal
+    second: {fileID: 2800000, guid: b6552194c0b02a941a80ebd65954b01f, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: battalion-leader-heraklios_specular
+    second: {fileID: 2800000, guid: ecd4f7adfa256ee45a5d8a1618435543, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
