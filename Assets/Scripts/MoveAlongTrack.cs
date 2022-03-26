@@ -12,6 +12,11 @@ public class MoveAlongTrack : MonoBehaviour
 
     private float currentDistance;
 
+    private CurveSample curveSample;
+
+    public float CurrentDistance => currentDistance;
+    public CurveSample CurveSample => curveSample;
+
     private void Start()
     {
         currentDistance = spline.GetProjectionSample(transform.position).distanceInCurve;
@@ -24,19 +29,30 @@ public class MoveAlongTrack : MonoBehaviour
         if (currentDistance > spline.Length)
             currentDistance %= spline.Length;
 
-        MoveToDistance(currentDistance);
+        curveSample = MoveToDistance(transform, currentDistance);
     }
 
-    private void MoveToDistance(float _distance)
+    public CurveSample MoveToDistance(Transform _target, float _distance)
     {
+        _distance %= spline.Length;
+        if (_distance < 0)
+            _distance += spline.Length;
+
         var sample = spline.GetSampleAtDistance(_distance);
-        transform.position = sample.location;
-        transform.rotation = sample.Rotation;
+        _target.position = sample.location;
+        _target.rotation = sample.Rotation;
+
+        return sample;
+    }
+
+    public void SetSpeed(float _speed)
+    {
+        speed = _speed;
     }
 
     [Button]
     private void SnapToTracks()
     {
-        MoveToDistance(spline.GetProjectionSample(transform.position).distanceInCurve);
+        MoveToDistance(transform, spline.GetProjectionSample(transform.position).distanceInCurve);
     }
 }

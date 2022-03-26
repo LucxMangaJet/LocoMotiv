@@ -75,6 +75,7 @@ namespace SplineMesh {
             }
         }
 
+        [NaughtyAttributes.Button]
         public void CreateMeshes() {
 #if UNITY_EDITOR
             // we don't update if we are in prefab mode
