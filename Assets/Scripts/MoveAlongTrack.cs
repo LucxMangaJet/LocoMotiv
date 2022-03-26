@@ -22,7 +22,8 @@ public class MoveAlongTrack : MonoBehaviour
         currentDistance += Time.deltaTime * speed;
 
         if (currentDistance > spline.Length)
-            currentDistance -= spline.Length;
+            currentDistance %= spline.Length;
+
         MoveToDistance(currentDistance);
     }
 
