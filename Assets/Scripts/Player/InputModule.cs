@@ -11,7 +11,7 @@ public class InputModule
         return new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
     }
 
-    internal Vector2 GetMoveInput()
+    public Vector2 GetMoveInput()
     {
         Vector2 axis = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 
@@ -19,5 +19,9 @@ public class InputModule
             return axis / axis.magnitude;
 
         return axis;
+    }
+    public bool GetInteractionInput()
+    {
+        return Input.GetButtonDown("Fire1");
     }
 }

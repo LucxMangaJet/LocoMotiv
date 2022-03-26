@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GravityModule gravityModule;
     [SerializeField] MouseLook mouseLook;
     [SerializeField] GroundCheckModule groundCheckModule;
+    [SerializeField] PlayerInteractionModule interactionModule;
 
     private void Update()
     {
@@ -19,5 +20,8 @@ public class PlayerController : MonoBehaviour
             gravityModule.ApplyGravity();
         else
             gravityModule.ResetToGround();
+
+        if (interactionModule.CheckForCanInteract() && InputModule.GetInteractionInput())
+            interactionModule.Interact();
     }
 }
