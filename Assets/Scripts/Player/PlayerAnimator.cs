@@ -20,7 +20,6 @@ public class PlayerAnimator : MonoBehaviour
 
     private void OnMove(float speed)
     {
-        Debug.Log(speed);
         animator.SetFloat("speed", moveSpeedToAnimatorValueCurve.Evaluate(speed));
     }
 }
