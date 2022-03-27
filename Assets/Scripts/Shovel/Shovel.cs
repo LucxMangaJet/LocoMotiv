@@ -6,7 +6,12 @@ using UnityEngine;
 public class Shovel : MonoBehaviour
 {
     [SerializeField] ShovelTarget baseTarget;
-    [SerializeField] ShovelTarget overrideTarget;
+    ShovelTarget overrideTarget;
+
+    private void Awake()
+    {
+        overrideTarget = baseTarget;
+    }
 
     private void OnEnable()
     {

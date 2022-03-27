@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class PlayerInteractionModule 
+public class PlayerInteractionModule
 {
     [SerializeField] Transform cameraTransform;
     [SerializeField] float interactionDistance = 2f;
@@ -15,13 +15,21 @@ public class PlayerInteractionModule
         Vector3 pos = cameraTransform.position;
         Vector3 dir = cameraTransform.forward;
 
+
+        IInteractable before = interactable;
         interactable = RaycastForInteractable(pos, dir, interactionDistance);
 
-        bool camInteract = interactable != null && interactable.CanInteract;
+        if (before != null && before != interactable)
+            before.SetInteractable(false);
 
-        Debug.DrawRay(pos, dir* interactionDistance, camInteract ? Color.green: Color.red);
+        bool canInteract = interactable != null && interactable.CanInteract;
 
-        return camInteract;
+        if (interactable != null)
+            interactable.SetInteractable(canInteract);
+
+        Debug.DrawRay(pos, dir * interactionDistance, canInteract ? Color.green : Color.red);
+
+        return canInteract;
     }
 
     private IInteractable RaycastForInteractable(Vector3 pos, Vector3 dir, float distance)
@@ -30,7 +38,7 @@ public class PlayerInteractionModule
 
         if (Physics.Raycast(pos, dir, out hit, distance))
             return hit.collider.GetComponent<IInteractable>();
-        
+
         return null;
     }
 
