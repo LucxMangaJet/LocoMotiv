@@ -14,7 +14,10 @@ public class TrainController : MonoBehaviour
 
     [Header("Balance")]
 
+    [SerializeField] float fuelAddedPerShovel = 10;
     [SerializeField] float maxFuel = 100;
+    [SerializeField] float maxPressure = 1000;
+    [SerializeField] float maxGaugeSpeed = 150;
 
     [SerializeField] AnimationCurve fuelConsumptionOverAmount;
 
@@ -59,6 +62,11 @@ public class TrainController : MonoBehaviour
     [SerializeField, ReadOnly]
     private float engineForce;
 
+    [Header("References")]
+    [SerializeField] private GaugeBehaviour pressureGauge;
+    [SerializeField] private GaugeBehaviour fuelGauge;
+    [SerializeField] private GaugeBehaviour speedGauge;
+
     //debug
     private float[] acceleration;
     private float[] resistance;
@@ -69,6 +77,13 @@ public class TrainController : MonoBehaviour
     {
         acceleration = new float[trainRoot.Segments.Length];
         resistance = new float[trainRoot.Segments.Length];
+
+        ShovelEventBase.Trigger += OnShovelTrigger;
+    }
+
+    private void OnDestroy()
+    {
+        ShovelEventBase.Trigger -= OnShovelTrigger;
     }
 
     private void Update()
@@ -81,6 +96,15 @@ public class TrainController : MonoBehaviour
         updateDecelleration(totalMass);
 
         mover.SetSpeed(speed);
+
+        updateEnvironment();
+    }
+
+    private void updateEnvironment()
+    {
+        pressureGauge?.SetPercent(pressure / maxPressure);
+        fuelGauge?.SetPercent(fuel / maxFuel);
+        speedGauge?.SetPercent(speed / maxGaugeSpeed);
     }
 
     private void updateEngine()
@@ -234,15 +258,24 @@ public class TrainController : MonoBehaviour
         return rollingResistance;
     }
 
-    [Button]
-    public void Add10Fuel()
-    {
-        AddFuel(10);
-    }
 
     public void AddFuel(float _amount)
     {
         fuel += _amount;
+    }
+
+    private void OnShovelTrigger(ShovelEventType _type)
+    {
+        if (_type == ShovelEventType.ThrowCoal)
+            AddFuel(fuelAddedPerShovel);
+    }
+
+    #region EDITOR
+
+    [Button]
+    public void Add10Fuel()
+    {
+        AddFuel(10);
     }
 
     private void OnDrawGizmos()
@@ -265,4 +298,5 @@ public class TrainController : MonoBehaviour
         }
     }
 
+    #endregion
 }
