@@ -5909,6 +5909,18 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0.198
       objectReference: {fileID: 0}
+    - target: {fileID: 1568139128878731328, guid: 75e54243e6d204bf7a1c6910b40e77f2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1568139128878731328, guid: 75e54243e6d204bf7a1c6910b40e77f2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1568139128878731328, guid: 75e54243e6d204bf7a1c6910b40e77f2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3515406239317515274, guid: 75e54243e6d204bf7a1c6910b40e77f2, type: 3}
       propertyPath: VelocityModule.y.scalar
       value: 1
@@ -5944,6 +5956,10 @@ PrefabInstance:
     - target: {fileID: 3568102485788708538, guid: 75e54243e6d204bf7a1c6910b40e77f2, type: 3}
       propertyPath: VelocityModule.y.minScalar
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3568102485788708538, guid: 75e54243e6d204bf7a1c6910b40e77f2, type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 3568102485788708538, guid: 75e54243e6d204bf7a1c6910b40e77f2, type: 3}
       propertyPath: InitialModule.startLifetime.scalar
@@ -6033,6 +6049,18 @@ PrefabInstance:
       propertyPath: m_Materials.Array.size
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8832566118104547197, guid: 75e54243e6d204bf7a1c6910b40e77f2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8832566118104547197, guid: 75e54243e6d204bf7a1c6910b40e77f2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8832566118104547197, guid: 75e54243e6d204bf7a1c6910b40e77f2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9195308507420792288, guid: 75e54243e6d204bf7a1c6910b40e77f2, type: 3}
       propertyPath: m_Name
       value: FireParticles
@@ -6070,6 +6098,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &3453189355464753720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6580705530220633338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d77eef3502a50d4ea6c82e6b4d3857f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 2404446854540431907}
+  targetIntensity: 0.5
 --- !u!1001 &4452629371183696083
 PrefabInstance:
   m_ObjectHideFlags: 0
