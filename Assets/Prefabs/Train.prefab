@@ -9958,7 +9958,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  pressureToForceCurveMultiplyer: 100000
+  pressureToForceCurveMultiplyer: 500000
   forceEffectivenessOverSpeed:
     serializedVersion: 2
     m_Curve:
