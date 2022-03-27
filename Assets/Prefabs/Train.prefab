@@ -9489,7 +9489,7 @@ Transform:
   - {fileID: 1755317793829883557}
   - {fileID: 1755317794045065001}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6270358161751392402
 MonoBehaviour:
@@ -9546,6 +9546,204 @@ MonoBehaviour:
   mover: {fileID: 6270358161751392402}
   trainRoot: {fileID: 6270358161751392401}
   throttle: 1
+  maxFuel: 100
+  fuelConsumptionOverAmount:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0.01
+      outSlope: 0.01
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 100
+      value: 2
+      inSlope: 0.01
+      outSlope: 0.01
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  maxPressureOverFuelAmount:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 500
+      inSlope: 5
+      outSlope: 5
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 100
+      value: 1000
+      inSlope: 5
+      outSlope: 5
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  pressureBuildupOverFuelAmount:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0.069239534
+      outSlope: 0.069239534
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.08051098
+    - serializedVersion: 3
+      time: 50
+      value: 50
+      inSlope: 3.1518576
+      outSlope: 3.1518576
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.054255676
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 100
+      value: 100
+      inSlope: 0.06272977
+      outSlope: 0.06272977
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.08022995
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  pressureToForceCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0.0012887442
+      outSlope: 0.0012887442
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 700
+      value: 0.90212095
+      inSlope: 0.0009003808
+      outSlope: 0.0009003808
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.20234457
+    - serializedVersion: 3
+      time: 1000
+      value: 1
+      inSlope: 0.00005711758
+      outSlope: 0.00005711758
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.2994342
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  pressureToForceCurveMultiplyer: 100000
+  forceEffectivenessOverSpeed:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.2
+      inSlope: 0.008
+      outSlope: 0.008
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 100
+      value: 1
+      inSlope: -0.00006304858
+      outSlope: -0.00006304858
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.13573715
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 150
+      value: 0
+      inSlope: 0.000050512717
+      outSlope: 0.000050512717
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.29142487
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  pressureReleaseByWhistle: 150
+  pressureReleaseOverSpeed:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 10
+      inSlope: 0.26666668
+      outSlope: 0.26666668
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 150
+      value: 50
+      inSlope: 0.26666668
+      outSlope: 0.26666668
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  pressureReleaseOverPressure:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.01
+      inSlope: 0.00099
+      outSlope: 0.00099
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1000
+      value: 1
+      inSlope: 0.00099
+      outSlope: 0.00099
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   segmentMass: 1000
   rootMass: 1000
   rollingResistanceCoefficient: 0.01
@@ -9553,8 +9751,11 @@ MonoBehaviour:
   turnResistanceCoefficient: 100
   wagonCrossSectionArea: 1
   airDensity: 1.225
-  engineMaxForce: 500000
   speed: 0
+  fuel: 0
+  pressure: 0
+  isWhistling: 0
+  engineForce: 0
 --- !u!1001 &6847342826444948404
 PrefabInstance:
   m_ObjectHideFlags: 0
