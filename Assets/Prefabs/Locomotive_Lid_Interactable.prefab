@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1803122500830576257}
   - component: {fileID: 1803122500830576258}
   - component: {fileID: 1803122500830576259}
+  - component: {fileID: 7355716985613516018}
   m_Layer: 0
   m_Name: Locomotive_Lid_Interactable
   m_TagString: Untagged
@@ -98,6 +99,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 1803122500830576257}
   target: {fileID: 1803122499870682706}
+--- !u!114 &7355716985613516018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1568540807211243174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7ed1d310bd39714bbffbe421962a947, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1803122499870682708
 GameObject:
   m_ObjectHideFlags: 0

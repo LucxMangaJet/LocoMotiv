@@ -371,6 +371,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shovel
       objectReference: {fileID: 0}
+    - target: {fileID: 194376, guid: 582f1a3b91a90974f9518032402cc5bc, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 439136, guid: 582f1a3b91a90974f9518032402cc5bc, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -381,19 +385,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 439136, guid: 582f1a3b91a90974f9518032402cc5bc, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 439136, guid: 582f1a3b91a90974f9518032402cc5bc, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 439136, guid: 582f1a3b91a90974f9518032402cc5bc, type: 3}
-      propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 439136, guid: 582f1a3b91a90974f9518032402cc5bc, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 439136, guid: 582f1a3b91a90974f9518032402cc5bc, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.8686315
+      objectReference: {fileID: 0}
+    - target: {fileID: 439136, guid: 582f1a3b91a90974f9518032402cc5bc, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0.49545875
       objectReference: {fileID: 0}
     - target: {fileID: 439136, guid: 582f1a3b91a90974f9518032402cc5bc, type: 3}
       propertyPath: m_LocalRotation.y
@@ -405,7 +409,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 439136, guid: 582f1a3b91a90974f9518032402cc5bc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: -59.4
       objectReference: {fileID: 0}
     - target: {fileID: 439136, guid: 582f1a3b91a90974f9518032402cc5bc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -437,6 +441,60 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseTarget: {fileID: 1213917307}
+--- !u!64 &1255246737
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1255246732}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300002, guid: 3f95ceb5f37d18f46be6ca5c7106a199, type: 3}
+--- !u!114 &1255246738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1255246732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba5a2573f695c5a49ab1c6ebf45eec3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shovel: {fileID: 1255246740}
+--- !u!114 &1255246739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1255246732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d666b29d95d65d4d809bfd5795b1303, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shovel: {fileID: 1255246740}
+--- !u!114 &1255246740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1255246732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8be7057e9cf659c4883898f651f42fb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coalParticleEffect: {fileID: 3679650627118708150, guid: 0473d4e28475a9d4f8caf498d511dca9, type: 3}
+  hasCoal: 0
 --- !u!1 &1595789888
 GameObject:
   m_ObjectHideFlags: 0
