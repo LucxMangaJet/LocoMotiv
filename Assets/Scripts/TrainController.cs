@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using NaughtyAttributes;
+using UnityEngine;
 
 
 public class TrainController : MonoBehaviour
@@ -9,6 +10,30 @@ public class TrainController : MonoBehaviour
     [Header("Control")]
     [Range(0, 1)]
     [SerializeField] float throttle = 1;
+
+
+    [Header("Balance")]
+
+    [SerializeField] float maxFuel = 100;
+
+    [SerializeField] AnimationCurve fuelConsumptionOverAmount;
+
+    [SerializeField] AnimationCurve maxPressureOverFuelAmount;
+
+    [SerializeField] AnimationCurve pressureBuildupOverFuelAmount;
+
+    [SerializeField] AnimationCurve pressureToForceCurve;
+
+    [SerializeField] float pressureToForceCurveMultiplyer;
+
+    [SerializeField] AnimationCurve forceEffectivenessOverSpeed;
+
+    [SerializeField] float pressureReleaseByWhistle;
+
+    [SerializeField] AnimationCurve pressureReleaseOverSpeed;
+
+    [SerializeField] AnimationCurve pressureReleaseOverPressure;
+
 
     [Header("Settings")]
 
@@ -22,14 +47,21 @@ public class TrainController : MonoBehaviour
     [SerializeField] float wagonCrossSectionArea = 1;
     [SerializeField] float airDensity = 1;
 
-    [SerializeField] float engineMaxForce = 1;
-
-    [SerializeField]
+    [SerializeField, ReadOnly]
     private float speed = 0;
+    [SerializeField, ReadOnly]
+    private float fuel = 0;
+    [SerializeField, ReadOnly]
+    private float pressure = 0;
+    [SerializeField, ReadOnly]
+    private bool isWhistling;
 
+    [SerializeField, ReadOnly]
+    private float engineForce;
+
+    //debug
     private float[] acceleration;
     private float[] resistance;
-
     private float airResistance;
     private float turnResistance;
 
@@ -43,9 +75,49 @@ public class TrainController : MonoBehaviour
     {
         float totalMass = (rootMass + trainRoot.Segments.Length * segmentMass);
 
+        updateEngine();
+
+        updateAcceleration(totalMass);
+        updateDecelleration(totalMass);
+
+        mover.SetSpeed(speed);
+    }
+
+    private void updateEngine()
+    {
+        float dt = Time.deltaTime;
+
+        fuel = Mathf.Clamp(fuel - fuelConsumptionOverAmount.Evaluate(fuel) * dt, 0, maxFuel);
+
+        float pressureGeneration = pressureBuildupOverFuelAmount.Evaluate(fuel);
+
+        //engine uses steam to throttle up/down
+        float pressureRelease = pressureReleaseOverPressure.Evaluate(pressure);
+        float pressureConsumption = throttle * pressureRelease * pressureReleaseOverSpeed.Evaluate(speed);
+
+        if (isWhistling)
+            pressureConsumption += pressureRelease * pressureReleaseByWhistle;
+
+        //dont allow pressure buildup if engine is not hot enough
+        float maxPressure = maxPressureOverFuelAmount.Evaluate(fuel);
+        if (pressure > maxPressure)
+            pressureGeneration = 0;
+
+        pressure = Mathf.Max(0, pressure + (pressureGeneration - pressureConsumption) * dt);
+
+        //engine acceleration
+        float force = throttle * pressureToForceCurve.Evaluate(pressure) * pressureToForceCurveMultiplyer;
+
+        force *= forceEffectivenessOverSpeed.Evaluate(speed);
+
+        engineForce = force;
+    }
+
+    private void updateAcceleration(float totalMass)
+    {
         float tempAcceleration = 0;
 
-        tempAcceleration += throttle * engineMaxForce / totalMass;
+        tempAcceleration += engineForce / totalMass;
 
         //gravity
         tempAcceleration += CalculateForceOnWagon(mover.CurveSample.tangent, rootMass) / rootMass;
@@ -61,7 +133,10 @@ public class TrainController : MonoBehaviour
         }
 
         speed += tempAcceleration * Time.deltaTime;
+    }
 
+    private void updateDecelleration(float totalMass)
+    {
         // resitances
         float tempDecelleration = 0;
 
@@ -92,8 +167,6 @@ public class TrainController : MonoBehaviour
             speed = 0;
         else
             speed -= decelAmount * Mathf.Sign(speed);
-
-        mover.SetSpeed(speed);
     }
 
     private float CalculateForceOnWagon(Vector3 tangent, float mass)
@@ -145,7 +218,6 @@ public class TrainController : MonoBehaviour
         Debug.DrawLine(mid, midHigh, Color.white);
 
         Debug.DrawLine(mid, mid + hAxis, Color.red);
-        Debug.Log(r);
 
         float w = totalMass * -Physics.gravity.y;
         float f = turnResistanceCoefficient;
@@ -160,6 +232,17 @@ public class TrainController : MonoBehaviour
         float rollingResistance = rollingResistanceCoefficient * mass * -Physics.gravity.y;
 
         return rollingResistance;
+    }
+
+    [Button]
+    public void Add10Fuel()
+    {
+        AddFuel(10);
+    }
+
+    public void AddFuel(float _amount)
+    {
+        fuel += _amount;
     }
 
     private void OnDrawGizmos()
