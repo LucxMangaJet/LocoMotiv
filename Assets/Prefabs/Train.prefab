@@ -9669,7 +9669,6 @@ MonoBehaviour:
   fuelAddedPerShovel: 10
   maxFuel: 100
   maxPressure: 1000
-  maxGaugeSpeed: 150
   fuelConsumptionOverAmount:
     serializedVersion: 2
     m_Curve:
@@ -9879,11 +9878,7 @@ MonoBehaviour:
   pressure: 0
   isWhistling: 0
   engineForce: 0
-  pressureGauge: {fileID: 0}
-  fuelGauge: {fileID: 3233324290603734190}
-  speedGauge: {fileID: 0}
-  pressureEnvironmentAnimator: {fileID: 8136482157568786828}
-  fuelEnvironmentAnimator: {fileID: 8310256174168330756}
+  environmentFeedbackController: {fileID: 6857131611998938044}
 --- !u!1001 &760486117
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10038,37 +10033,15 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 6858590697922760737}
   m_SourcePrefab: {fileID: 100100000, guid: f17831ba810097743bb493bcb78f589b, type: 3}
---- !u!114 &3233324290603734190 stripped
+--- !u!114 &6857131611998938044 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8347902714285512474, guid: f17831ba810097743bb493bcb78f589b, type: 3}
+  m_CorrespondingSourceObject: {fileID: 13452367175245832, guid: f17831ba810097743bb493bcb78f589b, type: 3}
   m_PrefabInstance: {fileID: 6847342826444948404}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63801a720ebc61f45ba5126813b00e42, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &8136482157568786828 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3453189355464753720, guid: f17831ba810097743bb493bcb78f589b, type: 3}
-  m_PrefabInstance: {fileID: 6847342826444948404}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d77eef3502a50d4ea6c82e6b4d3857f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &8310256174168330756 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3194551802764644784, guid: f17831ba810097743bb493bcb78f589b, type: 3}
-  m_PrefabInstance: {fileID: 6847342826444948404}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d77eef3502a50d4ea6c82e6b4d3857f, type: 3}
+  m_Script: {fileID: 11500000, guid: a310d2f388baaf046944dcda6b151b19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &8919861249208278200 stripped

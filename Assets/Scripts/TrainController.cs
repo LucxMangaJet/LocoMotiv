@@ -1,5 +1,6 @@
 ﻿using NaughtyAttributes;
 using UnityEngine;
+using Train.Feedback;
 
 
 public class TrainController : MonoBehaviour
@@ -17,7 +18,6 @@ public class TrainController : MonoBehaviour
     [SerializeField] float fuelAddedPerShovel = 10;
     [SerializeField] float maxFuel = 100;
     [SerializeField] float maxPressure = 1000;
-    [SerializeField] float maxGaugeSpeed = 150;
 
     [SerializeField] AnimationCurve fuelConsumptionOverAmount;
 
@@ -63,11 +63,7 @@ public class TrainController : MonoBehaviour
     private float engineForce;
 
     [Header("References")]
-    [SerializeField] private GaugeBehaviour pressureGauge;
-    [SerializeField] private GaugeBehaviour fuelGauge;
-    [SerializeField] private GaugeBehaviour speedGauge;
-    [SerializeField] private TrainEnvironmentValueAnimator pressureEnvironmentAnimator;
-    [SerializeField] private TrainEnvironmentValueAnimator fuelEnvironmentAnimator;
+    [SerializeField] private TrainEnvironmentFeedbackController environmentFeedbackController;
 
     //debug
     private float[] acceleration;
@@ -104,12 +100,9 @@ public class TrainController : MonoBehaviour
 
     private void updateEnvironment()
     {
-        pressureGauge?.SetPercent(pressure / maxPressure);
-        fuelGauge?.SetPercent(fuel / maxFuel);
-        speedGauge?.SetPercent(speed / maxGaugeSpeed);
-
-        pressureEnvironmentAnimator?.SetPercent(pressure / maxPressure);
-        fuelEnvironmentAnimator?.SetPercent(fuel / maxFuel);
+        environmentFeedbackController.PressurePercent = pressure / maxPressure;
+        environmentFeedbackController.FuelPercent = fuel / maxFuel;
+        environmentFeedbackController.Speed = speed;
     }
 
     private void updateEngine()
