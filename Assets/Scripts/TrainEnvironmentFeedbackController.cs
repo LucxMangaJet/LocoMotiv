@@ -16,6 +16,7 @@ namespace Train.Feedback
         [SerializeField, ReadOnly] float strokeDuration;
         [SerializeField] PressureRelease pressureRelease;
         [SerializeField] ChimneySmoke chimneySmoke;
+        [SerializeField] WhistleBehaviour whistle;
 
         [SerializeField] AnimatorValueFeedbackModule engineFire;
         [SerializeField] AnimatorValueFeedbackModule engineFuel;
@@ -39,6 +40,12 @@ namespace Train.Feedback
             pressureGauge.SetPercent(enginePressurePercent);
             fuelGauge.SetPercent(fuelPercentage);
             speedGauge.SetPercent(trainSpeed / maxGaugeSpeed);
+        }
+
+        [Button]
+        public void UseWhistle()
+        {
+            whistle.Use(enginePressurePercent);
         }
     }
 }
