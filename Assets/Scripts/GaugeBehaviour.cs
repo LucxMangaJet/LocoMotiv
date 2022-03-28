@@ -5,10 +5,10 @@ using UnityEngine;
 public class GaugeBehaviour : MonoBehaviour
 {
     [SerializeField] Transform pointer;
-    [SerializeField] AnimationCurve preassureToPointerAngleCurve;
+    [SerializeField] AnimationCurve percentToPointerAngleCurve;
 
     public void SetPercent(float _percent)
     {
-        pointer.localRotation = Quaternion.Euler(preassureToPointerAngleCurve.Evaluate(_percent), 0, 0);
+        pointer.localRotation = Quaternion.Euler(percentToPointerAngleCurve.Evaluate(_percent), 0, 0);
     }
 }
