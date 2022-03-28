@@ -491,10 +491,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2301390, guid: 07f0e9a8550da7d4bbc1c4b4a7047db3, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 1b03fd1ca662f504fba9ed56559f64b4, type: 2}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 07f0e9a8550da7d4bbc1c4b4a7047db3, type: 3}
@@ -503,6 +499,29 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 468026, guid: 07f0e9a8550da7d4bbc1c4b4a7047db3, type: 3}
   m_PrefabInstance: {fileID: 2251415666953572417}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2251415666953742377 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 178280, guid: 07f0e9a8550da7d4bbc1c4b4a7047db3, type: 3}
+  m_PrefabInstance: {fileID: 2251415666953572417}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7718456657910911241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2251415666953742377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 4
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!23 &2251415666955865487 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 2301390, guid: 07f0e9a8550da7d4bbc1c4b4a7047db3, type: 3}
@@ -730,7 +749,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5717581124683839334, guid: 85106b77e119f624bacf9d092cb64907, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5717581124683839334, guid: 85106b77e119f624bacf9d092cb64907, type: 3}
       propertyPath: m_LocalPosition.x
@@ -774,7 +793,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5717581124683839335, guid: 85106b77e119f624bacf9d092cb64907, type: 3}
       propertyPath: m_Name
-      value: Wagon_Coal
+      value: Wagon_Coal Variant
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects:
@@ -855,6 +874,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CollectCoal_Interactable
       objectReference: {fileID: 0}
+    - target: {fileID: 5575632356522840204, guid: 8aa90afa8915da74da33b8a0369d4f51, type: 3}
+      propertyPath: outline
+      value: 
+      objectReference: {fileID: 7718456657910911241}
     - target: {fileID: 5575632356522840204, guid: 8aa90afa8915da74da33b8a0369d4f51, type: 3}
       propertyPath: meshRenderer
       value: 
