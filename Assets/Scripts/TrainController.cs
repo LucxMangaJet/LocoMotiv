@@ -66,6 +66,8 @@ public class TrainController : MonoBehaviour
     [SerializeField] private GaugeBehaviour pressureGauge;
     [SerializeField] private GaugeBehaviour fuelGauge;
     [SerializeField] private GaugeBehaviour speedGauge;
+    [SerializeField] private TrainEnvironmentValueAnimator pressureEnvironmentAnimator;
+    [SerializeField] private TrainEnvironmentValueAnimator fuelEnvironmentAnimator;
 
     //debug
     private float[] acceleration;
@@ -105,6 +107,9 @@ public class TrainController : MonoBehaviour
         pressureGauge?.SetPercent(pressure / maxPressure);
         fuelGauge?.SetPercent(fuel / maxFuel);
         speedGauge?.SetPercent(speed / maxGaugeSpeed);
+
+        pressureEnvironmentAnimator?.SetPercent(pressure / maxPressure);
+        fuelEnvironmentAnimator?.SetPercent(fuel / maxFuel);
     }
 
     private void updateEngine()

@@ -9849,18 +9849,18 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
-      inSlope: 0.01
-      outSlope: 0.01
+      value: 0.5
+      inSlope: 0.005
+      outSlope: 0.005
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 100
-      value: 2
-      inSlope: 0.01
-      outSlope: 0.01
+      value: 1
+      inSlope: 0.005
+      outSlope: 0.005
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -9989,21 +9989,30 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 10
-      inSlope: 0.26666668
-      outSlope: 0.26666668
+      value: 25
+      inSlope: 11
+      outSlope: 11
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 150
-      value: 50
-      inSlope: 0.26666668
-      outSlope: 0.26666668
-      tangentMode: 34
+      time: 5
+      value: 80
+      inSlope: 0.17505342
+      outSlope: 0.17505342
+      tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
+      inWeight: 1
+      outWeight: 0.091308385
+    - serializedVersion: 3
+      time: 150
+      value: 110
+      inSlope: 0.089364775
+      outSlope: 0.089364775
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.13659427
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -10047,6 +10056,8 @@ MonoBehaviour:
   pressureGauge: {fileID: 6037022335544588025}
   fuelGauge: {fileID: 918863789}
   speedGauge: {fileID: 1822507334}
+  pressureEnvironmentAnimator: {fileID: 8136482157568786828}
+  fuelEnvironmentAnimator: {fileID: 8310256174168330756}
 --- !u!1001 &510726528
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10634,6 +10645,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 63801a720ebc61f45ba5126813b00e42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8136482157568786828 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3453189355464753720, guid: f17831ba810097743bb493bcb78f589b, type: 3}
+  m_PrefabInstance: {fileID: 6847342826444948404}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d77eef3502a50d4ea6c82e6b4d3857f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8310256174168330756 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3194551802764644784, guid: f17831ba810097743bb493bcb78f589b, type: 3}
+  m_PrefabInstance: {fileID: 6847342826444948404}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d77eef3502a50d4ea6c82e6b4d3857f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &8919861249208278200 stripped
