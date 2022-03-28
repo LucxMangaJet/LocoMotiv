@@ -1,5 +1,33 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-5861047717802488920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Stroke
+  m_EditorClassIdentifier: 
+  Path: event:/Stroke
+  Guid:
+    Data1: -678230407
+    Data2: 1087150469
+    Data3: -1943775581
+    Data4: -2126804797
+  Banks:
+  - {fileID: 1943125420978417146}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 444686089937029}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 10014
 --- !u!114 &-1700630165274817904
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15,10 +43,10 @@ MonoBehaviour:
   Path: Assets/Sounds/Desktop/Master.strings.bank
   Name: Desktop/Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 637840983320322593
+  lastModified: 637841000474065748
   FileSizes:
   - Name: 
-    Value: 712
+    Value: 806
   Exists: 1
 --- !u!114 &11400000
 MonoBehaviour:
@@ -35,14 +63,39 @@ MonoBehaviour:
   EditorBanks:
   - {fileID: -1700630165274817904}
   - {fileID: 1943125420978417146}
-  EditorEvents: []
+  EditorEvents:
+  - {fileID: -5861047717802488920}
   EditorParameters: []
   MasterBanks:
   - {fileID: 1943125420978417146}
   StringsBanks:
   - {fileID: -1700630165274817904}
-  cacheTime: 637840983320322593
+  cacheTime: 637841000474065748
   cacheVersion: 10
+--- !u!114 &444686089937029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Stroke/pressure
+  m_EditorClassIdentifier: 
+  Name: pressure
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 3106754199
+    data2: 984686684
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
 --- !u!114 &1943125420978417146
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58,6 +111,6 @@ MonoBehaviour:
   Path: Assets/Sounds/Desktop/Master.bank
   Name: Desktop/Master
   StudioPath: bank:/Master
-  lastModified: 637840983320312630
+  lastModified: 637841000474055774
   FileSizes: []
   Exists: 1

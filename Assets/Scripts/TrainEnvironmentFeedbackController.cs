@@ -4,6 +4,7 @@ using UnityEngine;
 using Train.Feedback.Modules;
 using System;
 using NaughtyAttributes;
+using FMOD.Studio;
 
 namespace Train.Feedback
 {
@@ -71,6 +72,9 @@ namespace Train.Feedback.Modules
     [System.Serializable]
     public class PressureRelease : ParticleSystemFeedbackModule
     {
+        [SerializeField] FMODUnity.EventReference audioEvent; 
+        EventInstance audioInstance;
+
         [SerializeField] AnimationCurve enginePressureToParticleCountCurve;
         [SerializeField] AnimationCurve enginePressureToParticleSpeedCurve;
 
@@ -83,6 +87,16 @@ namespace Train.Feedback.Modules
             if (time > strokeDuration)
             {
                 time = 0;
+
+                audioInstance = FMODUnity.RuntimeManager.CreateInstance(audioEvent);
+                EventDescription eventDescription;
+                audioInstance.getDescription(out eventDescription);
+                PARAMETER_DESCRIPTION parameterDescription;
+                eventDescription.getParameterDescriptionByName("pressure", out parameterDescription);
+                PARAMETER_ID parameterId = parameterDescription.id;
+                audioInstance.setParameterByID(parameterId, enginePressurePercentage);
+                audioInstance.start();
+
                 foreach (ParticleSystem system in particleSystems)
                 {
                     float speed = enginePressureToParticleSpeedCurve.Evaluate(enginePressurePercentage);

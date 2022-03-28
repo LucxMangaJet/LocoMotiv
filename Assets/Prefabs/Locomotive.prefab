@@ -808,6 +808,13 @@ MonoBehaviour:
     particleSystems:
     - {fileID: 7110998125135067194}
     - {fileID: 4987437732702454298}
+    audioEvent:
+      Guid:
+        Data1: -678230407
+        Data2: 1087150469
+        Data3: -1943775581
+        Data4: -2126804797
+      Path: event:/Stroke
     enginePressureToParticleCountCurve:
       serializedVersion: 2
       m_Curve:
