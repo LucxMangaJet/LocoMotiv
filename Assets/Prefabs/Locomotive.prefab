@@ -10461,7 +10461,7 @@ Transform:
   - {fileID: 8999148021408251896}
   - {fileID: 2207774249843803537}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &13452367175245832
 MonoBehaviour:
@@ -10503,16 +10503,16 @@ MonoBehaviour:
       time: 10
       value: 0.5
       inSlope: -0.959596
-      outSlope: -0.0044444446
+      outSlope: -0.0033333334
       tangentMode: 69
       weightedMode: 0
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 100
-      value: 0.1
-      inSlope: -0.0044444446
-      outSlope: -0.0044444446
+      value: 0.2
+      inSlope: -0.0033333334
+      outSlope: -0.0033333334
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -26228,14 +26228,6 @@ PrefabInstance:
     - target: {fileID: 3052824321709681648, guid: bd4fbfe5a2bc8a945ad65f32b307e79c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4246242267296622061, guid: bd4fbfe5a2bc8a945ad65f32b307e79c, type: 3}
-      propertyPath: InitialModule.startSpeed.scalar
-      value: 4.792
-      objectReference: {fileID: 0}
-    - target: {fileID: 4246242267296622061, guid: bd4fbfe5a2bc8a945ad65f32b307e79c, type: 3}
-      propertyPath: InitialModule.startSpeed.minScalar
-      value: 2.396
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []

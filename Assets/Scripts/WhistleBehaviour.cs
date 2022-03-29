@@ -2,9 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FMODUnity;
 
 public class WhistleBehaviour : MonoBehaviour
 {
+    [SerializeField] StudioEventEmitter eventEmitter;
     [SerializeField] ParticleSystem particleSystem;
     [SerializeField] AnimationCurve particleAmountOverWhistleDurationCurve;
     [SerializeField] AnimationCurve particleAmountOverPressureCurve;
@@ -21,6 +23,9 @@ public class WhistleBehaviour : MonoBehaviour
             StopCoroutine(useWhistleCoroutine);
 
         useWhistleCoroutine = StartCoroutine(UseWhistleRoutine(enginePressurePercent));
+
+        eventEmitter.SetParameter("pressure", enginePressurePercent);
+        eventEmitter.Play();
     }
 
     IEnumerator UseWhistleRoutine(float enginePressurePercent)

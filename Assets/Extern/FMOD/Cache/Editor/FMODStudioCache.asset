@@ -67,11 +67,39 @@ MonoBehaviour:
   Path: Assets/Sounds/Desktop/Master.strings.bank
   Name: Desktop/Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 637841554402445970
+  lastModified: 637841605393680872
   FileSizes:
   - Name: 
-    Value: 980
+    Value: 1018
   Exists: 1
+--- !u!114 &-1433421697487409461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Whistle
+  m_EditorClassIdentifier: 
+  Path: event:/Whistle
+  Guid:
+    Data1: 1485826117
+    Data2: 1073808716
+    Data3: 1694561438
+    Data4: -750132572
+  Banks:
+  - {fileID: 1943125420978417146}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 8333659284816171756}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -91,12 +119,13 @@ MonoBehaviour:
   - {fileID: -5861047717802488920}
   - {fileID: 4982226430560039937}
   - {fileID: 599009975555479630}
+  - {fileID: -1433421697487409461}
   EditorParameters: []
   MasterBanks:
   - {fileID: 1943125420978417146}
   StringsBanks:
   - {fileID: -1700630165274817904}
-  cacheTime: 637841554402445970
+  cacheTime: 637841605393680872
   cacheVersion: 10
 --- !u!114 &444686089937029
 MonoBehaviour:
@@ -165,7 +194,7 @@ MonoBehaviour:
   Path: Assets/Sounds/Desktop/Master.bank
   Name: Desktop/Master
   StudioPath: bank:/Master
-  lastModified: 637841554402435998
+  lastModified: 637841605393670902
   FileSizes: []
   Exists: 1
 --- !u!114 &3411815827206870537
@@ -241,6 +270,30 @@ MonoBehaviour:
   ID:
     data1: 3956595898
     data2: 2307070775
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &8333659284816171756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Whistle/pressure
+  m_EditorClassIdentifier: 
+  Name: pressure
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 3106754199
+    data2: 984686684
   Type: 0
   IsGlobal: 0
   Labels: []
