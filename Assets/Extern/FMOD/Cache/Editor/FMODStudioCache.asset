@@ -1,5 +1,29 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-6581644270607352057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Fire/lidOpen
+  m_EditorClassIdentifier: 
+  Name: lidOpen
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 1
+  ID:
+    data1: 416351856
+    data2: 1817418014
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
 --- !u!114 &-5861047717802488920
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27,7 +51,7 @@ MonoBehaviour:
   - {fileID: 444686089937029}
   MinDistance: 1
   MaxDistance: 20
-  Length: 10014
+  Length: 0
 --- !u!114 &-1700630165274817904
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43,10 +67,10 @@ MonoBehaviour:
   Path: Assets/Sounds/Desktop/Master.strings.bank
   Name: Desktop/Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 637841000474065748
+  lastModified: 637841465575112355
   FileSizes:
   - Name: 
-    Value: 806
+    Value: 980
   Exists: 1
 --- !u!114 &11400000
 MonoBehaviour:
@@ -65,12 +89,14 @@ MonoBehaviour:
   - {fileID: 1943125420978417146}
   EditorEvents:
   - {fileID: -5861047717802488920}
+  - {fileID: 4982226430560039937}
+  - {fileID: 599009975555479630}
   EditorParameters: []
   MasterBanks:
   - {fileID: 1943125420978417146}
   StringsBanks:
   - {fileID: -1700630165274817904}
-  cacheTime: 637841000474065748
+  cacheTime: 637841465575112355
   cacheVersion: 10
 --- !u!114 &444686089937029
 MonoBehaviour:
@@ -96,6 +122,34 @@ MonoBehaviour:
   IsGlobal: 0
   Labels: []
   Exists: 1
+--- !u!114 &599009975555479630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Rails
+  m_EditorClassIdentifier: 
+  Path: event:/Rails
+  Guid:
+    Data1: 1396565250
+    Data2: 1161872656
+    Data3: -1328065907
+    Data4: 1471706550
+  Banks:
+  - {fileID: 1943125420978417146}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters:
+  - {fileID: 8257207291877082688}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &1943125420978417146
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,6 +165,83 @@ MonoBehaviour:
   Path: Assets/Sounds/Desktop/Master.bank
   Name: Desktop/Master
   StudioPath: bank:/Master
-  lastModified: 637841000474055774
+  lastModified: 637841465575102309
   FileSizes: []
+  Exists: 1
+--- !u!114 &3411815827206870537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Fire/pressure
+  m_EditorClassIdentifier: 
+  Name: pressure
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 3106754199
+    data2: 984686684
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &4982226430560039937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Fire
+  m_EditorClassIdentifier: 
+  Path: event:/Fire
+  Guid:
+    Data1: -1120630624
+    Data2: 1249402162
+    Data3: 1103770803
+    Data4: -653055776
+  Banks:
+  - {fileID: 1943125420978417146}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 0
+  Parameters:
+  - {fileID: 3411815827206870537}
+  - {fileID: -6581644270607352057}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &8257207291877082688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Rails/trainSpeed
+  m_EditorClassIdentifier: 
+  Name: trainSpeed
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 3956595898
+    data2: 2307070775
+  Type: 0
+  IsGlobal: 0
+  Labels: []
   Exists: 1

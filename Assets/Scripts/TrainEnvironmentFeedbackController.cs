@@ -4,7 +4,7 @@ using UnityEngine;
 using Train.Feedback.Modules;
 using System;
 using NaughtyAttributes;
-using FMOD.Studio;
+using FMODUnity;
 
 namespace Train.Feedback
 {
@@ -15,11 +15,14 @@ namespace Train.Feedback
         [SerializeField, Range(0, 1)] float fuelPercentage;
         [SerializeField] AnimationCurve speedToStrokeDurationCurve;
         [SerializeField, ReadOnly] float strokeDuration;
+        [SerializeField] bool lidOpen;
+
         [SerializeField] PressureRelease pressureRelease;
         [SerializeField] ChimneySmoke chimneySmoke;
         [SerializeField] WhistleBehaviour whistle;
+        [SerializeField] StudioEventEmitter railsEmitter;
 
-        [SerializeField] AnimatorValueFeedbackModule engineFire;
+        [SerializeField] EngineFire engineFire;
         [SerializeField] AnimatorValueFeedbackModule engineFuel;
 
         [SerializeField] GaugeBehaviour pressureGauge;
@@ -36,11 +39,13 @@ namespace Train.Feedback
             strokeDuration = speedToStrokeDurationCurve.Evaluate(trainSpeed);
             pressureRelease.Update(enginePressurePercent, strokeDuration, Time.deltaTime);
             chimneySmoke.Update(enginePressurePercent, strokeDuration, Time.deltaTime);
-            engineFire.SetPercent(enginePressurePercent);
+            engineFire.Update(enginePressurePercent, lidOpen);
             engineFuel.SetPercent(fuelPercentage);
             pressureGauge.SetPercent(enginePressurePercent);
             fuelGauge.SetPercent(fuelPercentage);
-            speedGauge.SetPercent(trainSpeed / maxGaugeSpeed);
+            float speedPercent = trainSpeed / maxGaugeSpeed;
+            speedGauge.SetPercent(speedPercent);
+            railsEmitter.SetParameter("trainSpeed", speedPercent);
         }
 
         [Button]
@@ -63,17 +68,29 @@ namespace Train.Feedback.Modules
     {
         [SerializeField] protected Animator animator;
 
-        internal void SetPercent(float value)
+        public void SetPercent(float value)
         {
             animator.SetFloat("value", value);
         }
     }
 
     [System.Serializable]
+    public class EngineFire : AnimatorValueFeedbackModule
+    {
+        [SerializeField] StudioEventEmitter eventEmitter;
+
+        internal void Update(float enginePressurePercent, bool lidOpen)
+        {
+            SetPercent(enginePressurePercent);
+            eventEmitter.SetParameter("pressure", enginePressurePercent);
+            eventEmitter.SetParameter("lidOpen", lidOpen ? 1 : 0);
+        }
+    }
+
+    [System.Serializable]
     public class PressureRelease : ParticleSystemFeedbackModule
     {
-        [SerializeField] FMODUnity.EventReference audioEvent; 
-        EventInstance audioInstance;
+        [SerializeField] StudioEventEmitter eventEmitter;
 
         [SerializeField] AnimationCurve enginePressureToParticleCountCurve;
         [SerializeField] AnimationCurve enginePressureToParticleSpeedCurve;
@@ -88,14 +105,8 @@ namespace Train.Feedback.Modules
             {
                 time = 0;
 
-                audioInstance = FMODUnity.RuntimeManager.CreateInstance(audioEvent);
-                EventDescription eventDescription;
-                audioInstance.getDescription(out eventDescription);
-                PARAMETER_DESCRIPTION parameterDescription;
-                eventDescription.getParameterDescriptionByName("pressure", out parameterDescription);
-                PARAMETER_ID parameterId = parameterDescription.id;
-                audioInstance.setParameterByID(parameterId, enginePressurePercentage);
-                audioInstance.start();
+                eventEmitter.SetParameter("pressure", enginePressurePercentage);
+                eventEmitter.Play();
 
                 foreach (ParticleSystem system in particleSystems)
                 {
@@ -115,7 +126,7 @@ namespace Train.Feedback.Modules
     }
 
     [System.Serializable]
-    public class ChimneySmoke: ParticleSystemFeedbackModule
+    public class ChimneySmoke : ParticleSystemFeedbackModule
     {
         float time;
         [SerializeField] AnimationCurve enginePressureToParticleSpeedCurve;
