@@ -6,7 +6,7 @@ using UnityEngine;
 public class ShovelCoal : MonoBehaviour
 {
     [SerializeField] ParticleSystem coalParticleEffect;
-    [SerializeField] bool hasCoal;
+    public static bool HasCoal = false;
 
     ParticleSystem.CollisionModule collisionModule;
     ParticleSystem.EmissionModule emissionModule;
@@ -23,7 +23,7 @@ public class ShovelCoal : MonoBehaviour
 
     internal void SetCoal(bool coal)
     {
-        hasCoal = coal;
+        HasCoal = coal;
         if (coal) coalParticleEffect.Emit(10);
         collisionModule.dampenMultiplier = coal ? 1 : 0;
         emissionModule.rateOverTime = coal ? 2 : 0;
