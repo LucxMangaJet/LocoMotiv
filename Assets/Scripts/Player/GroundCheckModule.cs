@@ -11,8 +11,15 @@ public class GroundCheckModule
     [SerializeField] LayerMask mask;
     [SerializeField] float distance;
 
-    public bool IsDetecting()
+    private RaycastHit lastHit;
+    private bool groundedThisFrame;
+
+    public bool GroundedThisFrame => groundedThisFrame;
+    public Transform LastHitTransform => lastHit.transform;
+
+    public void Update()
     {
-        return Physics.CheckSphere(origin.position + offset, distance, mask);
+        groundedThisFrame = Physics.SphereCast(origin.position + offset, distance, Vector3.down, out lastHit, 0.1f, mask);
     }
+
 }

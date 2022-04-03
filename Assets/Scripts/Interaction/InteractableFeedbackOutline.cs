@@ -17,14 +17,32 @@ public class InteractableFeedbackOutline : MonoBehaviour
 
     private void OnEnable()
     {
-        if (interactable != null) interactable.ChangeIsInteractable += OnChangeIsInteractable;
+        if (interactable != null) interactable.HoveredStateChanged += OnChangeIsInteractable;
     }
     private void OnDisable()
     {
-        if (interactable != null) interactable.ChangeIsInteractable -= OnChangeIsInteractable;
+        if (interactable != null) interactable.HoveredStateChanged -= OnChangeIsInteractable;
     }
-    private void OnChangeIsInteractable(bool isInteractable)
+    private void OnChangeIsInteractable(HoveredState _state)
     {
-        outline.enabled = isInteractable;
+
+        switch (_state)
+        {
+            case HoveredState.NotHovered:
+                outline.enabled = false;
+                break;
+            case HoveredState.Hovered:
+                outline.enabled = true;
+                outline.OutlineColor = Color.white;
+                break;
+            case HoveredState.HoveredButNotInteractable:
+                outline.enabled = true;
+                outline.OutlineColor = new Color(1, 1, 1, 0.1f);
+                break;
+            case HoveredState.BeingUsed:
+                outline.enabled = true;
+                outline.OutlineColor = Color.yellow;
+                break;
+        }
     }
 }
