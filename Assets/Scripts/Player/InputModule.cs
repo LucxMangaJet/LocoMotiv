@@ -6,6 +6,8 @@ using UnityEngine;
 [System.Serializable]
 public class InputModule
 {
+    private const string INTERACT_INPUT = "Fire1";
+
     public Vector2 GetMouseInput()
     {
         return new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
@@ -20,8 +22,13 @@ public class InputModule
 
         return axis;
     }
-    public bool GetInteractionInput()
+    public bool InteractionInputPressed()
     {
-        return Input.GetButtonDown("Fire1");
+        return Input.GetButtonDown(INTERACT_INPUT);
+    }
+
+    public bool InteractionInputReleased()
+    {
+        return Input.GetButtonUp(INTERACT_INPUT);
     }
 }

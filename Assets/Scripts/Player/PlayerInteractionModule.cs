@@ -9,27 +9,35 @@ public class PlayerInteractionModule
     [SerializeField] Transform cameraTransform;
     [SerializeField] float interactionDistance = 2f;
 
-    IInteractable interactable;
-    public bool CheckForCanInteract()
+    IInteractable hovered;
+    IInteractable activeInteractable;
+
+    private bool canInteract;
+
+    public bool IsInteracting => activeInteractable != null;
+
+    public bool CanInteract => canInteract;
+
+    public void Update()
     {
         Vector3 pos = cameraTransform.position;
         Vector3 dir = cameraTransform.forward;
 
+        IInteractable before = hovered;
+        hovered = RaycastForInteractable(pos, dir, interactionDistance);
 
-        IInteractable before = interactable;
-        interactable = RaycastForInteractable(pos, dir, interactionDistance);
+        if (before != null && before != hovered)
+            before.SetHoveredState(HoveredState.NotHovered);
 
-        if (before != null && before != interactable)
-            before.SetInteractable(false);
+        bool canInteract = !IsInteracting && hovered != null && hovered.CanInteract;
 
-        bool canInteract = interactable != null && interactable.CanInteract;
+        HoveredState state = (hovered != null && hovered == activeInteractable) ? HoveredState.BeingUsed : canInteract ? HoveredState.Hovered : HoveredState.HoveredButNotInteractable;
 
-        if (interactable != null)
-            interactable.SetInteractable(canInteract);
+        hovered?.SetHoveredState(state);
 
-        Debug.DrawRay(pos, dir * interactionDistance, canInteract ? Color.green : Color.red);
+        //Debug.DrawRay(pos, dir * interactionDistance, canInteract ? Color.green : Color.red);
 
-        return canInteract;
+        this.canInteract = canInteract;
     }
 
     private IInteractable RaycastForInteractable(Vector3 pos, Vector3 dir, float distance)
@@ -42,8 +50,17 @@ public class PlayerInteractionModule
         return null;
     }
 
-    internal void Interact()
+    public void StartInteracting()
     {
-        interactable.Interact();
+        hovered.StartInteracting();
+
+        if (hovered.bIsHeldInteraction)
+            activeInteractable = hovered;
+    }
+
+    public void StopInteracting()
+    {
+        activeInteractable.StopInteracting();
+        activeInteractable = null;
     }
 }

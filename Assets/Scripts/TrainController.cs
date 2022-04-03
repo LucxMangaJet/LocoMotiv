@@ -2,8 +2,7 @@
 using UnityEngine;
 using Train.Feedback;
 
-
-public class TrainController : MonoBehaviour
+public class TrainController : Singleton<TrainController>
 {
     [SerializeField] MoveAlongTrack mover;
     [SerializeField] TrainRoot trainRoot;
@@ -12,12 +11,15 @@ public class TrainController : MonoBehaviour
     [Range(0, 1)]
     [SerializeField] float throttle = 1;
 
+    [Range(0, 1)]
+    [SerializeField] float breaks = 0;
 
     [Header("Balance")]
 
     [SerializeField] float fuelAddedPerShovel = 10;
     [SerializeField] float maxFuel = 100;
     [SerializeField] float maxPressure = 1000;
+    [SerializeField] float breakingForce = 100000;
 
     [SerializeField] AnimationCurve fuelConsumptionOverAmount;
 
@@ -181,7 +183,7 @@ public class TrainController : MonoBehaviour
         }
 
         //breaks
-        //TODO
+        tempDecelleration += breaks * breakingForce / totalMass;
 
         float decelAmount = tempDecelleration * Time.deltaTime;
 
@@ -268,28 +270,24 @@ public class TrainController : MonoBehaviour
             AddFuel(fuelAddedPerShovel);
     }
 
-    #region EDITOR
-
-    [Button]
-    public void Add10Fuel()
-    {
-        AddFuel(10);
-    }
-
-    [Button]
-    [HideIf(nameof(isWhistling))]
-    private void EnableWhistling()
+    public void EnableWhistling()
     {
         isWhistling = true;
+        environmentFeedbackController.UseWhistle();
     }
 
-    [Button]
-    [ShowIf(nameof(isWhistling))]
-    private void DisableWhistling()
+    public void DisableWhistling()
     {
         isWhistling = false;
     }
 
+    public void SetThrottleAndBreak(float _percent)
+    {
+        throttle = Mathf.Clamp01((_percent - 0.5f) * 2);
+        breaks = Mathf.Clamp01((_percent - 0.5f) * -2);
+    }
+
+    #region EDITOR
     private void OnDrawGizmos()
     {
         if (Application.isPlaying)

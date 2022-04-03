@@ -7,21 +7,41 @@ using UnityEngine;
 public interface IInteractable
 {
     bool CanInteract { get; }
-    void Interact();
-    void SetInteractable(bool interactable);
+
+    bool bIsHeldInteraction { get; }
+
+    void StartInteracting();
+
+    void StopInteracting();
+
+    void SetHoveredState(HoveredState _hovered);
 }
+
+public enum HoveredState
+{
+    NotHovered,
+    Hovered,
+    HoveredButNotInteractable,
+    BeingUsed
+}
+
 
 public abstract class InteractableBase : MonoBehaviour, IInteractable
 {
     [SerializeField] InteractionConditionBase[] conditions;
 
-    private bool interactableBefore = false;
-    public System.Action<bool> ChangeIsInteractable;
+    private HoveredState hoveredState = HoveredState.NotHovered;
+    public System.Action<HoveredState> HoveredStateChanged;
     public System.Action Interacted;
     public virtual bool CanInteract => AllConditionsMet();
 
+    public abstract bool bIsHeldInteraction { get; }
+
     private bool AllConditionsMet()
     {
+        if (conditions == null)
+            return true;
+
         foreach (InteractionConditionBase condition in conditions)
         {
             if (condition != null && !condition.IsMet()) return false;
@@ -30,16 +50,21 @@ public abstract class InteractableBase : MonoBehaviour, IInteractable
         return true;
     }
 
-    public virtual void Interact()
+    public virtual void StartInteracting()
     {
         Interacted?.Invoke();
     }
 
-    public void SetInteractable(bool interactable)
+    public virtual void StopInteracting()
     {
-        if (interactable != interactableBefore)
-            ChangeIsInteractable?.Invoke(interactable);
 
-        interactableBefore = interactable;
+    }
+
+    public void SetHoveredState(HoveredState _newState)
+    {
+        if (_newState != hoveredState)
+            HoveredStateChanged?.Invoke(_newState);
+
+        hoveredState = _newState;
     }
 }
