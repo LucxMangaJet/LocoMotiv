@@ -7,7 +7,7 @@ public class ShovelAnimationInteractable : InteractableBase
 {
     [SerializeField] Animator animator;
     [SerializeField] ShovelTarget target;
-    public override bool CanInteract => !animator.enabled;
+    public override bool CanInteract => !animator.enabled && base.CanInteract;
 
     public void Finished()
     {
@@ -15,6 +15,7 @@ public class ShovelAnimationInteractable : InteractableBase
     }
     public override void Interact()
     {
+        base.Interact();
         ShovelTarget.SetOverride(target);
         animator.enabled = true;
     }

@@ -13,7 +13,13 @@ GameObject:
   - component: {fileID: 1803122500830576257}
   - component: {fileID: 1803122500830576258}
   - component: {fileID: 1803122500830576259}
+  - component: {fileID: 2442166172256626792}
   - component: {fileID: 7355716985613516018}
+  - component: {fileID: 427231397074004620}
+  - component: {fileID: 203621818514186320}
+  - component: {fileID: 4794201869188245478}
+  - component: {fileID: 1927473803}
+  - component: {fileID: 1927473804}
   m_Layer: 0
   m_Name: Locomotive_Lid_Interactable
   m_TagString: Untagged
@@ -97,8 +103,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5183678b5773b3b44b3ef653e302f9d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  conditions:
+  - {fileID: 2442166172256626792}
   animator: {fileID: 1803122500830576257}
   target: {fileID: 1803122499870682706}
+--- !u!114 &2442166172256626792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1568540807211243174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd73d2dc01f01ac4ba021b739f0ce197, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inverted: 0
 --- !u!114 &7355716985613516018
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,6 +132,124 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7ed1d310bd39714bbffbe421962a947, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &427231397074004620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1568540807211243174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92d55dfe650361e4ba9340954196116e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lidOpenEmitter: {fileID: 203621818514186320}
+  lidCloseEmitter: {fileID: 4794201869188245478}
+--- !u!114 &203621818514186320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1568540807211243174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -411882581
+      Data2: 1313894497
+      Data3: 2053257399
+      Data4: 257109207
+    Path: event:/Lid_open
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
+--- !u!114 &4794201869188245478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1568540807211243174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 1620903764
+      Data2: 1129951682
+      Data3: 1997452723
+      Data4: -1898626126
+    Path: event:/Lid_close
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
+--- !u!114 &1927473803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1568540807211243174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 1001116069
+      Data2: 1197419954
+      Data3: -69340768
+      Data4: 1715145901
+    Path: event:/Shovel_coal_throw
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
+--- !u!114 &1927473804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1568540807211243174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47700848e4645a740addbccf243c283e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 1
+  eventEmitter: {fileID: 1927473803}
 --- !u!1 &1803122499870682708
 GameObject:
   m_ObjectHideFlags: 0
@@ -285,7 +424,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7183130439664956788}
   m_LocalRotation: {x: -6.123234e-17, y: 1, z: 6.123234e-17, w: -3.7493994e-33}
-  m_LocalPosition: {x: 0.20662686, y: 0, z: 0}
+  m_LocalPosition: {x: 0.2, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

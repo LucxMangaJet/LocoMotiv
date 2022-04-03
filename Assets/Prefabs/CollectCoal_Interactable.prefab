@@ -60,6 +60,9 @@ GameObject:
   - component: {fileID: 5575632356522840205}
   - component: {fileID: 5575632356522840204}
   - component: {fileID: 3452016161991556788}
+  - component: {fileID: 4510277035462758724}
+  - component: {fileID: 3577839814909036066}
+  - component: {fileID: 1842967988674975957}
   m_Layer: 0
   m_Name: CollectCoal_Interactable
   m_TagString: Untagged
@@ -108,6 +111,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5183678b5773b3b44b3ef653e302f9d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  conditions:
+  - {fileID: 1842967988674975957}
   animator: {fileID: 5575632356522840205}
   target: {fileID: 5575632355405555550}
 --- !u!95 &5575632356522840205
@@ -142,7 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 165340a03ceb01b49993f60d60fe06a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meshRenderer: {fileID: 0}
+  outline: {fileID: 0}
 --- !u!114 &3452016161991556788
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -155,6 +160,62 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7ed1d310bd39714bbffbe421962a947, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4510277035462758724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5575632356522840193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 160c66793fdf6ee4c84931f1401eab7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventEmitter: {fileID: 3577839814909036066}
+--- !u!114 &3577839814909036066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5575632356522840193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 1247851463
+      Data2: 1225959901
+      Data3: 1050781602
+      Data4: -1805787912
+    Path: event:/Shovel_coal_up
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
+--- !u!114 &1842967988674975957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5575632356522840193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd73d2dc01f01ac4ba021b739f0ce197, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inverted: 1
 --- !u!1001 &5575632356871966575
 PrefabInstance:
   m_ObjectHideFlags: 0
