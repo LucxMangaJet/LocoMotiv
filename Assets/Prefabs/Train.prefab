@@ -91,6 +91,7 @@ MonoBehaviour:
   trainRoot: {fileID: 6270358161751392401}
   throttle: 1
   breaks: 0
+  bCheatAlwaysMaxPressure: 0
   fuelAddedPerShovel: 20
   maxFuel: 100
   maxPressure: 1000
