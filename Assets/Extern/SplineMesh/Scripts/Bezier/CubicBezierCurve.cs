@@ -15,7 +15,7 @@ namespace SplineMesh {
     [Serializable]
     public class CubicBezierCurve {
 
-        private const int STEP_COUNT = 30;
+        private const int STEP_COUNT = 100;
         private const float T_STEP = 1.0f / STEP_COUNT;
 
         private readonly List<CurveSample> samples = new List<CurveSample>(STEP_COUNT);

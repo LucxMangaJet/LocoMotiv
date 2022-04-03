@@ -5,7 +5,7 @@ using Train.Feedback;
 public class TrainController : Singleton<TrainController>
 {
     [SerializeField] MoveAlongTrack mover;
-    [SerializeField] TrainRoot trainRoot;
+    [SerializeField] TrainSegmentsMover trainRoot;
 
     [Header("Control")]
     [Range(0, 1)]
@@ -13,6 +13,8 @@ public class TrainController : Singleton<TrainController>
 
     [Range(0, 1)]
     [SerializeField] float breaks = 0;
+
+    [SerializeField] bool bCheatAlwaysMaxPressure;
 
     [Header("Balance")]
 
@@ -98,6 +100,14 @@ public class TrainController : Singleton<TrainController>
         mover.SetSpeed(speed);
 
         updateEnvironment();
+
+        updateCheats();
+    }
+
+    private void updateCheats()
+    {
+        if (bCheatAlwaysMaxPressure)
+            pressure = maxPressure;
     }
 
     private void updateEnvironment()
@@ -146,10 +156,10 @@ public class TrainController : Singleton<TrainController>
         //gravity
         tempAcceleration += CalculateForceOnWagon(mover.CurveSample.tangent, rootMass) / rootMass;
 
-        for (int i = 0; i < trainRoot.SegmentsSamples.Length; i++)
+        for (int i = 0; i < trainRoot.Segments.Length; i++)
         {
-            SplineMesh.CurveSample item = trainRoot.SegmentsSamples[i];
-            float newForce = CalculateForceOnWagon(item.tangent, segmentMass);
+            var segment = trainRoot.Segments[i];
+            float newForce = CalculateForceOnWagon(segment.transform.forward, segmentMass);
 
             var acc = newForce / segmentMass;
             acceleration[i] = acc;
@@ -172,9 +182,8 @@ public class TrainController : Singleton<TrainController>
 
         tempDecelleration += CalculateResistanceOnWagon(rootMass) / rootMass;
 
-        for (int i = 0; i < trainRoot.SegmentsSamples.Length; i++)
+        for (int i = 0; i < trainRoot.Segments.Length; i++)
         {
-            SplineMesh.CurveSample item = trainRoot.SegmentsSamples[i];
             float newForce = CalculateResistanceOnWagon(segmentMass);
 
             var dec = newForce / segmentMass;
@@ -224,8 +233,8 @@ public class TrainController : Singleton<TrainController>
 
         Vector3 front = transform.position;
         var segments = trainRoot.Segments;
-        Vector3 midHigh = segments[(segments.Length - 1) / 2].position;
-        Vector3 back = segments[segments.Length - 1].position;
+        Vector3 midHigh = segments[(segments.Length - 1) / 2].transform.position;
+        Vector3 back = segments[segments.Length - 1].transform.position;
 
         Vector3 mid = Vector3.Lerp(front, back, 0.5f);
 
@@ -294,12 +303,12 @@ public class TrainController : Singleton<TrainController>
         {
             for (int i = 0; i < trainRoot.Segments.Length; i++)
             {
-                Transform item = trainRoot.Segments[i];
+                Transform trans = trainRoot.Segments[i].transform;
                 Gizmos.color = Color.green;
-                Gizmos.DrawLine(item.position, item.position + Vector3.up * acceleration[i] * 5);
+                Gizmos.DrawLine(trans.position, trans.position + Vector3.up * acceleration[i] * 5);
 
                 Gizmos.color = Color.red;
-                Gizmos.DrawLine(item.position + item.forward * 0.1f, item.position + Vector3.up * resistance[i] * 5);
+                Gizmos.DrawLine(trans.position + trans.forward * 0.1f, trans.position + Vector3.up * resistance[i] * 5);
 
             }
 

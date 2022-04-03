@@ -32,6 +32,15 @@ public class MoveAlongTrack : MonoBehaviour
         curveSample = MoveToDistance(transform, currentDistance);
     }
 
+    public CurveSample SampleAtOffset(float _distance)
+    {
+        _distance = (CurrentDistance + _distance) % spline.Length;
+        if (_distance < 0)
+            _distance += spline.Length;
+
+        return spline.GetSampleAtDistance(_distance);
+    }
+
     public CurveSample MoveToDistance(Transform _target, float _distance)
     {
         _distance %= spline.Length;
