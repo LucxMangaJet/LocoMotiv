@@ -1101,7 +1101,7 @@ Transform:
   - {fileID: 6940570094668315999}
   - {fileID: 3082961625514906877}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &3137654391813733955
 Animator:
@@ -1222,6 +1222,7 @@ GameObject:
   - component: {fileID: 5434634387968411535}
   - component: {fileID: 7354643038181838678}
   - component: {fileID: 667352593}
+  - component: {fileID: 7824727735937288525}
   m_Layer: 1
   m_Name: FirstPersonCamera
   m_TagString: MainCamera
@@ -1361,6 +1362,20 @@ MonoBehaviour:
   blendDistance: 0
   weight: 1
   sharedProfile: {fileID: 11400000, guid: ff88c218d9a334b51b9be7a096c38172, type: 2}
+--- !u!114 &7824727735937288525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2923155172209919961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attenuationObject: {fileID: 0}
+  ListenerNumber: -1
 --- !u!1 &2996039924665104486
 GameObject:
   m_ObjectHideFlags: 0
