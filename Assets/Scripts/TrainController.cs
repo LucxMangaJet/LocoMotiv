@@ -276,6 +276,20 @@ public class TrainController : MonoBehaviour
         AddFuel(10);
     }
 
+    [Button]
+    [HideIf(nameof(isWhistling))]
+    private void EnableWhistling()
+    {
+        isWhistling = true;
+    }
+
+    [Button]
+    [ShowIf(nameof(isWhistling))]
+    private void DisableWhistling()
+    {
+        isWhistling = false;
+    }
+
     private void OnDrawGizmos()
     {
         if (Application.isPlaying)
