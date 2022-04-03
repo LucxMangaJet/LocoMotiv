@@ -33,10 +33,15 @@ public class PlayerController : MonoBehaviour
         if (s_Rotatelock == PlayerRotateLock.None)
             mouseLook.Look(InputModule.GetMouseInput());
 
-        if (!groundCheckModule.IsDetecting())
-            gravityModule.ApplyGravity();
-        else
+        groundCheckModule.Update();
+
+        if (groundCheckModule.GroundedThisFrame)
+        {
+            transform.parent = groundCheckModule.LastHitTransform;
             gravityModule.ResetToGround();
+        }
+        else
+            gravityModule.ApplyGravity();
 
         interactionModule.Update();
 
