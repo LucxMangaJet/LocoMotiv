@@ -13,6 +13,10 @@ public class TrackSection : MonoBehaviour
     [SerializeField] public TrackMeshCreator MeshCreator;
     public float Legth => length;
 
+    public Transform StartTransform => start;
+
+    public Transform EndTransform => end;
+
     private void OnDrawGizmos()
     {
         float segmentCount = 100f;

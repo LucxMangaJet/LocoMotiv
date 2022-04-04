@@ -26,7 +26,7 @@ public class TrackSectionEditor : Editor
         }
 
         section.UpdateLengthAndSamples();
-        meshCreator.CreateMesh();
+        meshCreator.UpdateMesh();
     }
 }
 
