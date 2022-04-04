@@ -5,6 +5,8 @@ using UnityEngine;
 
 public abstract class TrackSectionConfiguration : ScriptableObject
 {
+    public virtual bool IsTunnel => false;
+
     public abstract TrackMeshCreationResult[] CreateMesh(Transform transform, TrackSection section);
     protected static void DrawFaceTris(int vertsPerPoint, int[] tris, int vertIndex, int triIndex, int triOffset)
     {

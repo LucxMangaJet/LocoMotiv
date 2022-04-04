@@ -25,7 +25,7 @@ public class RegularTrackSection : TrackSectionConfiguration
 
     public override TrackMeshCreationResult[] CreateMesh(Transform transform,TrackSection section)
     {
-        int pointMax = Mathf.RoundToInt(section.Legth / tileLength);
+        int pointMax = Mathf.RoundToInt(section.Legnth / tileLength);
 
         Mesh railsLeft = CreateRailMesh(section, pointMax, railDistance / 2f);
         Mesh railsRight = CreateRailMesh(section, pointMax, -railDistance / 2f);

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tileLength: 4
   tileWidth: 5
-  heightOffset: -1.5
+  heightOffset: 0
   gravelBedHeight: 0.5
   railDistance: 1.85
   railHeight: 0.361

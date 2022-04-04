@@ -23,39 +23,47 @@ public class TunnelTrackSection : TrackSectionConfiguration
 
     [SerializeField] Material tunnelMat, tuunelBlockMat, tunnelArchMat;
 
+    public override bool IsTunnel => true;
+
     public override TrackMeshCreationResult[] CreateMesh(Transform transform, TrackSection section)
     {
 
         List<TrackMeshCreationResult> results = new List<TrackMeshCreationResult>(regularBase.CreateMesh(transform, section));
 
-        results.Add(new TrackMeshCreationResult()
+        if (!CheckTunnel(section.Route.GetPrevious(section)))
         {
-            Mesh = tunnelEntranceBlock,
-            Transform = section.StartTransform,
-            Material = tuunelBlockMat
-        });
+            results.Add(new TrackMeshCreationResult()
+            {
+                Mesh = tunnelEntranceBlock,
+                Transform = section.StartTransform,
+                Material = tuunelBlockMat
+            });
 
-        results.Add(new TrackMeshCreationResult()
+            results.Add(new TrackMeshCreationResult()
+            {
+                Mesh = tunnelEntranceArch,
+                Transform = section.StartTransform,
+                Material = tunnelArchMat
+            });
+        }
+
+        if (!CheckTunnel(section.Route.GetNext(section)))
         {
-            Mesh = tunnelEntranceArch,
-            Transform = section.StartTransform,
-            Material = tunnelArchMat
-        });
-
-        results.Add(new TrackMeshCreationResult()
-        {
-            Mesh = tunnelExitArch,
-            Transform = section.EndTransform,
-            Material = tunnelArchMat
-        });
+            results.Add(new TrackMeshCreationResult()
+            {
+                Mesh = tunnelExitArch,
+                Transform = section.EndTransform,
+                Material = tunnelArchMat
+            });
 
 
-        results.Add(new TrackMeshCreationResult()
-        {
-            Mesh = tunnelExitBlock,
-            Transform = section.EndTransform,
-            Material = tuunelBlockMat
-        });
+            results.Add(new TrackMeshCreationResult()
+            {
+                Mesh = tunnelExitBlock,
+                Transform = section.EndTransform,
+                Material = tuunelBlockMat
+            });
+        }
 
         results.Add(new TrackMeshCreationResult()
         {
@@ -67,9 +75,15 @@ public class TunnelTrackSection : TrackSectionConfiguration
         return results.ToArray();
     }
 
+    private bool CheckTunnel(TrackSection trackSection)
+    {
+        if (trackSection == null) return false;
+        return trackSection.IsTunnel;
+    }
+
     private Mesh CreateTunnelMesh(Transform transform, TrackSection section)
     {
-        int pointMax = Mathf.RoundToInt(section.Legth / tunnelTileLengt);
+        int pointMax = Mathf.RoundToInt(section.Legnth / tunnelTileLengt);
 
         int vertsPerPoint = 6;
         int trisPerPoint = (vertsPerPoint) * 2 * 3;

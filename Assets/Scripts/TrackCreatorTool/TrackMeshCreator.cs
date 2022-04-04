@@ -11,6 +11,7 @@ public class TrackMeshCreator : MonoBehaviour
     [SerializeField] MeshRenderer meshRenderer;
     [SerializeField] TrackSection section;
     [SerializeField, Expandable] TrackSectionConfiguration configuration;
+    public TrackSectionConfiguration Configuration => configuration;
     public void UpdateMesh()
     {
         TrackMeshCreationResult[] creationResult = configuration.CreateMesh(transform, section);

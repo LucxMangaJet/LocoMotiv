@@ -11,11 +11,14 @@ public class TrackSection : MonoBehaviour
     [SerializeField, ReadOnly] float length;
     [SerializeField, ReadOnly] AnimationCurve tDistanceCleanup;
     [SerializeField] public TrackMeshCreator MeshCreator;
-    public float Legth => length;
-
+    [SerializeField] public TrackRoute Route;
+    public float Legnth => length;
     public Transform StartTransform => start;
-
     public Transform EndTransform => end;
+    public Transform MidTransform => middle;
+
+    public bool IsTunnel => MeshCreator.Configuration.IsTunnel;
+
 
     private void OnDrawGizmos()
     {
@@ -33,6 +36,7 @@ public class TrackSection : MonoBehaviour
         TrackPoint samplePos = CalculateTrackPointAtT(sampleT, raw: false);
         Gizmos.DrawWireSphere(samplePos.Position, 1f);
     }
+
     public void UpdateLengthAndSamples()
     {
         float estimatedLength = Vector3.Distance(start.position, middle.position) + Vector3.Distance(end.position, middle.position);
@@ -73,6 +77,13 @@ public class TrackSection : MonoBehaviour
             lastPos2 = pos;
         }
     }
+
+    public void ChangeStartPosition(Vector3 newTargetPosition) => StartTransform.position = newTargetPosition;
+
+    public void ChangeMidPosition(Vector3 newMidPosition) => MidTransform.position = newMidPosition;
+
+    public void ChangeEndPosition(Vector3 newEndPosition) => EndTransform.position = newEndPosition;
+
 
     public TrackPoint CalculateTrackPointAtT(float t, bool raw = true)
     {
