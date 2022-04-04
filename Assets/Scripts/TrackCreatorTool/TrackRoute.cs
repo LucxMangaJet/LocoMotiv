@@ -2,11 +2,14 @@ using NaughtyAttributes;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class TrackRoute : MonoBehaviour
 {
     [SerializeField, ReadOnly] List<TrackSection> sections = new List<TrackSection>();
+
+    public float Length => sections.Sum((x) => x.Length);
 
     public TrackSection GetPrevious(TrackSection section)
     {
@@ -29,7 +32,7 @@ public class TrackRoute : MonoBehaviour
 
         foreach (TrackSection s in sections)
         {
-            distance += s.Legnth;
+            distance += s.Length;
             if (currentDistanceOnRoute < distance)
             {
                 section = s;
@@ -43,7 +46,7 @@ public class TrackRoute : MonoBehaviour
 
         if (section == null) return null;
 
-        return section.CalculateTrackPointAtT((currentDistanceOnRoute - distanceBefore) / section.Legnth);
+        return section.CalculateTrackPointAtT((currentDistanceOnRoute - distanceBefore) / section.Length);
     }
 
     private void CheckUpdateSections()

@@ -52,7 +52,7 @@ public class InteractableLever : InteractableBase
             yield return null;
             Vector2 delta = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
 
-            var direction = delta.x * cam.transform.right + delta.y * cam.transform.up;
+            var direction = delta.x * cam.transform.right + delta.y * (cam.transform.up + cam.transform.forward);
 
             float force = Vector3.Dot(leverRoot.forward, direction);
 

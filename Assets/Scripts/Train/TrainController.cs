@@ -154,7 +154,7 @@ public class TrainController : Singleton<TrainController>
         tempAcceleration += engineForce / totalMass;
 
         //gravity
-        tempAcceleration += CalculateForceOnWagon(mover.CurveSample.tangent, rootMass) / rootMass;
+        tempAcceleration += CalculateForceOnWagon(mover.CurveSample.Forward, rootMass) / rootMass;
 
         for (int i = 0; i < trainRoot.Segments.Length; i++)
         {

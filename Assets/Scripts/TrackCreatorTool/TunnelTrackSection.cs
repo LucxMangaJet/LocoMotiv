@@ -83,7 +83,7 @@ public class TunnelTrackSection : TrackSectionConfiguration
 
     private Mesh CreateTunnelMesh(Transform transform, TrackSection section)
     {
-        int pointMax = Mathf.RoundToInt(section.Legnth / tunnelTileLengt);
+        int pointMax = Mathf.RoundToInt(section.Length / tunnelTileLengt);
 
         int vertsPerPoint = 6;
         int trisPerPoint = (vertsPerPoint) * 2 * 3;

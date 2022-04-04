@@ -12,7 +12,7 @@ public class TrackSection : MonoBehaviour
     [SerializeField, ReadOnly] AnimationCurve tDistanceCleanup;
     [SerializeField] public TrackMeshCreator MeshCreator;
     [SerializeField] public TrackRoute Route;
-    public float Legnth => length;
+    public float Length => length;
     public Transform StartTransform => start;
     public Transform EndTransform => end;
     public Transform MidTransform => middle;
@@ -110,4 +110,6 @@ public class TrackPoint
     public Vector3 Position;
     public Vector3 Right;
     public Vector3 Forward;
+
+    public Quaternion Rotation => Quaternion.LookRotation(Forward, Vector3.Cross(Forward, Right));
 }

@@ -96,27 +96,20 @@ public class TrackSectionEditor : Editor
 
     private void CreateHandle(Transform transform, string name)
     {
-        switch (Tools.current)
+        Quaternion newRot = Handles.Disc(transform.rotation, transform.position, Vector3.up, 5, false, 0);
+        if (EditorGUI.EndChangeCheck())
         {
-            case Tool.Rotate:
-                Quaternion newRot = Handles.RotationHandle(transform.rotation, transform.position);
-                if (EditorGUI.EndChangeCheck())
-                {
-                    Undo.RecordObject(section, "Change " + name + " Rotation");
-                    transform.rotation = newRot;
-                    UpdateSection();
-                }
-                break;
+            Undo.RecordObject(section, "Change " + name + " Rotation");
+            transform.rotation = newRot;
+            UpdateSection();
+        }
 
-            default:
-                Vector3 newPos = Handles.PositionHandle(transform.position, transform.rotation);
-                if (EditorGUI.EndChangeCheck())
-                {
-                    Undo.RecordObject(section, "Change " + name + " Position");
-                    transform.position = newPos;
-                    UpdateSection();
-                }
-                break;
+        Vector3 newPos = Handles.PositionHandle(transform.position, transform.rotation);
+        if (EditorGUI.EndChangeCheck())
+        {
+            Undo.RecordObject(section, "Change " + name + " Position");
+            transform.position = newPos;
+            UpdateSection();
         }
     }
 

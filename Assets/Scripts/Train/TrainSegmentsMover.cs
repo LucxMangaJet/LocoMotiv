@@ -30,7 +30,7 @@ public class TrainSegmentsMover : MonoBehaviour
 
             var backTipSample = mover.SampleAtOffset(-distSum);
 
-            segment.SetPosition(frontTipSample.location, backTipSample.location);
+            segment.SetPosition(frontTipSample.Position, backTipSample.Position);
 
             distSum += distanceBetweenWagons;
         }
