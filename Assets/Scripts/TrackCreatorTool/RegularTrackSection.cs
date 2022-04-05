@@ -175,15 +175,15 @@ public class RegularTrackSection : TrackSectionConfiguration
             Vector3 bottom = new Vector3(0, heightOffset + gravelBedHeight, 0);
             Vector3 top = new Vector3(0, heightOffset + gravelBedHeight + bearerHeight, 0);
 
-            verts[vertIndex] = point.Position - point.Right * bearerWidth * 0.5f + bottom - point.Forward * bearerThickness * 0.5f;
-            verts[vertIndex + 1] = point.Position + point.Right * bearerWidth * 0.5f + bottom - point.Forward * bearerThickness * 0.5f;
-            verts[vertIndex + 2] = point.Position + point.Right * bearerWidth * 0.5f + top - point.Forward * bearerThickness * 0.5f;
-            verts[vertIndex + 3] = point.Position - point.Right * bearerWidth * 0.5f + top - point.Forward * bearerThickness * 0.5f;
+            verts[vertIndex] = point.Position - point.Right * bearerWidth * 0.5f + bottom - point.Tangent * bearerThickness * 0.5f;
+            verts[vertIndex + 1] = point.Position + point.Right * bearerWidth * 0.5f + bottom - point.Tangent * bearerThickness * 0.5f;
+            verts[vertIndex + 2] = point.Position + point.Right * bearerWidth * 0.5f + top - point.Tangent * bearerThickness * 0.5f;
+            verts[vertIndex + 3] = point.Position - point.Right * bearerWidth * 0.5f + top - point.Tangent * bearerThickness * 0.5f;
 
-            verts[vertIndex + 4] = point.Position - point.Right * bearerWidth * 0.5f + top + point.Forward * bearerThickness * 0.5f;
-            verts[vertIndex + 5] = point.Position + point.Right * bearerWidth * 0.5f + top + point.Forward * bearerThickness * 0.5f;
-            verts[vertIndex + 6] = point.Position + point.Right * bearerWidth * 0.5f + bottom + point.Forward * bearerThickness * 0.5f;
-            verts[vertIndex + 7] = point.Position - point.Right * bearerWidth * 0.5f + bottom + point.Forward * bearerThickness * 0.5f;
+            verts[vertIndex + 4] = point.Position - point.Right * bearerWidth * 0.5f + top + point.Tangent * bearerThickness * 0.5f;
+            verts[vertIndex + 5] = point.Position + point.Right * bearerWidth * 0.5f + top + point.Tangent * bearerThickness * 0.5f;
+            verts[vertIndex + 6] = point.Position + point.Right * bearerWidth * 0.5f + bottom + point.Tangent * bearerThickness * 0.5f;
+            verts[vertIndex + 7] = point.Position - point.Right * bearerWidth * 0.5f + bottom + point.Tangent * bearerThickness * 0.5f;
 
             int[] triangles = {
                 vertIndex +0, vertIndex +2, vertIndex +1, //face front
