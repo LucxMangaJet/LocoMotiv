@@ -1,6 +1,7 @@
 using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.EditorCoroutines.Editor;
 using UnityEngine;
 
 public class AdjustTerrainToTrack : MonoBehaviour
@@ -8,68 +9,75 @@ public class AdjustTerrainToTrack : MonoBehaviour
     [SerializeField] Terrain m_terrain;
     [SerializeField] TrackRoute m_track;
     [SerializeField] float m_fStepSize = 1;
-    [SerializeField] float m_fLerpAmout = 0.9f;
+
+    [SerializeField]
+    bool running = false;
 
     [Button]
     public void updateTerrainData()
     {
-        var data = m_terrain.terrainData;
-        Bounds bounds = new Bounds(transform.position + data.size * 0.5f, data.size);
+        if (running)
+            return;
 
-        var texture = data.heightmapTexture;
+        EditorCoroutineUtility.StartCoroutine(buildTerrain(), this);
+    }
+
+    private IEnumerator buildTerrain()
+    {
+        running = true;
+        var data = m_terrain.terrainData;
 
         var heights = data.GetHeights(0, 0, data.heightmapResolution, data.heightmapResolution);
 
         for (int x = 0; x < data.heightmapResolution; x++)
         {
             for (int y = 0; y < data.heightmapResolution; y++)
-                heights[y, x] = -1;
+                heights[y, x] = 0;
         }
 
-        Queue<Vector2Int> collection = new Queue<Vector2Int>();
+        Vector3[] m_arTrackpoints = new Vector3[Mathf.RoundToInt(m_track.Length / m_fStepSize)];
+        float[] weights = new float[m_arTrackpoints.Length];
 
-        float trackLength = m_track.Length;
-        for (float distance = 0; distance < trackLength; distance += m_fStepSize)
+        for (int i = 0; i < m_arTrackpoints.Length; i++)
         {
-            var sample = m_track.SampleTrackpoint(distance);
-
-            if (!bounds.Contains(sample.Position))
-                continue;
-
-            var point = WorldToDataPoint(data, sample.Position);
-
-            heights[point.y, point.x] = WorldToTerrainHeightValue(data, sample.Position.y);
-
-            collection.Enqueue(point);
+            float distance = m_fStepSize * i;
+            m_arTrackpoints[i] = m_track.SampleTrackpoint(distance).Position;
         }
 
-        while (collection.Count > 0)
+        for (int x = 0; x < data.heightmapResolution; x++)
         {
-            var el = collection.Dequeue();
-
-            var neighbours = getNeighbours(el);
-
-            for (int i = 0; i < neighbours.Length; i++)
+            for (int y = 0; y < data.heightmapResolution; y++)
             {
-                Vector2Int n = neighbours[i];
-                if (IsInRange(data, n))
+                var worldPos = DataPointToWorld(data, x, y);
+
+                float totalWeight = 0;
+                for (int i = 0; i < m_arTrackpoints.Length; i++)
                 {
-                    var v = heights[n.y, n.x];
-                    if (v == -1)
-                    {
-                        heights[n.y, n.x] = heights[el.y, el.x];
-                        collection.Enqueue(n);
-                    }
-                    else
-                    {
-                        heights[n.y, n.x] = Mathf.Lerp(heights[el.y, el.x], v, m_fLerpAmout);
-                    }
+
+                    Vector3 tp = m_arTrackpoints[i];
+                    tp.y = 0;
+                    float distance = (worldPos - tp).sqrMagnitude * 2;
+                    weights[i] = 1 / distance;
+                    totalWeight += weights[i];
                 }
+
+                float height = 0;
+
+                for (int i = 0; i < m_arTrackpoints.Length; i++)
+                {
+                    Vector3 tp = m_arTrackpoints[i];
+                    height += tp.y * weights[i] / totalWeight;
+                }
+                heights[y, x] = height / data.size.y;
             }
+
+            data.SetHeights(0, 0, heights);
+            yield return null;
         }
 
-        data.SetHeights(0, 0, heights);
         m_terrain.Flush();
+
+        running = false;
     }
 
     private bool IsInRange(TerrainData data, Vector2Int item)
@@ -103,6 +111,13 @@ public class AdjustTerrainToTrack : MonoBehaviour
         return new Vector2Int(ix, iz);
     }
 
+    Vector3 DataPointToWorld(TerrainData _data, int x, int y)
+    {
+        float fx = (float)x * _data.size.x / _data.heightmapResolution;
+        float fy = (float)y * _data.size.x / _data.heightmapResolution;
+
+        return new Vector3(fx, 0, fy) + transform.position;
+    }
 
     float WorldToTerrainHeightValue(TerrainData _data, float _y)
     {
