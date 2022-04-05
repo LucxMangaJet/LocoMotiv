@@ -7,7 +7,9 @@ using UnityEditor;
 
 public class TrackSection : MonoBehaviour
 {
-    [SerializeField] Transform start, end, middle;
+    [SerializeField] Transform start, end;
+    [SerializeField] Vector3 startTangent, endTangent;
+    [SerializeField] float startTangentHeightOffset, endTangentHeightOffset;
     [SerializeField, ReadOnly] float length;
     [SerializeField, ReadOnly] AnimationCurve tDistanceCleanup;
     [SerializeField] public TrackMeshCreator MeshCreator;
@@ -15,7 +17,8 @@ public class TrackSection : MonoBehaviour
     public float Length => length;
     public Transform StartTransform => start;
     public Transform EndTransform => end;
-    public Transform MidTransform => middle;
+    public Vector3 StartTangent => startTangent;
+    public Vector3 EndTangent => endTangent;
 
     public bool IsTunnel => MeshCreator.Configuration.IsTunnel;
 
@@ -35,11 +38,15 @@ public class TrackSection : MonoBehaviour
         float sampleT = ((float)EditorApplication.timeSinceStartup * 10f % length) / length;
         TrackPoint samplePos = CalculateTrackPointAtT(sampleT, raw: false);
         Gizmos.DrawWireSphere(samplePos.Position, 1f);
+
+
+        Gizmos.DrawSphere(startTangent, 1f);
+        Gizmos.DrawSphere(endTangent, 1f);
     }
 
-    public void UpdateLengthAndSamples()
+    public void UpdateLengthAndSamplesAndMesh()
     {
-        float estimatedLength = Vector3.Distance(start.position, middle.position) + Vector3.Distance(end.position, middle.position);
+        float estimatedLength = Vector3.Distance(start.position, end.position);
         float samplesPerUnit = 10f;
         float caculatedLength = 0f;
 
@@ -76,32 +83,33 @@ public class TrackSection : MonoBehaviour
 
             lastPos2 = pos;
         }
+
+        startTangent = start.position + start.forward * Length / 3f;
+        endTangent = end.position + end.forward * -Length / 3f;
+
+        MeshCreator.UpdateMesh();
     }
-
-    public void ChangeStartPosition(Vector3 newTargetPosition) => StartTransform.position = newTargetPosition;
-
-    public void ChangeMidPosition(Vector3 newMidPosition) => MidTransform.position = newMidPosition;
-
-    public void ChangeEndPosition(Vector3 newEndPosition) => EndTransform.position = newEndPosition;
-
 
     public TrackPoint CalculateTrackPointAtT(float t, bool raw = true)
     {
         float time = raw ? t : tDistanceCleanup.Evaluate(t);
 
-        Vector3 abPos = Vector3.Lerp(start.position, middle.position, time);
-        Vector3 bcPos = Vector3.Lerp(middle.position, end.position, time);
-        Vector3 acPos = Vector3.Lerp(abPos, bcPos, time);
+        float ti = 1 - time;
+        float ti2 = ti * ti;
+        float ti3 = ti2 * ti;
 
-        Vector3 abRight = Vector3.Lerp(start.right, middle.right, time);
-        Vector3 bcRight = Vector3.Lerp(middle.right, end.right, time);
-        Vector3 acRight = Vector3.Lerp(abRight, bcRight, time);
+        float t2 = time * time;
+        float t3 = t2 * time;
 
-        Vector3 abForward = Vector3.Lerp(start.forward, middle.forward, time);
-        Vector3 bcForward = Vector3.Lerp(middle.forward, end.forward, time);
-        Vector3 acForward = Vector3.Lerp(abForward, bcForward, time);
+        Vector3 p0 = start.position;
+        Vector3 p1 = startTangent;
+        Vector3 p2 = endTangent;
+        Vector3 p3 = end.position;
 
-        return new TrackPoint() { Position = acPos, Right = acRight, Forward = acForward };
+        Vector3 position = (ti3 * p0) + (3 * ti2 * time * p1) + (3 * ti * t2 * p2) + (t3 * p3);
+        Vector3 tangent = (3 * ti2 * (p1 - p0)) + (6 * ti * time * (p2 - p1)) + (3 * t2 * (p3 - p2));
+
+        return new TrackPoint() { Position = position, Right = Quaternion.LookRotation(tangent, Vector3.up) * Vector3.right, Tangent = tangent.normalized };
     }
 }
 
@@ -109,7 +117,7 @@ public class TrackPoint
 {
     public Vector3 Position;
     public Vector3 Right;
-    public Vector3 Forward;
+    public Vector3 Tangent;
 
-    public Quaternion Rotation => Quaternion.LookRotation(Forward, Vector3.Cross(Forward, Right));
+    public Quaternion Rotation => Quaternion.LookRotation(Tangent, Vector3.Cross(Tangent, Right));
 }

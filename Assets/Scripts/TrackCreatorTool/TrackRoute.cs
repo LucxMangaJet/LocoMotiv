@@ -8,6 +8,7 @@ using UnityEngine;
 public class TrackRoute : MonoBehaviour
 {
     [SerializeField, ReadOnly] List<TrackSection> sections = new List<TrackSection>();
+    public List<TrackSection> Sections => sections;
 
     public float Length => sections.Sum((x) => x.Length);
 
