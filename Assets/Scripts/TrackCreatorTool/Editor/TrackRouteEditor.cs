@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Reflection;
 using UnityEditor;
 using System;
+using System.Linq;
 
 [CustomEditor(typeof(TrackRoute))]
 [CanEditMultipleObjects]
@@ -17,7 +18,7 @@ public class TrackRouteEditor : Editor
     TrackSection previousSection;
     TrackSection nextSection;
 
-    bool selectedPointIsStart;
+    bool selectedPointIsStart = true;
 
     void OnEnable()
     {
@@ -47,31 +48,42 @@ public class TrackRouteEditor : Editor
     {
         EditorGUI.BeginChangeCheck();
 
+        TrackSection last = route.Sections.Last();
+
         foreach (TrackSection section in route.Sections)
         {
-            if (section != selectedSection && section != nextSection && section != previousSection)
+            if (section != selectedSection)
             {
                 float startSize = HandleUtility.GetHandleSize(section.StartTransform.position) / 2f;
                 float endSize = HandleUtility.GetHandleSize(section.EndTransform.position) / 2f;
                 Handles.color = Color.red;
-                if (Handles.Button(section.StartTransform.position, Quaternion.identity, startSize, startSize, Handles.SphereHandleCap)
-                    || Handles.Button(section.EndTransform.position, Quaternion.identity, endSize, endSize, Handles.SphereHandleCap))
-                    SelectSection(section);
+
+                if (Handles.Button(section.StartTransform.position, Quaternion.identity, startSize, startSize, Handles.SphereHandleCap))
+                    SelectSection(section, selectStart: true);
+
+                if (section == last)
+                {
+                    if (Handles.Button(section.EndTransform.position, Quaternion.identity, endSize, endSize, Handles.SphereHandleCap))
+                        SelectSection(section, selectStart: false);
+                }
             }
         }
 
         if (selectedSection != null)
         {
-            CreateHandle(selectedSection.StartTransform, (previousSection != null ? previousSection.EndTransform : null), "Start");
-            CreateHandle(selectedSection.EndTransform, (nextSection != null ? nextSection.StartTransform : null), "End");
+            if (selectedPointIsStart)
+                CreateHandle(selectedSection.StartTransform, (previousSection != null ? previousSection.EndTransform : null), "Start");
+            else
+                CreateHandle(selectedSection.EndTransform, (nextSection != null ? nextSection.StartTransform : null), "End");
         }
     }
 
-    private void SelectSection(TrackSection section)
+    private void SelectSection(TrackSection section, bool selectStart)
     {
         selectedSection = section;
         previousSection = route.GetPrevious(section);
         nextSection = route.GetNext(section);
+        selectedPointIsStart = selectStart;
     }
 
     private void CreateHandle(Transform transform, Transform otherTransform, string name)

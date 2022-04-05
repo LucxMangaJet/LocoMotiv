@@ -22,28 +22,6 @@ public class TrackSection : MonoBehaviour
 
     public bool IsTunnel => MeshCreator.Configuration.IsTunnel;
 
-
-    private void OnDrawGizmos()
-    {
-        float segmentCount = 100f;
-        for (int i = 0; i < segmentCount; i++)
-        {
-            float t = i / segmentCount;
-
-            TrackPoint point = CalculateTrackPointAtT(t, raw: false);
-
-            Gizmos.DrawLine(point.Position, point.Position + point.Right);
-        }
-
-        float sampleT = ((float)EditorApplication.timeSinceStartup * 10f % length) / length;
-        TrackPoint samplePos = CalculateTrackPointAtT(sampleT, raw: false);
-        Gizmos.DrawWireSphere(samplePos.Position, 1f);
-
-
-        Gizmos.DrawSphere(startTangent, 1f);
-        Gizmos.DrawSphere(endTangent, 1f);
-    }
-
     public void UpdateLengthAndSamplesAndMesh()
     {
         float estimatedLength = Vector3.Distance(start.position, end.position);
