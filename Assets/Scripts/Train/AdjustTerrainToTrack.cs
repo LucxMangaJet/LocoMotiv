@@ -8,6 +8,7 @@ public class AdjustTerrainToTrack : MonoBehaviour
     [SerializeField] Terrain m_terrain;
     [SerializeField] TrackRoute m_track;
     [SerializeField] float m_fStepSize = 1;
+    [SerializeField] float m_fLerpAmout = 0.9f;
 
     [Button]
     public void updateTerrainData()
@@ -53,10 +54,15 @@ public class AdjustTerrainToTrack : MonoBehaviour
                 Vector2Int n = neighbours[i];
                 if (IsInRange(data, n))
                 {
-                    if (heights[n.y, n.x] == -1)
+                    var v = heights[n.y, n.x];
+                    if (v == -1)
                     {
                         heights[n.y, n.x] = heights[el.y, el.x];
                         collection.Enqueue(n);
+                    }
+                    else
+                    {
+                        heights[n.y, n.x] = Mathf.Lerp(heights[el.y, el.x], v, m_fLerpAmout);
                     }
                 }
             }
