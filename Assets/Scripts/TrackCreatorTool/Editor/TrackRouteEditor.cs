@@ -18,7 +18,7 @@ public class TrackRouteEditor : Editor
     TrackSection previousSection;
     TrackSection nextSection;
 
-    bool selectedPointIsStart = true;
+    Transform[] selectedTransforms;
 
     void OnEnable()
     {
@@ -52,16 +52,19 @@ public class TrackRouteEditor : Editor
 
         foreach (TrackSection section in route.Sections)
         {
-            if (section != selectedSection)
-            {
-                float startSize = HandleUtility.GetHandleSize(section.StartTransform.position) / 2f;
-                float endSize = HandleUtility.GetHandleSize(section.EndTransform.position) / 2f;
-                Handles.color = Color.red;
+            float startSize = HandleUtility.GetHandleSize(section.StartTransform.position) / 2f;
+            float endSize = HandleUtility.GetHandleSize(section.EndTransform.position) / 2f;
+            Handles.color = Color.red;
 
+            if (selectedTransforms == null || !selectedTransforms.Contains(section.StartTransform))
+            {
                 if (Handles.Button(section.StartTransform.position, Quaternion.identity, startSize, startSize, Handles.SphereHandleCap))
                     SelectSection(section, selectStart: true);
+            }
 
-                if (section == last)
+            if (section == last)
+            {
+                if (selectedTransforms == null || !selectedTransforms.Contains(section.EndTransform))
                 {
                     if (Handles.Button(section.EndTransform.position, Quaternion.identity, endSize, endSize, Handles.SphereHandleCap))
                         SelectSection(section, selectStart: false);
@@ -69,12 +72,9 @@ public class TrackRouteEditor : Editor
             }
         }
 
-        if (selectedSection != null)
+        if (selectedSection != null && selectedTransforms.Length > 0)
         {
-            if (selectedPointIsStart)
-                CreateHandle(selectedSection.StartTransform, (previousSection != null ? previousSection.EndTransform : null), "Start");
-            else
-                CreateHandle(selectedSection.EndTransform, (nextSection != null ? nextSection.StartTransform : null), "End");
+            CreateHandle(selectedTransforms[0], (nextSection != null ? nextSection.StartTransform : null), "Point");
         }
     }
 
@@ -83,20 +83,32 @@ public class TrackRouteEditor : Editor
         selectedSection = section;
         previousSection = route.GetPrevious(section);
         nextSection = route.GetNext(section);
-        selectedPointIsStart = selectStart;
+
+        if (selectStart)
+        {
+            if (previousSection != null)
+                selectedTransforms = new Transform[] { section.StartTransform, previousSection.EndTransform };
+            else
+                selectedTransforms = new Transform[] { section.StartTransform };
+        } else
+        {
+            if (nextSection != null)
+                selectedTransforms = new Transform[] { section.EndTransform, nextSection.StartTransform };
+            else
+                selectedTransforms = new Transform[] { section.EndTransform };
+        }
     }
 
     private void CreateHandle(Transform transform, Transform otherTransform, string name)
     {
-        UnityEngine.Object[] recordedObjects = (otherTransform == null) ? new UnityEngine.Object[] { transform } : new UnityEngine.Object[] { transform, otherTransform };
-
         Handles.color = Color.yellow;
         Quaternion newRot = Handles.Disc(transform.rotation, transform.position, Vector3.up, 5, false, 0);
         if (EditorGUI.EndChangeCheck())
         {
-            Undo.RecordObjects(recordedObjects, "Change " + name + " Rotation");
-            transform.rotation = newRot;
-            if (otherTransform != null) otherTransform.rotation = newRot;
+            Undo.RecordObjects(selectedTransforms, "Change " + name + " Rotation");
+            foreach (Transform t in selectedTransforms)
+                t.rotation = newRot;
+ 
             UpdateSections();
         }
 
@@ -104,18 +116,20 @@ public class TrackRouteEditor : Editor
         Quaternion newSlope = Handles.Disc(transform.rotation, transform.position, transform.right, 5, false, 0);
         if (EditorGUI.EndChangeCheck())
         {
-            Undo.RecordObjects(recordedObjects, "Change " + name + " Rotation");
-            transform.rotation = newSlope;
-            if (otherTransform != null) otherTransform.rotation = newSlope;
+            Undo.RecordObjects(selectedTransforms, "Change " + name + " Rotation");
+            foreach (Transform t in selectedTransforms)
+                t.rotation = newSlope;
+
             UpdateSections();
         }
 
         Vector3 newPos = Handles.PositionHandle(transform.position, Quaternion.identity);
         if (EditorGUI.EndChangeCheck())
         {
-            Undo.RecordObjects(recordedObjects, "Change " + name + " Position");
-            transform.position = newPos;
-            if (otherTransform != null) otherTransform.position = newPos;
+            Undo.RecordObjects(selectedTransforms, "Change " + name + " Position");
+            foreach (Transform t in selectedTransforms)
+                t.position = newPos;
+
             UpdateSections();
         }
     }
