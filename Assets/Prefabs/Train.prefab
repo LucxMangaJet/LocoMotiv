@@ -45,7 +45,7 @@ Transform:
   - {fileID: 6978750635750646997}
   - {fileID: 4804795524787303015}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6270358161751392402
 MonoBehaviour:
@@ -183,40 +183,40 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 0.0020842988
-      outSlope: 0.0020842988
+      inSlope: 0.0022377972
+      outSlope: 0.0022377972
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.04612342
+      outWeight: 0.10118986
     - serializedVersion: 3
       time: 1000
       value: 1
-      inSlope: 0.00011763908
-      outSlope: 0.00011763908
+      inSlope: 0.00043310205
+      outSlope: 0.00043310205
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.14042719
+      inWeight: 0.10897937
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  pressureToForceCurveMultiplyer: 150000
+  pressureToForceCurveMultiplyer: 80000
   forceEffectivenessOverSpeed:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0.5
-      inSlope: 0.0125
-      outSlope: 0.0125
+      inSlope: 0.00031787157
+      outSlope: 0.00031787157
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 40
-      value: 1
+      time: 10
+      value: 0.5031787
       inSlope: -0.00006304858
       outSlope: -0.00006304858
       tangentMode: 0
@@ -303,6 +303,9 @@ MonoBehaviour:
   speed: 0
   fuel: 0
   pressure: 0
+  relativeForce: 0
+  gravity: 0
+  _acceleration: 0
   isWhistling: 0
   engineForce: 0
   environmentFeedbackController: {fileID: 6857131611998938044}

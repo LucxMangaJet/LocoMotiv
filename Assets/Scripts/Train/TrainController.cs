@@ -61,6 +61,12 @@ public class TrainController : Singleton<TrainController>
     [SerializeField, ReadOnly]
     private float pressure = 0;
     [SerializeField, ReadOnly]
+    private float relativeForce;
+    [SerializeField, ReadOnly]
+    private float gravity = 0;
+    [SerializeField, ReadOnly]
+    private float _acceleration = 0;
+    [SerializeField, ReadOnly]
     private bool isWhistling;
 
     [SerializeField, ReadOnly]
@@ -149,12 +155,10 @@ public class TrainController : Singleton<TrainController>
 
     private void updateAcceleration(float totalMass)
     {
-        float tempAcceleration = 0;
-
-        tempAcceleration += engineForce / totalMass;
+        relativeForce = engineForce / totalMass;
 
         //gravity
-        tempAcceleration += CalculateForceOnWagon(mover.CurveSample.Tangent, rootMass) / rootMass;
+        gravity = CalculateForceOnWagon(mover.CurveSample.Tangent, rootMass) / rootMass;
 
         for (int i = 0; i < trainRoot.Segments.Length; i++)
         {
@@ -163,10 +167,12 @@ public class TrainController : Singleton<TrainController>
 
             var acc = newForce / segmentMass;
             acceleration[i] = acc;
-            tempAcceleration += acc;
+            gravity += acc;
         }
 
-        speed += tempAcceleration * Time.deltaTime;
+        _acceleration = relativeForce + gravity;
+
+        speed += _acceleration * Time.deltaTime;
     }
 
     private void updateDecelleration(float totalMass)
