@@ -21,9 +21,10 @@ public class MoveAlongTrack : MonoBehaviour
     {
         var checkpoints = GameObject.FindObjectsOfType<TrainCheckpoint>();
 
+        currentDistance = 0;
+
         if (checkpoints.Length > 0)
             currentDistance = checkpoints[0].DistanceAlongTrack;
-        currentDistance = 0;
     }
 
     private void Update()

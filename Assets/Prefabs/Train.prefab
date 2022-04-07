@@ -59,7 +59,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b46633b99c02828478b0674c81442af9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spline: {fileID: 0}
+  track: {fileID: 0}
   speed: 10
 --- !u!114 &6270358161751392401
 MonoBehaviour:
@@ -974,6 +974,14 @@ PrefabInstance:
     - target: {fileID: 119519585, guid: f17831ba810097743bb493bcb78f589b, type: 3}
       propertyPath: onLeverMoved.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: SetThrottleAndBreak
+      objectReference: {fileID: 0}
+    - target: {fileID: 1729598921713995790, guid: f17831ba810097743bb493bcb78f589b, type: 3}
+      propertyPath: field of view
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 1729598921713995790, guid: f17831ba810097743bb493bcb78f589b, type: 3}
+      propertyPath: m_projectionMatrixMode
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2652356909449273100, guid: f17831ba810097743bb493bcb78f589b, type: 3}
       propertyPath: m_RootOrder
