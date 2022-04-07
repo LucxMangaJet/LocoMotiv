@@ -39,8 +39,6 @@ public class TrackRouteEditor : Editor
 
     private void UpdateSections()
     {
-        Debug.Log($"UpdateSections \n { previousSection != null } \n { selectedSection != null } \n { nextSection != null }");
-
         if (previousSection != null) previousSection.UpdateLengthAndSamplesAndMesh();
         if (selectedSection != null) selectedSection.UpdateLengthAndSamplesAndMesh();
         if (nextSection != null) nextSection.UpdateLengthAndSamplesAndMesh();
