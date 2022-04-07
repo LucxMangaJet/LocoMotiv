@@ -50,7 +50,7 @@ public class TrackRoute : MonoBehaviour
         return section.CalculateTrackPointAtT((currentDistanceOnRoute - distanceBefore) / section.Length);
     }
 
-    private void CheckUpdateSections()
+    public void CheckUpdateSections()
     {
         if (sections.Count == transform.childCount) return;
         sections = new List<TrackSection>(GetComponentsInChildren<TrackSection>());
