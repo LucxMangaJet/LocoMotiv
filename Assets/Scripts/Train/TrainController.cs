@@ -40,6 +40,7 @@ public class TrainController : Singleton<TrainController>
     [SerializeField] AnimationCurve pressureReleaseOverSpeed;
 
     [SerializeField] AnimationCurve pressureReleaseOverPressure;
+    [SerializeField, Range(0,1)] float gravityScale;
 
 
     [Header("Settings")]
@@ -169,6 +170,8 @@ public class TrainController : Singleton<TrainController>
             acceleration[i] = acc;
             gravity += acc;
         }
+
+        gravity *= gravityScale;
 
         _acceleration = relativeForce + gravity;
 

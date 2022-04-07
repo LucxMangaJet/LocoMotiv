@@ -201,7 +201,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  pressureToForceCurveMultiplyer: 80000
+  pressureToForceCurveMultiplyer: 90000
   forceEffectivenessOverSpeed:
     serializedVersion: 2
     m_Curve:
@@ -293,6 +293,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  gravityScale: 0.1
   segmentMass: 1000
   rootMass: 1000
   rollingResistanceCoefficient: 0.015
