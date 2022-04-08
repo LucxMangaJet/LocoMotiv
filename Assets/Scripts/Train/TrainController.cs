@@ -34,13 +34,14 @@ public class TrainController : Singleton<TrainController>
     [SerializeField] float pressureToForceCurveMultiplyer;
 
     [SerializeField] AnimationCurve forceEffectivenessOverSpeed;
+    [SerializeField] AnimationCurve forceEffectivenessOverSlope;
 
     [SerializeField] float pressureReleaseByWhistle;
 
     [SerializeField] AnimationCurve pressureReleaseOverSpeed;
 
     [SerializeField] AnimationCurve pressureReleaseOverPressure;
-    [SerializeField, Range(0,1)] float gravityScale;
+    [SerializeField, Range(0, 1)] float gravityScale;
 
 
     [Header("Settings")]
@@ -63,14 +64,23 @@ public class TrainController : Singleton<TrainController>
     private float pressure = 0;
     [SerializeField, ReadOnly]
     private float relativeForce;
-    [SerializeField, ReadOnly]
-    private float gravity = 0;
-    [SerializeField, ReadOnly]
-    private float _slope = 0;
-    [SerializeField, ReadOnly]
+    [SerializeField, ReadOnly, ProgressBar("relative force", 10, EColor.Green)]
+    private float _force = 0;
+    private float _gravity = 0;
+    [SerializeField, ReadOnly, ProgressBar("positive gravity", 10, EColor.Green)]
+    private float _gravityPos = 0f;
+    [SerializeField, ReadOnly, ProgressBar("positive gravity", 10, EColor.Red)]
+    private float _gravityNeg = 0f;
+    [SerializeField]
+    Resistance _resistance;
+    [SerializeField, ReadOnly, ProgressBar("resistance", 10, EColor.Red)]
+    private float _resistanceTotal = 0;
+    [SerializeField, ReadOnly, ProgressBar("acceleration", 10, EColor.Yellow)]
     private float _acceleration = 0;
     [SerializeField, ReadOnly]
-    private float _decelleration = 0;
+    private float slope = 0;
+    [SerializeField, ReadOnly]
+    private float turnResistance;
     [SerializeField, ReadOnly]
     private bool isWhistling;
 
@@ -78,6 +88,8 @@ public class TrainController : Singleton<TrainController>
     private DebugAnimationCurve pressureToForceDEBUG;
     [SerializeField]
     private DebugAnimationCurve forceEffectivenessOverSpeedDEBUG;
+    [SerializeField]
+    private DebugAnimationCurve forceEffectivenessOverSlopeDEBUG;
 
     [SerializeField, ReadOnly]
     private float engineForce;
@@ -89,7 +101,6 @@ public class TrainController : Singleton<TrainController>
     private float[] acceleration;
     private float[] resistance;
     private float airResistance;
-    private float turnResistance;
 
     private void Start()
     {
@@ -98,6 +109,7 @@ public class TrainController : Singleton<TrainController>
 
         pressureToForceDEBUG = new DebugAnimationCurve() { Curve = pressureToForceCurve };
         forceEffectivenessOverSpeedDEBUG = new DebugAnimationCurve() { Curve = forceEffectivenessOverSpeed };
+        forceEffectivenessOverSlopeDEBUG = new DebugAnimationCurve() { Curve = forceEffectivenessOverSlope };
 
         ShovelEventBase.Trigger += OnShovelTrigger;
     }
@@ -111,16 +123,41 @@ public class TrainController : Singleton<TrainController>
     {
         float totalMass = (rootMass + trainRoot.Segments.Length * segmentMass);
 
-        updateEngine();
+        UpdateSlope();
+        UpdateForce();
 
-        updateAcceleration(totalMass);
-        updateDecelleration(totalMass);
+        _force = engineForce / totalMass;
+        _gravity = CalculateGravity();
+        _resistance = CalculateResistance(totalMass);
+        _resistanceTotal = (_resistance.GetTotal(speed));
+
+        _gravityPos = Mathf.Max(0, _gravity);
+        _gravityNeg = Mathf.Min(0, _gravity) * -1;
+
+
+        _acceleration = (_force + _gravity - _resistanceTotal);
+
+        speed += _acceleration * Time.deltaTime;
+
+        //breaking to stop
+        if (Mathf.Abs(speed) < Mathf.Abs(_resistanceTotal * Time.deltaTime))
+            speed = 0;
 
         mover.SetSpeed(speed);
 
         updateEnvironment();
 
         updateCheats();
+    }
+
+    private void UpdateSlope()
+    {
+        slope = GetSlopeFromTangent(mover.CurveSample.Tangent);
+
+        for (int i = 0; i < trainRoot.Segments.Length; i++)
+            slope += GetSlopeFromTangent(mover.CurveSample.Tangent);
+
+        slope /= (trainRoot.Segments.Length + 1);
     }
 
     private void updateCheats()
@@ -134,10 +171,10 @@ public class TrainController : Singleton<TrainController>
         environmentFeedbackController.PressurePercent = pressure / maxPressure;
         environmentFeedbackController.FuelPercent = fuel / maxFuel;
         environmentFeedbackController.Speed = speed;
-        environmentFeedbackController.Slope = _slope;
+        environmentFeedbackController.Slope = slope;
     }
 
-    private void updateEngine()
+    private void UpdateForce()
     {
         float dt = Time.deltaTime;
 
@@ -165,39 +202,30 @@ public class TrainController : Singleton<TrainController>
         float force = throttle * pressureToForceCurve.Evaluate(pressure) * pressureToForceCurveMultiplyer;
 
         force *= forceEffectivenessOverSpeed.Evaluate(speed);
+        force *= forceEffectivenessOverSlope.Evaluate(slope);
 
         forceEffectivenessOverSpeedDEBUG.Value = speed;
+        forceEffectivenessOverSlopeDEBUG.Value = slope;
 
         engineForce = force;
     }
 
-    private void updateAcceleration(float totalMass)
+    private float CalculateGravity()
     {
-        relativeForce = engineForce / totalMass;
-
-        //gravity
-        gravity = CalculateForceOnWagon(mover.CurveSample.Tangent, rootMass) / rootMass;
-
-        _slope = GetSlopeFromTangent(mover.CurveSample.Tangent);
+        float gravity = CalculateForceOnWagon(mover.CurveSample.Tangent, rootMass) / rootMass;
 
         for (int i = 0; i < trainRoot.Segments.Length; i++)
         {
             var segment = trainRoot.Segments[i];
             float newForce = CalculateForceOnWagon(segment.transform.forward, segmentMass);
-            _slope += GetSlopeFromTangent(mover.CurveSample.Tangent);
 
             var acc = newForce / segmentMass;
             acceleration[i] = acc;
             gravity += acc;
         }
 
-        _slope /= (trainRoot.Segments.Length + 1);
-
         gravity *= gravityScale;
-
-        _acceleration = relativeForce + gravity;
-
-        speed += _acceleration * Time.deltaTime;
+        return gravity;
     }
 
     private float GetSlopeFromTangent(Vector3 tangent)
@@ -205,37 +233,29 @@ public class TrainController : Singleton<TrainController>
         return tangent.normalized.y * 100f;
     }
 
-    private void updateDecelleration(float totalMass)
+    private Resistance CalculateResistance(float totalMass)
     {
-        // resitances
-        _decelleration = 0;
+        Resistance res = new Resistance();
 
-        airResistance = CalculateAirResistance() / totalMass;
-        _decelleration += airResistance;
+        res.Air = CalculateAirResistance() / totalMass;
 
-        turnResistance = CalculateTurnResistance(totalMass) / totalMass;
-        _decelleration += turnResistance;
+        res.Turn = CalculateTurnResistance(totalMass) / totalMass;
 
-        _decelleration += CalculateResistanceOnWagon(rootMass) / rootMass;
+        res.Rolling = CalculateRollingResistanceOnWagon(rootMass) / rootMass;
 
         for (int i = 0; i < trainRoot.Segments.Length; i++)
         {
-            float newForce = CalculateResistanceOnWagon(segmentMass);
+            float newForce = CalculateRollingResistanceOnWagon(segmentMass);
 
             var dec = newForce / segmentMass;
             resistance[i] = dec;
-            _decelleration += dec;
+            res.Rolling += dec;
         }
 
-        //breaks
-        _decelleration += breaks * breakingForce / totalMass;
 
-        float decelAmount = _decelleration * Time.deltaTime;
+        res.Breaks = breaks * breakingForce / totalMass;
 
-        if (Mathf.Abs(speed) < decelAmount)
-            speed = 0;
-        else
-            speed -= decelAmount * Mathf.Sign(speed);
+        return res;
     }
 
     private float CalculateForceOnWagon(Vector3 tangent, float mass)
@@ -296,7 +316,7 @@ public class TrainController : Singleton<TrainController>
         return resistance;
     }
 
-    private float CalculateResistanceOnWagon(float mass)
+    private float CalculateRollingResistanceOnWagon(float mass)
     {
         float rollingResistance = rollingResistanceCoefficient * mass * -Physics.gravity.y;
 
@@ -354,4 +374,24 @@ public class TrainController : Singleton<TrainController>
     }
 
     #endregion
+}
+
+[System.Serializable]
+public class Resistance
+{
+    [ProgressBar("Air", 10, EColor.Red)]
+    public float Air;
+    [ProgressBar("Turn", 10, EColor.Red)]
+    public float Turn;
+    [ProgressBar("Rolling", 10, EColor.Red)]
+    public float Rolling;
+    [ProgressBar("Breaks", 10, EColor.Red)]
+    public float Breaks;
+
+    internal float GetTotal(float speed)
+    {
+        float total = Air + Turn + Rolling + Breaks;
+
+        return total * Mathf.Sign(speed);
+    }
 }
