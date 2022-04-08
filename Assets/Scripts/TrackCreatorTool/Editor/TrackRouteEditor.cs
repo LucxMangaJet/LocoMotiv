@@ -63,7 +63,7 @@ public class TrackRouteEditor : Editor
 
         if (selectedSection != null && selectedTransforms.Length > 0)
         {
-            DrawEditHandle(selectedTransforms[0], (nextSection != null ? nextSection.StartTransform : null), "Point");
+            DrawEditHandle(selectedTransforms[0], "Point");
         }
     }
 
@@ -238,7 +238,7 @@ public class TrackRouteEditor : Editor
         selectedTransforms = null;
     }
 
-    private void DrawEditHandle(Transform transform, Transform otherTransform, string name)
+    private void DrawEditHandle(Transform transform, string name)
     {
 
         float size = HandleUtility.GetHandleSize(transform.position) / 3f;
@@ -274,6 +274,76 @@ public class TrackRouteEditor : Editor
 
             UpdateSections();
         }
+
+        if (DrawButton(name, size, transform.position + Vector3.up * size * 6, "Reset Slope"))
+        {
+            Undo.RecordObjects(selectedTransforms, "Reset " + name + " Slope");
+            foreach (Transform t in selectedTransforms)
+                t.rotation = Quaternion.Euler(0, t.rotation.eulerAngles.y, t.rotation.eulerAngles.z);
+
+            UpdateSections();
+        }
+
+        if (previousSection != null)
+        {
+            Vector3 cur = transform.position;
+            Vector3 prev = previousSection.StartTransform.position;
+            Vector3 r = DrawSlopeHelper(cur, prev);
+
+            if (DrawButton(name, size, cur + Vector3.up * size * 8, "Reset height to match Previous"))
+            {
+                Undo.RecordObjects(selectedTransforms, "Reset " + name + " Height");
+                foreach (Transform t in selectedTransforms)
+                    t.position = r;
+
+                UpdateSections();
+            }
+        }
+
+        if (nextSection != null)
+        {
+            Vector3 cur = transform.position;
+            Vector3 nex = nextSection.StartTransform.position;
+            Vector3 r = DrawSlopeHelper(cur, nex);
+
+            if (DrawButton(name, size, cur + Vector3.up * size * 10, "Reset height to match Next"))
+            {
+                Undo.RecordObjects(selectedTransforms, "Reset " + name + " Height");
+                foreach (Transform t in selectedTransforms)
+                    t.position = r;
+
+                UpdateSections();
+            }
+        }
+    }
+
+    private static Vector3 DrawSlopeHelper(Vector3 cur, Vector3 prev)
+    {
+        Vector3 remapped = new Vector3(cur.x, prev.y, cur.z);
+
+        float slope = (cur.y - prev.y) / Vector3.Distance(prev, remapped) * 100f;
+
+        Handles.DrawLine(prev, remapped, 1);
+        Handles.Label(remapped, slope.ToString());
+        Handles.DrawLine(remapped, cur, 1);
+        return remapped;
+    }
+
+    private bool DrawButton(string name, float size, Vector3 pos, string text)
+    {
+        Texture2D debugTex = new Texture2D(1, 1);
+        debugTex.SetPixel(0, 0, Color.black);
+        debugTex.Apply();
+
+        GUIStyle style = new GUIStyle();
+        style.normal.background = debugTex;
+        style.fontSize = 16;
+        style.normal.textColor = Color.white;
+        style.alignment = TextAnchor.MiddleCenter;
+        Handles.color = Color.white;
+        Handles.Label(pos, text, style);
+
+        return (Handles.Button(pos, Quaternion.LookRotation(pos - SceneView.GetAllSceneCameras()[0].transform.position, Vector3.up), size, size, Handles.CircleHandleCap));
     }
 
     public static void HideTool(bool hidden)
