@@ -70,6 +70,9 @@ public class TrainController : Singleton<TrainController>
     [SerializeField, ReadOnly]
     private bool isWhistling;
 
+    [SerializeField]
+    private DebugAnimationCurve pressureToForceDEBUG;
+
     [SerializeField, ReadOnly]
     private float engineForce;
 
@@ -86,6 +89,8 @@ public class TrainController : Singleton<TrainController>
     {
         acceleration = new float[trainRoot.Segments.Length];
         resistance = new float[trainRoot.Segments.Length];
+
+        pressureToForceDEBUG = new DebugAnimationCurve() { Curve = pressureToForceCurve };
 
         ShovelEventBase.Trigger += OnShovelTrigger;
     }
@@ -145,6 +150,8 @@ public class TrainController : Singleton<TrainController>
             pressureGeneration = 0;
 
         pressure = Mathf.Max(0, pressure + (pressureGeneration - pressureConsumption) * dt);
+
+        pressureToForceDEBUG.Value = pressure;
 
         //engine acceleration
         float force = throttle * pressureToForceCurve.Evaluate(pressure) * pressureToForceCurveMultiplyer;
