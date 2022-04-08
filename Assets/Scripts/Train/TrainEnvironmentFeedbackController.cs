@@ -13,6 +13,7 @@ namespace Train.Feedback
         [SerializeField, Range(0, 1)] float enginePressurePercent;
         [SerializeField, Range(0, 100)] float trainSpeed;
         [SerializeField, Range(0, 1)] float fuelPercentage;
+        [SerializeField, Range(-10, 10)] float slope;
         [SerializeField] AnimationCurve speedToStrokeDurationCurve;
         [SerializeField, ReadOnly] float strokeDuration;
         [SerializeField] bool lidOpen;
@@ -25,14 +26,16 @@ namespace Train.Feedback
         [SerializeField] EngineFire engineFire;
         [SerializeField] AnimatorValueFeedbackModule engineFuel;
 
-        [SerializeField] GaugeBehaviour pressureGauge;
-        [SerializeField] GaugeBehaviour fuelGauge;
-        [SerializeField] GaugeBehaviour speedGauge;
+        [SerializeField] GaugeCurveBehaviour pressureGauge;
+        [SerializeField] GaugeCurveBehaviour fuelGauge;
+        [SerializeField] GaugeCurveBehaviour speedGauge;
+        [SerializeField] GaugeShaderBehaviour slopeGauge;
         [SerializeField] float maxGaugeSpeed = 150;
 
         public float PressurePercent { set => enginePressurePercent = value; }
         public float FuelPercent { set => fuelPercentage = value; }
         public float Speed { set => trainSpeed = value; }
+        public float Slope { set => slope = value; }
 
         private void Update()
         {
@@ -45,6 +48,7 @@ namespace Train.Feedback
             fuelGauge.SetPercent(fuelPercentage);
             float speedPercent = trainSpeed / maxGaugeSpeed;
             speedGauge.SetPercent(speedPercent);
+            slopeGauge.SetValue(slope);
             railsEmitter.SetParameter("trainSpeed", speedPercent);
         }
 

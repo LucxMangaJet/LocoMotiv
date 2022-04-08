@@ -92,7 +92,7 @@ MonoBehaviour:
   throttle: 1
   breaks: 0
   bCheatAlwaysMaxPressure: 0
-  fuelAddedPerShovel: 20
+  fuelAddedPerShovel: 30
   maxFuel: 100
   maxPressure: 1000
   breakingForce: 100000
@@ -102,12 +102,12 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0.5
-      inSlope: 0.005
-      outSlope: 0.005
-      tangentMode: 34
+      inSlope: 0.0043979594
+      outSlope: 0.0043979594
+      tangentMode: 0
       weightedMode: 0
-      inWeight: 0
-      outWeight: 0.33333334
+      inWeight: 0.33333334
+      outWeight: 0.08082067
     - serializedVersion: 3
       time: 100
       value: 1
@@ -157,14 +157,14 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0.19944085
     - serializedVersion: 3
-      time: 44.758713
-      value: 34.896244
-      inSlope: 1.1792984
-      outSlope: 1.1792984
+      time: 53.144775
+      value: 31.356297
+      inSlope: 1.0508506
+      outSlope: 1.0508506
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.09430389
-      outWeight: 0.10819884
+      inWeight: 0.14000748
+      outWeight: 0.2089011
     - serializedVersion: 3
       time: 100
       value: 100
@@ -183,45 +183,63 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 0.0022377972
-      outSlope: 0.0022377972
+      inSlope: 0.0012249992
+      outSlope: 0.0012249992
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.10118986
+      outWeight: 0.06499209
     - serializedVersion: 3
       time: 1000
       value: 1
-      inSlope: 0.00043310205
-      outSlope: 0.00043310205
+      inSlope: 0.0021552017
+      outSlope: 0.0021552017
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.10897937
+      inWeight: 0.048180297
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  pressureToForceCurveMultiplyer: 90000
+  pressureToForceCurveMultiplyer: 150000
   forceEffectivenessOverSpeed:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.5
-      inSlope: 0.00031787157
-      outSlope: 0.00031787157
+      value: 1
+      inSlope: -0.025
+      outSlope: -0.025
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 10
-      value: 0.5031787
-      inSlope: -0.00006304858
-      outSlope: -0.00006304858
+      time: 20
+      value: 0.5
+      inSlope: 0.027274728
+      outSlope: 0.027274728
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.13573715
+      inWeight: 0.10754191
+      outWeight: 0.12639959
+    - serializedVersion: 3
+      time: 41.992218
+      value: 0.76910776
+      inSlope: -0.0048683328
+      outSlope: -0.0048683328
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.50309074
+    - serializedVersion: 3
+      time: 70
+      value: 0.3680175
+      inSlope: -0.01079269
+      outSlope: -0.01079269
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.17919302
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 150
@@ -307,7 +325,24 @@ MonoBehaviour:
   relativeForce: 0
   gravity: 0
   _acceleration: 0
+  _decelleration: 0
   isWhistling: 0
+  pressureToForceDEBUG:
+    Curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    Value: 0
+  forceEffectivenessOverSpeedDEBUG:
+    Curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    Value: 0
   engineForce: 0
   environmentFeedbackController: {fileID: 6857131611998938044}
 --- !u!1001 &760486117
