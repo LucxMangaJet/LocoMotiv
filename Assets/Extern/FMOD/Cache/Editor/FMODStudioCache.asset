@@ -89,14 +89,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
-  m_Name: bank:/Desktop/Master.strings.bank
+  m_Name: bank:/Master.strings.bank
   m_EditorClassIdentifier: 
   Path: Assets/Sounds/Desktop/Master.strings.bank
-  Name: Desktop/Master.strings
+  Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 637844370217164818
+  lastModified: 637851282877545483
   FileSizes:
-  - Name: 
+  - Name: Desktop
     Value: 1208
   Exists: 1
 --- !u!114 &-1433421697487409461
@@ -183,7 +183,7 @@ MonoBehaviour:
   - {fileID: 1943125420978417146}
   StringsBanks:
   - {fileID: -1700630165274817904}
-  cacheTime: 637844370217164818
+  cacheTime: 637851282877545483
   cacheVersion: 10
 --- !u!114 &444686089937029
 MonoBehaviour:
@@ -279,8 +279,10 @@ MonoBehaviour:
   Path: Assets/Sounds/Desktop/Master.bank
   Name: Desktop/Master
   StudioPath: bank:/Master
-  lastModified: 637844370217144870
-  FileSizes: []
+  lastModified: 637851282877535513
+  FileSizes:
+  - Name: Desktop
+    Value: 4877760
   Exists: 1
 --- !u!114 &3411815827206870537
 MonoBehaviour:
