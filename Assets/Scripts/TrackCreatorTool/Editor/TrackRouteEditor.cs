@@ -64,9 +64,125 @@ public class TrackRouteEditor : Editor
         if (selectedSection != null && selectedTransforms.Length > 0)
         {
             DrawEditHandle(selectedTransforms[0], "Point");
+
+            Vector2 botRight = new Vector2(Screen.width, Screen.height) * 0.905f - new Vector2(20, 65);
+            Vector2 size = new Vector2(250, 150);
+            Handles.BeginGUI();
+
+            GUIStyle box = new GUIStyle("box");
+
+            GUILayout.BeginArea(new Rect(botRight.x - size.x, botRight.y - size.y, size.x, size.y), box);
+
+            GUILayout.BeginHorizontal();
+            if (GUILayout.Button(EditorGUIUtility.FindTexture("d_tab_prev")))
+            {
+
+            }
+
+            if (GUILayout.Button(EditorGUIUtility.FindTexture("d_tab_next")))
+            {
+
+            }
+
+            GUILayout.EndHorizontal();
+
+            GUILayout.BeginHorizontal();
+
+
+            float height = selectedTransforms[0].position.y;
+            int iconSize = 40;
+            GUIStyle bold = new GUIStyle();
+            bold.normal.textColor = Color.white;
+            bold.fontStyle = FontStyle.Bold;
+
+            if (previousSection != null)
+            {
+
+                float difference = height - previousSection.StartTransform.position.y;
+                float distance = Vector2.Distance(new Vector2(selectedTransforms[0].position.x, selectedTransforms[0].position.z), new Vector2(previousSection.StartTransform.position.x, previousSection.StartTransform.position.z));
+
+                float slope = difference / distance * 100f;
+
+                GUILayout.BeginVertical();
+
+                GUILayout.Label("previous height");
+
+                GUILayout.BeginHorizontal();
+
+                GUILayout.Label((Texture)AssetDatabase.LoadAssetAtPath("Assets/Textures/EditorIcons/icon_editor_track_height-difference-to-previous.png", typeof(Texture)), GUILayout.Height(iconSize), GUILayout.Width(iconSize));
+
+                GUILayout.BeginVertical();
+
+                GUILayout.Label($"{difference.ToString("N1")}m");
+                GUILayout.Label($"{slope.ToString("N1")}%", bold);
+
+                GUILayout.EndVertical();
+
+                GUILayout.EndHorizontal();
+                GUILayout.EndVertical();
+            }
+
+            if (nextSection != null)
+            {
+
+                float difference = nextSection.StartTransform.position.y - height;
+                float distance = Vector2.Distance(new Vector2(selectedTransforms[0].position.x, selectedTransforms[0].position.z), new Vector2(nextSection.StartTransform.position.x, nextSection.StartTransform.position.z));
+
+                float slope = difference / distance * 100f;
+
+                GUILayout.BeginVertical();
+
+                GUILayout.Label("next height");
+
+                GUILayout.BeginHorizontal();
+
+                GUILayout.Label((Texture)AssetDatabase.LoadAssetAtPath("Assets/Textures/EditorIcons/icon_editor_track_height-difference-to-next.png", typeof(Texture)), GUILayout.Height(iconSize), GUILayout.Width(iconSize));
+
+                GUILayout.BeginVertical();
+
+                GUILayout.Label($"{difference.ToString("N1")}m");
+                GUILayout.Label($"{slope.ToString("N1")}%", bold);
+
+                GUILayout.EndVertical();
+
+                GUILayout.EndHorizontal();
+                GUILayout.EndVertical();
+            }
+
+            GUILayout.EndHorizontal();
+            GUILayout.BeginHorizontal();
+
+            if (previousSection != null && GUILayout.Button("adapt height"))
+            {
+                AdaptHeightTo(previousSection.StartTransform);
+            }
+
+            if (nextSection != null && GUILayout.Button("adapt height"))
+            {
+                AdaptHeightTo(nextSection.StartTransform);
+            }
+
+            GUILayout.EndHorizontal();
+
+            //if (GUILayout.Button("Auto Adapt Slope"))
+            //{
+            //   
+            //}
+
+
+            if (GUILayout.Button("Set slope to 0"))
+            {
+                Undo.RecordObjects(selectedTransforms, "Reset " + name + " Slope");
+                foreach (Transform t in selectedTransforms)
+                    t.rotation = Quaternion.Euler(0, t.rotation.eulerAngles.y, t.rotation.eulerAngles.z);
+
+                UpdateSections();
+            }
+
+            GUILayout.EndArea();
+            Handles.EndGUI();
         }
     }
-
     private void UpdateHoldingControlKey()
     {
         var e = Event.current;
@@ -154,7 +270,7 @@ public class TrackRouteEditor : Editor
     {
         TrackSection newSection = Instantiate(section, route.transform);
         newSection.name = "TrackSection";
-        newSection.transform.SetSiblingIndex(section.transform.GetSiblingIndex() +1);
+        newSection.transform.SetSiblingIndex(section.transform.GetSiblingIndex() + 1);
 
         section.EndTransform.position = point.Position;
         section.EndTransform.rotation = point.Rotation;
@@ -275,29 +391,13 @@ public class TrackRouteEditor : Editor
             UpdateSections();
         }
 
-        if (DrawButton(name, size, transform.position + Vector3.up * size * 6, "Reset Slope"))
-        {
-            Undo.RecordObjects(selectedTransforms, "Reset " + name + " Slope");
-            foreach (Transform t in selectedTransforms)
-                t.rotation = Quaternion.Euler(0, t.rotation.eulerAngles.y, t.rotation.eulerAngles.z);
-
-            UpdateSections();
-        }
+        Handles.color = Color.white;
 
         if (previousSection != null)
         {
             Vector3 cur = transform.position;
             Vector3 prev = previousSection.StartTransform.position;
             Vector3 r = DrawSlopeHelper(cur, prev);
-
-            if (DrawButton(name, size, cur + Vector3.up * size * 8, "Reset height to match Previous"))
-            {
-                Undo.RecordObjects(selectedTransforms, "Reset " + name + " Height");
-                foreach (Transform t in selectedTransforms)
-                    t.position = r;
-
-                UpdateSections();
-            }
         }
 
         if (nextSection != null)
@@ -305,15 +405,6 @@ public class TrackRouteEditor : Editor
             Vector3 cur = transform.position;
             Vector3 nex = nextSection.StartTransform.position;
             Vector3 r = DrawSlopeHelper(cur, nex);
-
-            if (DrawButton(name, size, cur + Vector3.up * size * 10, "Reset height to match Next"))
-            {
-                Undo.RecordObjects(selectedTransforms, "Reset " + name + " Height");
-                foreach (Transform t in selectedTransforms)
-                    t.position = r;
-
-                UpdateSections();
-            }
         }
     }
 
@@ -328,6 +419,20 @@ public class TrackRouteEditor : Editor
         Handles.DrawLine(remapped, cur, 1);
         return remapped;
     }
+
+    private void AdaptHeightTo(Transform startTransform)
+    {
+        Vector3 ownPos = selectedTransforms[0].position;
+        Vector3 otherPos = startTransform.position;
+        Vector3 newPos = new Vector3(ownPos.x, otherPos.y, ownPos.z);
+
+        Undo.RecordObjects(selectedTransforms, "Adapt Point Height");
+        foreach (Transform t in selectedTransforms)
+            t.position = newPos;
+
+        UpdateSections();
+    }
+
 
     private bool DrawButton(string name, float size, Vector3 pos, string text)
     {
