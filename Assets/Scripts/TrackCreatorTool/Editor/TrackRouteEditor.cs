@@ -164,10 +164,23 @@ public class TrackRouteEditor : Editor
 
             GUILayout.EndHorizontal();
 
-            //if (GUILayout.Button("Auto Adapt Slope"))
-            //{
-            //   
-            //}
+            if (previousSection != null && nextSection != null)
+            {
+                if (GUILayout.Button("Auto Adapt Slope"))
+                {
+                    Vector3 prev = previousSection.StartTransform.position;
+                    Vector3 next = nextSection.StartTransform.position;
+
+                    float difference = next.y - prev.y;
+                    float distance = Vector3.Distance(prev, next);
+
+                    Undo.RecordObjects(selectedTransforms, "Auto Adapt Slope");
+                    foreach (Transform t in selectedTransforms)
+                        t.rotation = Quaternion.Euler(-Mathf.Asin(difference / distance) * Mathf.Rad2Deg, t.rotation.eulerAngles.y, t.rotation.eulerAngles.z);
+
+                    UpdateSections();
+                }
+            }
 
 
             if (GUILayout.Button("Set slope to 0"))
@@ -397,27 +410,26 @@ public class TrackRouteEditor : Editor
         {
             Vector3 cur = transform.position;
             Vector3 prev = previousSection.StartTransform.position;
-            Vector3 r = DrawSlopeHelper(cur, prev);
+            DrawSlopeHelper(cur, prev);
         }
 
         if (nextSection != null)
         {
             Vector3 cur = transform.position;
             Vector3 nex = nextSection.StartTransform.position;
-            Vector3 r = DrawSlopeHelper(cur, nex);
+            DrawSlopeHelper(cur, nex);
         }
     }
 
-    private static Vector3 DrawSlopeHelper(Vector3 cur, Vector3 prev)
+    private static void DrawSlopeHelper(Vector3 cur, Vector3 prev)
     {
         Vector3 remapped = new Vector3(cur.x, prev.y, cur.z);
 
         float slope = (cur.y - prev.y) / Vector3.Distance(prev, remapped) * 100f;
 
         Handles.DrawLine(prev, remapped, 1);
-        Handles.Label(remapped, slope.ToString());
+        Handles.Label(remapped, slope.ToString("N1") + "%");
         Handles.DrawLine(remapped, cur, 1);
-        return remapped;
     }
 
     private void AdaptHeightTo(Transform startTransform)

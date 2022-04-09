@@ -13,6 +13,11 @@ public class AdjustTerrainToTrack : MonoBehaviour
     [SerializeField]
     bool running = false;
 
+    private void Reset()
+    {
+        m_terrain = GetComponent<Terrain>();
+    }
+
     [Button]
     public void updateTerrainData()
     {
