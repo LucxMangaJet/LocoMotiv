@@ -7,13 +7,6 @@ public class TrainController : Singleton<TrainController>
     [SerializeField] MoveAlongTrack mover;
     [SerializeField] TrainSegmentsMover trainRoot;
 
-    [Header("Control")]
-    [Range(0, 1)]
-    [SerializeField] float throttle = 1;
-
-    [Range(0, 1)]
-    [SerializeField] float breaks = 0;
-
     [SerializeField] bool bCheatAlwaysMaxPressure;
 
     [Header("Balance")]
@@ -34,7 +27,6 @@ public class TrainController : Singleton<TrainController>
     [SerializeField] float pressureToForceCurveMultiplyer;
 
     [SerializeField] AnimationCurve forceEffectivenessOverSpeed;
-    [SerializeField] AnimationCurve forceEffectivenessOverSlope;
 
     [SerializeField] float pressureReleaseByWhistle;
 
@@ -58,34 +50,36 @@ public class TrainController : Singleton<TrainController>
     [SerializeField] float airDensity = 1;
 
     [SerializeField, ReadOnly]
-    private float speed = 0;
-    [SerializeField, ReadOnly]
     private float fuel = 0;
     [SerializeField, ReadOnly]
     private float pressure = 0;
-    [SerializeField, ReadOnly]
-    private float relativeForce;
 
-    [SerializeField, ProgressBar("pressure = force", 1, EColor.Blue)]
-    private float _pressureToForce = 0;
-    [SerializeField, ProgressBar("speed => force", 1, EColor.Blue)]
-    private float _forceOverSpeed = 0;
-    //[SerializeField, ProgressBar("slope => force", 1, EColor.Green)]
-    private float _forceOverSlope = 0;
+    [Header("Control")]
+    [Range(0, 1)]
+    [SerializeField] float throttle = 1;
 
-    [SerializeField, ReadOnly, ProgressBar("relative force", 10, EColor.Green)]
+    [Range(0, 1)]
+    [SerializeField] float breaks = 0;
+
+    [Header("Debug")]
+
+    [SerializeField]
+    Force _forceMultipliers;
+    [SerializeField,  ProgressBar("relative force", 10, EColor.Green)]
     private float _force = 0;
     private float _gravity = 0;
-    [SerializeField, ReadOnly, ProgressBar("positive gravity", 10, EColor.Green)]
+    [SerializeField,  ProgressBar("positive gravity", 10, EColor.Green)]
     private float _gravityPos = 0f;
-    [SerializeField, ReadOnly, ProgressBar("negative gravity", 10, EColor.Red)]
+    [SerializeField,  ProgressBar("negative gravity", 10, EColor.Red)]
     private float _gravityNeg = 0f;
     [SerializeField]
     Resistance _resistance;
-    [SerializeField, ReadOnly, ProgressBar("resistance", 10, EColor.Red)]
+    [SerializeField,  ProgressBar("resistance", 10, EColor.Red)]
     private float _resistanceTotal = 0;
-    [SerializeField, ReadOnly, ProgressBar("acceleration", 10, EColor.Yellow)]
+    [SerializeField,  ProgressBar("acceleration", 10, EColor.Yellow)]
     private float _acceleration = 0;
+    [SerializeField, ProgressBar("speed", 100, EColor.Blue)]
+    private float speed = 0;
     [SerializeField, ReadOnly]
     private float slope = 0;
     [SerializeField, ReadOnly]
@@ -98,12 +92,13 @@ public class TrainController : Singleton<TrainController>
     [SerializeField]
     private DebugAnimationCurve forceEffectivenessOverSpeedDEBUG;
     [SerializeField]
-    private DebugAnimationCurve forceEffectivenessOverSlopeDEBUG;
-    [SerializeField]
     private DebugAnimationCurve RollingResistanceOverSpeedMultiplierDEBUG;
 
     [SerializeField, ReadOnly]
     private float engineForce;
+
+    [Button]
+    public void Shovel() => AddFuel(fuelAddedPerShovel);
 
     [Header("References")]
     [SerializeField] private TrainEnvironmentFeedbackController environmentFeedbackController;
@@ -120,7 +115,6 @@ public class TrainController : Singleton<TrainController>
 
         pressureToForceDEBUG = new DebugAnimationCurve() { Curve = pressureToForceCurve };
         forceEffectivenessOverSpeedDEBUG = new DebugAnimationCurve() { Curve = forceEffectivenessOverSpeed };
-        forceEffectivenessOverSlopeDEBUG = new DebugAnimationCurve() { Curve = forceEffectivenessOverSlope };
         RollingResistanceOverSpeedMultiplierDEBUG = new DebugAnimationCurve() { Curve = rollingResistanceOverSpeedMultiplierCurve };
 
         ShovelEventBase.Trigger += OnShovelTrigger;
@@ -210,14 +204,16 @@ public class TrainController : Singleton<TrainController>
 
         pressureToForceDEBUG.Value = pressure;
 
+        _forceMultipliers = new Force();
+
         //engine acceleration
-        _pressureToForce = pressureToForceCurve.Evaluate(pressure);
-        _forceOverSpeed = forceEffectivenessOverSpeed.Evaluate(speed);
-        _forceOverSlope = forceEffectivenessOverSlope.Evaluate(slope);
-        float force = throttle * _pressureToForce * _forceOverSpeed * _forceOverSlope * pressureToForceCurveMultiplyer;
+        _forceMultipliers.Pressure = pressure;
+        _forceMultipliers.Trottle = throttle;
+        _forceMultipliers.PressureToForce = pressureToForceCurve.Evaluate(pressure);
+        _forceMultipliers.SpeedToForce = forceEffectivenessOverSpeed.Evaluate(speed);
+        float force = throttle * _forceMultipliers.PressureToForce * _forceMultipliers.SpeedToForce * pressureToForceCurveMultiplyer;
 
         forceEffectivenessOverSpeedDEBUG.Value = speed;
-        forceEffectivenessOverSlopeDEBUG.Value = slope;
 
         engineForce = force;
     }
@@ -336,7 +332,6 @@ public class TrainController : Singleton<TrainController>
         return rollingResistanceOverSpeedMultiplierCurve.Evaluate(speed) * rollingResistance;
     }
 
-
     public void AddFuel(float _amount)
     {
         fuel += _amount;
@@ -387,6 +382,19 @@ public class TrainController : Singleton<TrainController>
     }
 
     #endregion
+}
+
+[System.Serializable]
+public class Force
+{
+    [ProgressBar("Pressure", 1000, EColor.Green)]
+    public float Pressure;
+    [ProgressBar("Trottle", 1, EColor.Green)]
+    public float Trottle;
+    [ProgressBar("Pressure To Force", 1, EColor.Green)]
+    public float PressureToForce;
+    [ProgressBar("Speed To Force", 1, EColor.Green)]
+    public float SpeedToForce;
 }
 
 [System.Serializable]
