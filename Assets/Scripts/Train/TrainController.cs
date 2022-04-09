@@ -65,18 +65,18 @@ public class TrainController : Singleton<TrainController>
 
     [SerializeField]
     Force _forceMultipliers;
-    [SerializeField,  ProgressBar("relative force", 10, EColor.Green)]
+    [SerializeField, ProgressBar("relative force", 10, EColor.Green)]
     private float _force = 0;
     private float _gravity = 0;
-    [SerializeField,  ProgressBar("positive gravity", 10, EColor.Green)]
+    [SerializeField, ProgressBar("positive gravity", 10, EColor.Green)]
     private float _gravityPos = 0f;
-    [SerializeField,  ProgressBar("negative gravity", 10, EColor.Red)]
+    [SerializeField, ProgressBar("negative gravity", 10, EColor.Red)]
     private float _gravityNeg = 0f;
     [SerializeField]
     Resistance _resistance;
-    [SerializeField,  ProgressBar("resistance", 10, EColor.Red)]
+    [SerializeField, ProgressBar("resistance", 10, EColor.Red)]
     private float _resistanceTotal = 0;
-    [SerializeField,  ProgressBar("acceleration", 10, EColor.Yellow)]
+    [SerializeField, ProgressBar("acceleration", 10, EColor.Yellow)]
     private float _acceleration = 0;
     [SerializeField, ProgressBar("speed", 100, EColor.Blue)]
     private float speed = 0;
@@ -140,14 +140,20 @@ public class TrainController : Singleton<TrainController>
         _gravityPos = Mathf.Max(0, _gravity);
         _gravityNeg = Mathf.Min(0, _gravity) * -1;
 
+        _acceleration = (_force + _gravity);
 
-        _acceleration = (_force + _gravity - _resistanceTotal);
-
-        speed += _acceleration * Time.deltaTime;
-
+        float speed2 = speed + _acceleration * Time.deltaTime;
         //breaking to stop
-        //if (Mathf.Abs(speed) < Mathf.Abs(_resistanceTotal * Time.deltaTime))
-        //    speed = 0;
+        if (Mathf.Abs(speed2) < Mathf.Abs(_resistanceTotal * Time.deltaTime))
+        {
+            _acceleration = speed / Time.deltaTime;
+            speed = 0;
+        }
+        else
+        {
+            _acceleration -= _resistanceTotal;
+            speed += _acceleration * Time.deltaTime;
+        }
 
         mover.SetSpeed(speed);
 
