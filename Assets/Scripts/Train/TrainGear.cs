@@ -6,8 +6,9 @@ using UnityEngine;
 [CreateAssetMenu]
 public class TrainGear : ScriptableObject
 {
-    [SerializeField] AnimationCurve forceOverSpeedCurve;
-    [SerializeField, Range(0f, 1f)] float beatsPerUnit;
+    [SerializeField] public AnimationCurve forceOverSpeedCurve;
+    [SerializeField, Range(0f, 1f)] public float beatsPerUnit;
     private int[] dirs = new int[] { -1, 1 };
-    [SerializeField, Dropdown("dirs")] int directionMultiplier = 1;
+    [SerializeField, Dropdown("dirs")] public int directionMultiplier = 1;
+    [SerializeField, Range(0f,1f)] public float GravityScale = 1f;
 }

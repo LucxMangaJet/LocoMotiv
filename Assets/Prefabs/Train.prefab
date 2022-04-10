@@ -91,7 +91,7 @@ MonoBehaviour:
   rootMass: 1000
   rollingResistanceCoefficient: 0.015
   airDragCoefficient: 1.8
-  turnResistanceCoefficient: 100
+  turnResistanceCoefficient: 10
   wagonCrossSectionArea: 1
   airDensity: 1.225
   fuelAddedPerShovel: 30
@@ -203,58 +203,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  pressureToForceCurveMultiplyer: 100000
-  forceEffectivenessOverSpeed:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: -0.038762785
-      outSlope: -0.038762785
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 13.08149
-      value: 0.49292505
-      inSlope: 0.027274728
-      outSlope: 0.027274728
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.10754191
-      outWeight: 0.12639959
-    - serializedVersion: 3
-      time: 34.130272
-      value: 0.9
-      inSlope: -0.0048683328
-      outSlope: -0.0048683328
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.50309074
-    - serializedVersion: 3
-      time: 70
-      value: 0.3680175
-      inSlope: -0.01079269
-      outSlope: -0.01079269
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.17919302
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 150
-      value: 0
-      inSlope: 0.000050512717
-      outSlope: 0.000050512717
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.29142487
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
+  pressureToForceCurveMultiplyer: 80000
   pressureReleaseByWhistle: 350
   pressureReleaseOverSpeed:
     serializedVersion: 2
@@ -346,7 +295,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  gravityScale: 0.35
   throttle: 1
   breaks: 0
   bCheatAlwaysMaxPressure: 0
@@ -355,6 +303,7 @@ MonoBehaviour:
     Trottle: 0
     PressureToForce: 0
     SpeedToForce: 0
+    Direction: 0
   _force: 0
   _gravityPos: 0
   _gravityNeg: 0

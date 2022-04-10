@@ -33,15 +33,12 @@ public class TrainController : Singleton<TrainController>
 
     [Foldout("Balance"), SerializeField] float pressureToForceCurveMultiplyer;
 
-    [Foldout("Balance"), SerializeField] AnimationCurve forceEffectivenessOverSpeed;
-
     [Foldout("Balance"), SerializeField] float pressureReleaseByWhistle;
 
     [Foldout("Balance"), SerializeField] AnimationCurve pressureReleaseOverSpeed;
 
     [Foldout("Balance"), SerializeField] AnimationCurve pressureReleaseOverPressure;
     [Foldout("Balance"), SerializeField] AnimationCurve rollingResistanceOverSpeedMultiplierCurve;
-    [Foldout("Balance"), SerializeField, Range(0, 1)] float gravityScale;
 
 
 
@@ -111,7 +108,6 @@ public class TrainController : Singleton<TrainController>
         resistance = new float[trainRoot.Segments.Length];
 
         pressureToForceDEBUG = new DebugAnimationCurve() { Curve = pressureToForceCurve };
-        forceEffectivenessOverSpeedDEBUG = new DebugAnimationCurve() { Curve = forceEffectivenessOverSpeed };
         RollingResistanceOverSpeedMultiplierDEBUG = new DebugAnimationCurve() { Curve = rollingResistanceOverSpeedMultiplierCurve };
 
         ShovelEventBase.Trigger += OnShovelTrigger;
@@ -213,9 +209,12 @@ public class TrainController : Singleton<TrainController>
         _forceMultipliers.Pressure = pressure;
         _forceMultipliers.Trottle = throttle;
         _forceMultipliers.PressureToForce = pressureToForceCurve.Evaluate(pressure);
-        _forceMultipliers.SpeedToForce = forceEffectivenessOverSpeed.Evaluate(speed);
-        float force = throttle * _forceMultipliers.PressureToForce * _forceMultipliers.SpeedToForce * pressureToForceCurveMultiplyer;
+        _forceMultipliers.SpeedToForce = activeGear.forceOverSpeedCurve.Evaluate(speed);
+        _forceMultipliers.Direction = activeGear.directionMultiplier;
+        //_forceMultipliers.SpeedToForce = forceEffectivenessOverSpeed.Evaluate(speed);
+        float force = throttle * _forceMultipliers.PressureToForce * _forceMultipliers.SpeedToForce * _forceMultipliers.Direction * pressureToForceCurveMultiplyer;
 
+        forceEffectivenessOverSpeedDEBUG.Curve = activeGear.forceOverSpeedCurve;
         forceEffectivenessOverSpeedDEBUG.Value = speed;
 
         engineForce = force;
@@ -235,7 +234,7 @@ public class TrainController : Singleton<TrainController>
             gravity += acc;
         }
 
-        gravity *= gravityScale;
+        gravity *= activeGear.GravityScale;
         return gravity;
     }
 
@@ -398,6 +397,7 @@ public class Force
     public float PressureToForce;
     [ProgressBar("Speed To Force", 1, EColor.Green)]
     public float SpeedToForce;
+    [SerializeField, ReadOnly] public int Direction;
 }
 
 [System.Serializable]

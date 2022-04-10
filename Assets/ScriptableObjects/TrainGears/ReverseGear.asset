@@ -47,3 +47,4 @@ MonoBehaviour:
     m_RotationOrder: 4
   beatsPerUnit: 1
   directionMultiplier: -1
+  GravityScale: 0.1
