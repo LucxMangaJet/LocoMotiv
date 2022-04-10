@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee27bc00d24bb6c47a2f893a804f142c, type: 3}
+  m_Name: SecondGear
+  m_EditorClassIdentifier: 
+  forceOverSpeedCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0.00011861435
+      outSlope: 0.00011861435
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.4252938
+    - serializedVersion: 3
+      time: 35
+      value: 1
+      inSlope: 0.00027370095
+      outSlope: 0.00027370095
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.25723332
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 50
+      value: 0.2
+      inSlope: -0.009588713
+      outSlope: -0.009588713
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.44013724
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 100
+      value: 0
+      inSlope: 0.00005040396
+      outSlope: 0.00005040396
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.19346407
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  beatsPerUnit: 0
+  directionMultiplier: 1

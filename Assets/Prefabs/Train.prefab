@@ -87,11 +87,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4363c2ae0cdb0ec4a91d523fc0dea0cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mover: {fileID: 6270358161751392402}
-  trainRoot: {fileID: 6270358161751392401}
-  throttle: 1
-  breaks: 0
-  bCheatAlwaysMaxPressure: 0
+  segmentMass: 1000
+  rootMass: 1000
+  rollingResistanceCoefficient: 0.015
+  airDragCoefficient: 1.8
+  turnResistanceCoefficient: 100
+  wagonCrossSectionArea: 1
+  airDensity: 1.225
   fuelAddedPerShovel: 30
   maxFuel: 100
   maxPressure: 1000
@@ -253,30 +255,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  forceEffectivenessOverSlope:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: -10
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 10
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
   pressureReleaseByWhistle: 350
   pressureReleaseOverSpeed:
     serializedVersion: 2
@@ -369,19 +347,14 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   gravityScale: 0.35
-  segmentMass: 1000
-  rootMass: 1000
-  rollingResistanceCoefficient: 0.015
-  airDragCoefficient: 1.8
-  turnResistanceCoefficient: 100
-  wagonCrossSectionArea: 1
-  airDensity: 1.225
-  speed: 0
-  fuel: 0
-  pressure: 0
-  relativeForce: 0
-  _pressureToForce: 0
-  _forceOverSpeed: 0
+  throttle: 1
+  breaks: 0
+  bCheatAlwaysMaxPressure: 0
+  _forceMultipliers:
+    Pressure: 0
+    Trottle: 0
+    PressureToForce: 0
+    SpeedToForce: 0
   _force: 0
   _gravityPos: 0
   _gravityNeg: 0
@@ -392,9 +365,13 @@ MonoBehaviour:
     Breaks: 0
   _resistanceTotal: 0
   _acceleration: 0
+  speed: 0
   slope: 0
   turnResistance: 0
   isWhistling: 0
+  engineForce: 0
+  fuel: 0
+  pressure: 0
   pressureToForceDEBUG:
     Curve:
       serializedVersion: 2
@@ -411,14 +388,6 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
     Value: 0
-  forceEffectivenessOverSlopeDEBUG:
-    Curve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    Value: 0
   RollingResistanceOverSpeedMultiplierDEBUG:
     Curve:
       serializedVersion: 2
@@ -427,8 +396,14 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
     Value: 0
-  engineForce: 0
   environmentFeedbackController: {fileID: 6857131611998938044}
+  mover: {fileID: 6270358161751392402}
+  trainRoot: {fileID: 6270358161751392401}
+  availableGears:
+  - {fileID: 11400000, guid: 295cc32ca175d084abb5a280ef997a0c, type: 2}
+  - {fileID: 11400000, guid: fba28d988e107eb4183cd1350d3c26c3, type: 2}
+  - {fileID: 11400000, guid: e794485b0900a054aa1828a84b7d8b11, type: 2}
+  activeGear: {fileID: 11400000, guid: 295cc32ca175d084abb5a280ef997a0c, type: 2}
 --- !u!1001 &760486117
 PrefabInstance:
   m_ObjectHideFlags: 0

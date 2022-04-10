@@ -4,104 +4,101 @@ using Train.Feedback;
 
 public class TrainController : Singleton<TrainController>
 {
-    [SerializeField] MoveAlongTrack mover;
-    [SerializeField] TrainSegmentsMover trainRoot;
+    [Header("Settings")]
 
-    [SerializeField] bool bCheatAlwaysMaxPressure;
+    [Foldout("Settings"), SerializeField] float segmentMass;
+    [Foldout("Settings"), SerializeField] float rootMass;
+
+    [Foldout("Settings"), SerializeField] float rollingResistanceCoefficient = 1;
+    [Foldout("Settings"), SerializeField] float airDragCoefficient = 1;
+    [Foldout("Settings"), SerializeField] float turnResistanceCoefficient = 1;
+
+    [Foldout("Settings"), SerializeField] float wagonCrossSectionArea = 1;
+    [Foldout("Settings"), SerializeField] float airDensity = 1;
 
     [Header("Balance")]
 
-    [SerializeField] float fuelAddedPerShovel = 10;
-    [SerializeField] float maxFuel = 100;
-    [SerializeField] float maxPressure = 1000;
-    [SerializeField] float breakingForce = 100000;
+    [Foldout("Balance"), SerializeField] float fuelAddedPerShovel = 10;
+    [Foldout("Balance"), SerializeField] float maxFuel = 100;
+    [Foldout("Balance"), SerializeField] float maxPressure = 1000;
+    [Foldout("Balance"), SerializeField] float breakingForce = 100000;
 
-    [SerializeField] AnimationCurve fuelConsumptionOverAmount;
+    [Foldout("Balance"), SerializeField] AnimationCurve fuelConsumptionOverAmount;
 
-    [SerializeField] AnimationCurve maxPressureOverFuelAmount;
+    [Foldout("Balance"), SerializeField] AnimationCurve maxPressureOverFuelAmount;
 
-    [SerializeField] AnimationCurve pressureBuildupOverFuelAmount;
+    [Foldout("Balance"), SerializeField] AnimationCurve pressureBuildupOverFuelAmount;
 
-    [SerializeField] AnimationCurve pressureToForceCurve;
+    [Foldout("Balance"), SerializeField] AnimationCurve pressureToForceCurve;
 
-    [SerializeField] float pressureToForceCurveMultiplyer;
+    [Foldout("Balance"), SerializeField] float pressureToForceCurveMultiplyer;
 
-    [SerializeField] AnimationCurve forceEffectivenessOverSpeed;
+    [Foldout("Balance"), SerializeField] AnimationCurve forceEffectivenessOverSpeed;
 
-    [SerializeField] float pressureReleaseByWhistle;
+    [Foldout("Balance"), SerializeField] float pressureReleaseByWhistle;
 
-    [SerializeField] AnimationCurve pressureReleaseOverSpeed;
+    [Foldout("Balance"), SerializeField] AnimationCurve pressureReleaseOverSpeed;
 
-    [SerializeField] AnimationCurve pressureReleaseOverPressure;
-    [SerializeField] AnimationCurve rollingResistanceOverSpeedMultiplierCurve;
-    [SerializeField, Range(0, 1)] float gravityScale;
+    [Foldout("Balance"), SerializeField] AnimationCurve pressureReleaseOverPressure;
+    [Foldout("Balance"), SerializeField] AnimationCurve rollingResistanceOverSpeedMultiplierCurve;
+    [Foldout("Balance"), SerializeField, Range(0, 1)] float gravityScale;
 
 
-    [Header("Settings")]
-
-    [SerializeField] float segmentMass;
-    [SerializeField] float rootMass;
-
-    [SerializeField] float rollingResistanceCoefficient = 1;
-    [SerializeField] float airDragCoefficient = 1;
-    [SerializeField] float turnResistanceCoefficient = 1;
-
-    [SerializeField] float wagonCrossSectionArea = 1;
-    [SerializeField] float airDensity = 1;
-
-    [SerializeField, ReadOnly]
-    private float fuel = 0;
-    [SerializeField, ReadOnly]
-    private float pressure = 0;
 
     [Header("Control")]
-    [Range(0, 1)]
-    [SerializeField] float throttle = 1;
-
-    [Range(0, 1)]
-    [SerializeField] float breaks = 0;
+    [Foldout("Control"), Range(0, 1), SerializeField] float throttle = 1;
+    [Foldout("Control"), Range(0, 1), SerializeField] float breaks = 0;
+    [Foldout("Control"), SerializeField] bool bCheatAlwaysMaxPressure;
 
     [Header("Debug")]
 
-    [SerializeField]
+    [Foldout("Debug"), SerializeField]
     Force _forceMultipliers;
-    [SerializeField,  ProgressBar("relative force", 10, EColor.Green)]
+    [Foldout("Debug"), SerializeField, ProgressBar("relative force", 10, EColor.Green)]
     private float _force = 0;
     private float _gravity = 0;
-    [SerializeField,  ProgressBar("positive gravity", 10, EColor.Green)]
+    [Foldout("Debug"), SerializeField, ProgressBar("positive gravity", 10, EColor.Green)]
     private float _gravityPos = 0f;
-    [SerializeField,  ProgressBar("negative gravity", 10, EColor.Red)]
+    [Foldout("Debug"), SerializeField, ProgressBar("negative gravity", 10, EColor.Red)]
     private float _gravityNeg = 0f;
-    [SerializeField]
+    [Foldout("Debug"), SerializeField]
     Resistance _resistance;
-    [SerializeField,  ProgressBar("resistance", 10, EColor.Red)]
+    [Foldout("Debug"), SerializeField, ProgressBar("resistance", 10, EColor.Red)]
     private float _resistanceTotal = 0;
-    [SerializeField,  ProgressBar("acceleration", 10, EColor.Yellow)]
+    [Foldout("Debug"), SerializeField, ProgressBar("acceleration", 10, EColor.Yellow)]
     private float _acceleration = 0;
-    [SerializeField, ProgressBar("speed", 100, EColor.Blue)]
+    [Foldout("Debug"), SerializeField, ProgressBar("speed", 100, EColor.Blue)]
     private float speed = 0;
-    [SerializeField, ReadOnly]
+    [Foldout("Debug"), SerializeField, ReadOnly]
     private float slope = 0;
-    [SerializeField, ReadOnly]
+    [Foldout("Debug"), SerializeField, ReadOnly]
     private float turnResistance;
-    [SerializeField, ReadOnly]
+    [Foldout("Debug"), SerializeField, ReadOnly]
     private bool isWhistling;
+    [Foldout("Debug"), SerializeField, ReadOnly]
+    private float engineForce;
+    [Foldout("Debug"), SerializeField, ReadOnly]
+    private float fuel = 0;
+    [Foldout("Debug"), SerializeField, ReadOnly]
+    private float pressure = 0;
 
-    [SerializeField]
+    [Foldout("Debug"), SerializeField]
     private DebugAnimationCurve pressureToForceDEBUG;
-    [SerializeField]
+    [Foldout("Debug"), SerializeField]
     private DebugAnimationCurve forceEffectivenessOverSpeedDEBUG;
-    [SerializeField]
+    [Foldout("Debug"), SerializeField]
     private DebugAnimationCurve RollingResistanceOverSpeedMultiplierDEBUG;
 
-    [SerializeField, ReadOnly]
-    private float engineForce;
 
     [Button]
     public void Shovel() => AddFuel(fuelAddedPerShovel);
 
     [Header("References")]
-    [SerializeField] private TrainEnvironmentFeedbackController environmentFeedbackController;
+    [Foldout("References"), SerializeField] private TrainEnvironmentFeedbackController environmentFeedbackController;
+    [Foldout("References"), SerializeField] MoveAlongTrack mover;
+    [Foldout("References"), SerializeField] TrainSegmentsMover trainRoot;
+    [Foldout("References"), SerializeField] TrainGear[] availableGears;
+    [Foldout("Control"), SerializeField, Dropdown("availableGears")] TrainGear activeGear;
 
     //debug
     private float[] acceleration;
