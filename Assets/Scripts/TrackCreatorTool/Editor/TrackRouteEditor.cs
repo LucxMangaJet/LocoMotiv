@@ -395,7 +395,7 @@ public class TrackRouteEditor : Editor
         }
 
         Vector3 newPos = Handles.PositionHandle(transform.position, Quaternion.identity);
-        if (EditorGUI.EndChangeCheck())
+        if (EditorGUI.EndChangeCheck() && newPos != transform.position)
         {
             Undo.RecordObjects(selectedTransforms, "Change " + name + " Position");
             foreach (Transform t in selectedTransforms)

@@ -137,14 +137,20 @@ public class TrainController : Singleton<TrainController>
         _gravityPos = Mathf.Max(0, _gravity);
         _gravityNeg = Mathf.Min(0, _gravity) * -1;
 
+        _acceleration = (_force + _gravity);
 
-        _acceleration = (_force + _gravity - _resistanceTotal);
-
-        speed += _acceleration * Time.deltaTime;
-
+        float speed2 = speed + _acceleration * Time.deltaTime;
         //breaking to stop
-        //if (Mathf.Abs(speed) < Mathf.Abs(_resistanceTotal * Time.deltaTime))
-        //    speed = 0;
+        if (Mathf.Abs(speed2) < Mathf.Abs(_resistanceTotal * Time.deltaTime))
+        {
+            _acceleration = speed / Time.deltaTime;
+            speed = 0;
+        }
+        else
+        {
+            _acceleration -= _resistanceTotal;
+            speed += _acceleration * Time.deltaTime;
+        }
 
         mover.SetSpeed(speed);
 
