@@ -1,5 +1,29 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8353559870773865244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Beat/pressure
+  m_EditorClassIdentifier: 
+  Name: pressure
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 3106754199
+    data2: 984686684
+  Type: 0
+  IsGlobal: 1
+  Labels: []
+  Exists: 1
 --- !u!114 &-7214276390667906369
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19,7 +43,7 @@ MonoBehaviour:
     Data3: 1997452723
     Data4: -1898626126
   Banks:
-  - {fileID: 1943125420978417146}
+  - {fileID: -4228687035640241000}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -51,6 +75,30 @@ MonoBehaviour:
   IsGlobal: 0
   Labels: []
   Exists: 1
+--- !u!114 &-6290429671840743480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/pressure
+  m_EditorClassIdentifier: 
+  Name: pressure
+  StudioPath: parameter:/pressure
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 3106754199
+    data2: 984686684
+  Type: 0
+  IsGlobal: 1
+  Labels: []
+  Exists: 1
 --- !u!114 &-5861047717802488920
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -70,7 +118,7 @@ MonoBehaviour:
     Data3: -1943775581
     Data4: -2126804797
   Banks:
-  - {fileID: 1943125420978417146}
+  - {fileID: -4228687035640241000}
   IsStream: 1
   Is3D: 1
   IsOneShot: 1
@@ -79,7 +127,7 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
---- !u!114 &-1700630165274817904
+--- !u!114 &-4228687035640241000
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -89,15 +137,37 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
-  m_Name: bank:/Master.strings.bank
+  m_Name: bank:/Desktop/Master.bank
   m_EditorClassIdentifier: 
-  Path: Assets/Sounds/Desktop/Master.strings.bank
-  Name: Master.strings
-  StudioPath: bank:/Master.strings
-  lastModified: 637851282877545483
-  FileSizes:
-  - Name: Desktop
-    Value: 1208
+  Path: Assets/StreamingAssets/Desktop/Master.bank
+  Name: Desktop/Master
+  StudioPath: bank:/Master
+  lastModified: 637851955235780510
+  FileSizes: []
+  Exists: 1
+--- !u!114 &-2305874096828697576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/beatsPerSecond
+  m_EditorClassIdentifier: 
+  Name: beatsPerSecond
+  StudioPath: parameter:/beatsPerSecond
+  Min: 0
+  Max: 10
+  Default: 0
+  ID:
+    data1: 372245943
+    data2: 3620036518
+  Type: 0
+  IsGlobal: 1
+  Labels: []
   Exists: 1
 --- !u!114 &-1433421697487409461
 MonoBehaviour:
@@ -118,7 +188,7 @@ MonoBehaviour:
     Data3: 1694561438
     Data4: -750132572
   Banks:
-  - {fileID: 1943125420978417146}
+  - {fileID: -4228687035640241000}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -146,7 +216,7 @@ MonoBehaviour:
     Data3: 1050781602
     Data4: -1805787912
   Banks:
-  - {fileID: 1943125420978417146}
+  - {fileID: -4228687035640241000}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -154,6 +224,30 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1114
+--- !u!114 &-659505209414831567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/trainSpeed
+  m_EditorClassIdentifier: 
+  Name: trainSpeed
+  StudioPath: parameter:/trainSpeed
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 3956595898
+    data2: 2307070775
+  Type: 0
+  IsGlobal: 1
+  Labels: []
+  Exists: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -167,8 +261,8 @@ MonoBehaviour:
   m_Name: FMODStudioCache
   m_EditorClassIdentifier: 
   EditorBanks:
-  - {fileID: -1700630165274817904}
-  - {fileID: 1943125420978417146}
+  - {fileID: 4000960006412787013}
+  - {fileID: -4228687035640241000}
   EditorEvents:
   - {fileID: -5861047717802488920}
   - {fileID: 4982226430560039937}
@@ -178,12 +272,17 @@ MonoBehaviour:
   - {fileID: 667623289502438556}
   - {fileID: 8770901447939479427}
   - {fileID: -1036053620630974260}
-  EditorParameters: []
+  - {fileID: 6204595988562366707}
+  EditorParameters:
+  - {fileID: -659505209414831567}
+  - {fileID: -2305874096828697576}
+  - {fileID: -6290429671840743480}
+  - {fileID: 7711535745767631566}
   MasterBanks:
-  - {fileID: 1943125420978417146}
+  - {fileID: -4228687035640241000}
   StringsBanks:
-  - {fileID: -1700630165274817904}
-  cacheTime: 637851282877545483
+  - {fileID: 4000960006412787013}
+  cacheTime: 637851955235800457
   cacheVersion: 10
 --- !u!114 &444686089937029
 MonoBehaviour:
@@ -206,7 +305,7 @@ MonoBehaviour:
     data1: 3106754199
     data2: 984686684
   Type: 0
-  IsGlobal: 0
+  IsGlobal: 1
   Labels: []
   Exists: 1
 --- !u!114 &599009975555479630
@@ -228,7 +327,7 @@ MonoBehaviour:
     Data3: -1328065907
     Data4: 1471706550
   Banks:
-  - {fileID: 1943125420978417146}
+  - {fileID: -4228687035640241000}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
@@ -256,7 +355,7 @@ MonoBehaviour:
     Data3: 2053257399
     Data4: 257109207
   Banks:
-  - {fileID: 1943125420978417146}
+  - {fileID: -4228687035640241000}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -264,26 +363,6 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1296
---- !u!114 &1943125420978417146
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
-  m_Name: bank:/Desktop/Master.bank
-  m_EditorClassIdentifier: 
-  Path: Assets/Sounds/Desktop/Master.bank
-  Name: Desktop/Master
-  StudioPath: bank:/Master
-  lastModified: 637851282877535513
-  FileSizes:
-  - Name: Desktop
-    Value: 4877760
-  Exists: 1
 --- !u!114 &3411815827206870537
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -305,7 +384,75 @@ MonoBehaviour:
     data1: 3106754199
     data2: 984686684
   Type: 0
-  IsGlobal: 0
+  IsGlobal: 1
+  Labels: []
+  Exists: 1
+--- !u!114 &4000960006412787013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Desktop/Master.strings.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/StreamingAssets/Desktop/Master.strings.bank
+  Name: Desktop/Master.strings
+  StudioPath: bank:/Master.strings
+  lastModified: 637851955235800457
+  FileSizes:
+  - Name: 
+    Value: 1324
+  Exists: 1
+--- !u!114 &4074930281839881781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Beat/slope
+  m_EditorClassIdentifier: 
+  Name: slope
+  StudioPath: 
+  Min: -10
+  Max: 10
+  Default: 0
+  ID:
+    data1: 1895422269
+    data2: 3650837223
+  Type: 0
+  IsGlobal: 1
+  Labels: []
+  Exists: 1
+--- !u!114 &4405988030456468843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Beat/beatsPerSecond
+  m_EditorClassIdentifier: 
+  Name: beatsPerSecond
+  StudioPath: 
+  Min: 0
+  Max: 10
+  Default: 0
+  ID:
+    data1: 372245943
+    data2: 3620036518
+  Type: 0
+  IsGlobal: 1
   Labels: []
   Exists: 1
 --- !u!114 &4982226430560039937
@@ -327,7 +474,7 @@ MonoBehaviour:
     Data3: 1103770803
     Data4: -653055776
   Banks:
-  - {fileID: 1943125420978417146}
+  - {fileID: -4228687035640241000}
   IsStream: 1
   Is3D: 1
   IsOneShot: 0
@@ -337,6 +484,60 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &6204595988562366707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Beat
+  m_EditorClassIdentifier: 
+  Path: event:/Beat
+  Guid:
+    Data1: 1535698333
+    Data2: 1102935332
+    Data3: 1907591864
+    Data4: 28430443
+  Banks:
+  - {fileID: -4228687035640241000}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 4405988030456468843}
+  - {fileID: -8353559870773865244}
+  - {fileID: 4074930281839881781}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &7711535745767631566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/slope
+  m_EditorClassIdentifier: 
+  Name: slope
+  StudioPath: parameter:/slope
+  Min: -10
+  Max: 10
+  Default: 0
+  ID:
+    data1: 1895422269
+    data2: 3650837223
+  Type: 0
+  IsGlobal: 1
+  Labels: []
+  Exists: 1
 --- !u!114 &8257207291877082688
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -358,7 +559,7 @@ MonoBehaviour:
     data1: 3956595898
     data2: 2307070775
   Type: 0
-  IsGlobal: 0
+  IsGlobal: 1
   Labels: []
   Exists: 1
 --- !u!114 &8333659284816171756
@@ -382,7 +583,7 @@ MonoBehaviour:
     data1: 3106754199
     data2: 984686684
   Type: 0
-  IsGlobal: 0
+  IsGlobal: 1
   Labels: []
   Exists: 1
 --- !u!114 &8770901447939479427
@@ -404,7 +605,7 @@ MonoBehaviour:
     Data3: -69340768
     Data4: 1715145901
   Banks:
-  - {fileID: 1943125420978417146}
+  - {fileID: -4228687035640241000}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1

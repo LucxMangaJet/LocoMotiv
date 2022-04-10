@@ -11,6 +11,7 @@ namespace Train.Feedback
     public class TrainEnvironmentFeedbackController : MonoBehaviour
     {
         [SerializeField, Range(0, 1)] float enginePressurePercent;
+        [SerializeField, Range(0, 1)] float beatsPerUnit;
         [SerializeField, Range(0, 100)] float trainSpeed;
         [SerializeField, Range(0, 1)] float fuelPercentage;
         [SerializeField, Range(-10, 10)] float slope;
@@ -32,15 +33,19 @@ namespace Train.Feedback
         [SerializeField] GaugeShaderBehaviour slopeGauge;
         [SerializeField] float maxGaugeSpeed = 150;
 
+        [SerializeField, ReadOnly] float beatsPerSecond;
+
         public float PressurePercent { set => enginePressurePercent = value; }
         public float FuelPercent { set => fuelPercentage = value; }
         public float Speed { set => trainSpeed = value; }
-        public float Slope { set => slope = value; }
+        public float Slope { set => slope = Mathf.Clamp(value, -9.9f, 9.9f); }
+        public float BeatsPerUnit { set => beatsPerUnit = value; }
 
         private void Update()
         {
+            beatsPerSecond = beatsPerUnit * trainSpeed;
             strokeDuration = speedToStrokeDurationCurve.Evaluate(trainSpeed);
-            pressureRelease.Update(enginePressurePercent, strokeDuration, Time.deltaTime);
+            pressureRelease.Update(enginePressurePercent, Mathf.Max(1f / beatsPerSecond, 0.1f), Time.deltaTime);
             chimneySmoke.Update(enginePressurePercent, strokeDuration, Time.deltaTime);
             engineFire.Update(enginePressurePercent, lidOpen);
             engineFuel.SetPercent(fuelPercentage);
@@ -49,7 +54,10 @@ namespace Train.Feedback
             float speedPercent = trainSpeed / maxGaugeSpeed;
             speedGauge.SetPercent(speedPercent);
             slopeGauge.SetValue(slope);
-            railsEmitter.SetParameter("trainSpeed", speedPercent);
+            FMODUnity.RuntimeManager.StudioSystem.setParameterByName("trainSpeed", speedPercent);
+            FMODUnity.RuntimeManager.StudioSystem.setParameterByName("beatsPerSecond", Mathf.Clamp(beatsPerSecond, 0.25f, 10f));
+            FMODUnity.RuntimeManager.StudioSystem.setParameterByName("pressure", enginePressurePercent);
+            FMODUnity.RuntimeManager.StudioSystem.setParameterByName("slope", slope);
         }
 
         [Button]
@@ -86,7 +94,6 @@ namespace Train.Feedback.Modules
         internal void Update(float enginePressurePercent, bool lidOpen)
         {
             SetPercent(enginePressurePercent);
-            eventEmitter.SetParameter("pressure", enginePressurePercent);
             eventEmitter.SetParameter("lidOpen", lidOpen ? 1 : 0);
         }
     }
@@ -108,8 +115,6 @@ namespace Train.Feedback.Modules
             if (time > strokeDuration)
             {
                 time = 0;
-
-                eventEmitter.SetParameter("pressure", enginePressurePercentage);
                 eventEmitter.Play();
 
                 foreach (ParticleSystem system in particleSystems)

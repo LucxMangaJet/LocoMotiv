@@ -176,6 +176,7 @@ public class TrainController : Singleton<TrainController>
         environmentFeedbackController.PressurePercent = pressure / maxPressure;
         environmentFeedbackController.FuelPercent = fuel / maxFuel;
         environmentFeedbackController.Speed = speed;
+        environmentFeedbackController.BeatsPerUnit = activeGear.beatsPerUnit;
         environmentFeedbackController.Slope = slope;
     }
 

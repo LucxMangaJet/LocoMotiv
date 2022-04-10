@@ -54,6 +54,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  beatsPerUnit: 0
+  beatsPerUnit: 0.075
   directionMultiplier: 1
   GravityScale: 0.5

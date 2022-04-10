@@ -203,7 +203,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  pressureToForceCurveMultiplyer: 80000
+  pressureToForceCurveMultiplyer: 60000
   pressureReleaseByWhistle: 350
   pressureReleaseOverSpeed:
     serializedVersion: 2

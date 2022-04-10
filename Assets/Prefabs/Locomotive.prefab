@@ -10479,6 +10479,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enginePressurePercent: 1
+  beatsPerUnit: 0
   trainSpeed: 0
   fuelPercentage: 0
   slope: 0
@@ -10619,6 +10620,7 @@ MonoBehaviour:
   speedGauge: {fileID: 1272780741936598087}
   slopeGauge: {fileID: 4142211001105579806}
   maxGaugeSpeed: 150
+  beatsPerSecond: 0
 --- !u!1 &2928864095903224614
 GameObject:
   m_ObjectHideFlags: 0
@@ -25527,20 +25529,18 @@ MonoBehaviour:
   CollisionTag: 
   EventReference:
     Guid:
-      Data1: -678230407
-      Data2: 1087150469
-      Data3: -1943775581
-      Data4: -2126804797
-    Path: event:/Stroke
+      Data1: 1535698333
+      Data2: 1102935332
+      Data3: 1907591864
+      Data4: 28430443
+    Path: event:/Beat
   Event: 
   PlayEvent: 0
   StopEvent: 0
   AllowFadeout: 1
   TriggerOnce: 0
   Preload: 0
-  Params:
-  - Name: pressure
-    Value: 0
+  Params: []
   OverrideAttenuation: 0
   OverrideMinDistance: 1
   OverrideMaxDistance: 20
