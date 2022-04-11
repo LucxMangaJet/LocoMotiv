@@ -117,7 +117,7 @@ Material:
     - _Color: {r: 0.6981132, g: 0.63510185, b: 0.52277726, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
-    - _baseColor: {r: 0.5660378, g: 0.5412658, b: 0.48261324, a: 1}
+    - _baseColor: {r: 0.8490566, g: 0.57586324, b: 0.2593417, a: 1}
     - _heatColor: {r: 1, g: 0.1891944, b: 0, a: 1}
     - _heatColor2: {r: 1, g: 0.3628958, b: 0, a: 1}
     - _remap: {r: 0.5, g: 3, b: 0, a: 0}

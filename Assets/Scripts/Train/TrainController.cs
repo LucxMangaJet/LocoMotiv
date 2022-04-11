@@ -24,23 +24,15 @@ public class TrainController : Singleton<TrainController>
     [Foldout("Balance"), SerializeField] float breakingForce = 100000;
 
     [Foldout("Balance"), SerializeField] AnimationCurve fuelConsumptionOverAmount;
-
     [Foldout("Balance"), SerializeField] AnimationCurve maxPressureOverFuelAmount;
-
     [Foldout("Balance"), SerializeField] AnimationCurve pressureBuildupOverFuelAmount;
-
     [Foldout("Balance"), SerializeField] AnimationCurve pressureToForceCurve;
-
     [Foldout("Balance"), SerializeField] float pressureToForceCurveMultiplyer;
-
     [Foldout("Balance"), SerializeField] float pressureReleaseByWhistle;
-
     [Foldout("Balance"), SerializeField] AnimationCurve pressureReleaseOverSpeed;
-
     [Foldout("Balance"), SerializeField] AnimationCurve pressureReleaseOverPressure;
     [Foldout("Balance"), SerializeField] AnimationCurve rollingResistanceOverSpeedMultiplierCurve;
-
-
+    [Foldout("Balance"), SerializeField] AnimationCurve overheatPerSecondOverPressure;
 
     [Header("Control")]
     [Foldout("Control"), Range(0, 1), SerializeField] float throttle = 1;
@@ -78,6 +70,8 @@ public class TrainController : Singleton<TrainController>
     private float fuel = 0;
     [Foldout("Debug"), SerializeField, ReadOnly]
     private float pressure = 0;
+    [Foldout("Debug"), SerializeField, ReadOnly, Range(0, 1)]
+    private float overheat = 0;
 
     [Foldout("Debug"), SerializeField]
     private DebugAnimationCurve pressureToForceDEBUG;
@@ -85,6 +79,8 @@ public class TrainController : Singleton<TrainController>
     private DebugAnimationCurve forceEffectivenessOverSpeedDEBUG;
     [Foldout("Debug"), SerializeField]
     private DebugAnimationCurve RollingResistanceOverSpeedMultiplierDEBUG;
+    [Foldout("Debug"), SerializeField]
+    private DebugAnimationCurve OverheatPerSecondOverPressureDEBUG;
 
 
     [Button]
@@ -109,6 +105,7 @@ public class TrainController : Singleton<TrainController>
 
         pressureToForceDEBUG = new DebugAnimationCurve() { Curve = pressureToForceCurve };
         RollingResistanceOverSpeedMultiplierDEBUG = new DebugAnimationCurve() { Curve = rollingResistanceOverSpeedMultiplierCurve };
+        OverheatPerSecondOverPressureDEBUG = new DebugAnimationCurve() { Curve = overheatPerSecondOverPressure };
 
         ShovelEventBase.Trigger += OnShovelTrigger;
     }
@@ -127,6 +124,9 @@ public class TrainController : Singleton<TrainController>
         float totalMass = (rootMass + trainRoot.Segments.Length * segmentMass);
 
         UpdateSlope();
+
+        pressure = UpdatePressure();
+
         UpdateForce();
 
         _force = engineForce / totalMass;
@@ -183,18 +183,21 @@ public class TrainController : Singleton<TrainController>
         environmentFeedbackController.BeatsPerUnit = activeGear.beatsPerUnit;
         environmentFeedbackController.Slope = slope;
         environmentFeedbackController.Tunnel = mover.CurveSample.IsTunnel;
+        environmentFeedbackController.Overheat = overheat;
     }
 
-    private void UpdateForce()
+    private float UpdatePressure()
     {
         float dt = Time.deltaTime;
+
+        float pressureBefore = this.pressure;
 
         fuel = Mathf.Clamp(fuel - fuelConsumptionOverAmount.Evaluate(fuel) * dt, 0, maxFuel);
 
         float pressureGeneration = pressureBuildupOverFuelAmount.Evaluate(fuel);
 
         //engine uses steam to throttle up/down
-        float pressureRelease = pressureReleaseOverPressure.Evaluate(pressure);
+        float pressureRelease = pressureReleaseOverPressure.Evaluate(pressureBefore);
         float pressureConsumption = throttle * pressureRelease * pressureReleaseOverSpeed.Evaluate(speed);
 
         if (isWhistling)
@@ -202,13 +205,20 @@ public class TrainController : Singleton<TrainController>
 
         //dont allow pressure buildup if engine is not hot enough
         float maxPressure = maxPressureOverFuelAmount.Evaluate(fuel);
-        if (pressure > maxPressure)
+        if (pressureBefore > maxPressure)
             pressureGeneration = 0;
 
-        pressure = Mathf.Max(0, pressure + (pressureGeneration - pressureConsumption) * dt);
-
+        float pressure = Mathf.Max(0, pressureBefore + (pressureGeneration - pressureConsumption) * dt);
         pressureToForceDEBUG.Value = pressure;
+        OverheatPerSecondOverPressureDEBUG.Value = pressure;
 
+        overheat = Mathf.Clamp(overheat + overheatPerSecondOverPressure.Evaluate(pressure) * dt, 0f, 1f);
+
+        return pressure;
+    }
+
+    private void UpdateForce()
+    {
         _forceMultipliers = new Force();
 
         //engine acceleration

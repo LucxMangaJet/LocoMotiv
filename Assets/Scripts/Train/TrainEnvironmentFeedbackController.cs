@@ -15,6 +15,7 @@ namespace Train.Feedback
         [SerializeField, Range(0, 100)] float trainSpeed;
         [SerializeField, Range(0, 1)] float fuelPercentage;
         [SerializeField, Range(-10, 10)] float slope;
+        [SerializeField, Range(0, 1)] float overheatingPercent;
         [SerializeField] AnimationCurve speedToStrokeDurationCurve;
         [SerializeField, ReadOnly] float strokeDuration;
         [SerializeField] bool lidOpen;
@@ -34,6 +35,9 @@ namespace Train.Feedback
         [SerializeField] GaugeShaderBehaviour slopeGauge;
         [SerializeField] float maxGaugeSpeed = 150;
 
+        [SerializeField] MeshRenderer[] overheatingRenderers;
+        private Material[] overheatingMaterials;
+
         [SerializeField, ReadOnly] float beatsPerSecond;
 
         public float PressurePercent { set => enginePressurePercent = value; }
@@ -42,7 +46,17 @@ namespace Train.Feedback
         public float Slope { set => slope = Mathf.Clamp(value, -9.9f, 9.9f); }
         public float BeatsPerUnit { set => beatsPerUnit = value; }
         public bool Tunnel { set => tunnel = value ? 1 : 0; }
+        public float Overheat { set => overheatingPercent = value; }
 
+        private void Start()
+        {
+            overheatingMaterials = new Material[overheatingRenderers.Length];
+            for (int i = 0; i < overheatingRenderers.Length; i++)
+            {
+                overheatingMaterials[i] = new Material(overheatingRenderers[i].material);
+                overheatingRenderers[i].material = overheatingMaterials[i];
+            }
+        }
         private void Update()
         {
             beatsPerSecond = beatsPerUnit * trainSpeed;
@@ -56,6 +70,8 @@ namespace Train.Feedback
             float speedPercent = trainSpeed / maxGaugeSpeed;
             speedGauge.SetPercent(speedPercent);
             slopeGauge.SetValue(slope);
+
+            foreach (Material material in overheatingMaterials) material.SetFloat("_heat", overheatingPercent);
 
             FMODUnity.RuntimeManager.StudioSystem.setParameterByName("trainSpeed", speedPercent);
             FMODUnity.RuntimeManager.StudioSystem.setParameterByName("beatsPerSecond", Mathf.Clamp(beatsPerSecond, 0.25f, 10f));

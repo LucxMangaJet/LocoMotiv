@@ -10486,6 +10486,7 @@ MonoBehaviour:
   trainSpeed: 0
   fuelPercentage: 0
   slope: 0
+  overheatingPercent: 0
   speedToStrokeDurationCurve:
     serializedVersion: 2
     m_Curve:
@@ -10624,6 +10625,12 @@ MonoBehaviour:
   speedGauge: {fileID: 1272780741936598087}
   slopeGauge: {fileID: 4142211001105579806}
   maxGaugeSpeed: 150
+  overheatingRenderers:
+  - {fileID: 7909897262938571032}
+  - {fileID: 8544056605020553539}
+  - {fileID: 6475384990101257385}
+  - {fileID: 5143824569358647431}
+  - {fileID: 3679024386194635999}
   beatsPerSecond: 0
 --- !u!114 &947657399
 MonoBehaviour:
@@ -26155,7 +26162,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 1bdea07c04ab1f54aad9e103798582f4, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: e58cafafe2832774c80fd94a74b296cb, type: 2}
+      objectReference: {fileID: 2100000, guid: 4aef16be84bef664980ce2f45ee32b68, type: 2}
     - target: {fileID: 919132149155446097, guid: 1bdea07c04ab1f54aad9e103798582f4, type: 3}
       propertyPath: m_Name
       value: cauldron
@@ -26166,6 +26173,11 @@ PrefabInstance:
 --- !u!4 &2541624427863246768 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1bdea07c04ab1f54aad9e103798582f4, type: 3}
+  m_PrefabInstance: {fileID: 2652356907775549531}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &3679024386194635999 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 1bdea07c04ab1f54aad9e103798582f4, type: 3}
   m_PrefabInstance: {fileID: 2652356907775549531}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2791433920794485402
@@ -26529,20 +26541,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5429226672491891088, guid: c7f3859b8eeef6345838e1441ed1adf8, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: f9b8f9e1c6d5370479ab2839890d1df9, type: 2}
-    - target: {fileID: 5768956591997569483, guid: c7f3859b8eeef6345838e1441ed1adf8, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: f9b8f9e1c6d5370479ab2839890d1df9, type: 2}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: c7f3859b8eeef6345838e1441ed1adf8, type: 3}
 --- !u!4 &2541624427319624911 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2202052552478395420, guid: c7f3859b8eeef6345838e1441ed1adf8, type: 3}
+  m_PrefabInstance: {fileID: 4452629371183696083}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &7909897262938571032 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 5768956591997569483, guid: c7f3859b8eeef6345838e1441ed1adf8, type: 3}
+  m_PrefabInstance: {fileID: 4452629371183696083}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &8544056605020553539 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 5429226672491891088, guid: c7f3859b8eeef6345838e1441ed1adf8, type: 3}
   m_PrefabInstance: {fileID: 4452629371183696083}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6250621323020538888
@@ -26619,6 +26633,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba1cfc8a9470f91418187bd2c9966bfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!23 &5143824569358647431 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 1286942938434344079, guid: bd4fbfe5a2bc8a945ad65f32b307e79c, type: 3}
+  m_PrefabInstance: {fileID: 6250621323020538888}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &6475384990101257385 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 1108900008716839073, guid: bd4fbfe5a2bc8a945ad65f32b307e79c, type: 3}
+  m_PrefabInstance: {fileID: 6250621323020538888}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8999148021408251896 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3052824321709681648, guid: bd4fbfe5a2bc8a945ad65f32b307e79c, type: 3}
