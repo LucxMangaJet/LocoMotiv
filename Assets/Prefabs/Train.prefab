@@ -998,6 +998,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Locomotive
       objectReference: {fileID: 0}
+    - target: {fileID: 3679024386194635999, guid: f17831ba810097743bb493bcb78f589b, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4aef16be84bef664980ce2f45ee32b68, type: 2}
     - target: {fileID: 4060611770585542471, guid: f17831ba810097743bb493bcb78f589b, type: 3}
       propertyPath: train
       value: 

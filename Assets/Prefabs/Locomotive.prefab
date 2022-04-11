@@ -26529,6 +26529,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5429226672491891088, guid: c7f3859b8eeef6345838e1441ed1adf8, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f9b8f9e1c6d5370479ab2839890d1df9, type: 2}
+    - target: {fileID: 5768956591997569483, guid: c7f3859b8eeef6345838e1441ed1adf8, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f9b8f9e1c6d5370479ab2839890d1df9, type: 2}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: c7f3859b8eeef6345838e1441ed1adf8, type: 3}
@@ -26545,6 +26553,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 2652356909449273100}
     m_Modifications:
+    - target: {fileID: 608049845138297413, guid: bd4fbfe5a2bc8a945ad65f32b307e79c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 73a27de2421229e46bd0cf6d031ce53d, type: 2}
     - target: {fileID: 2384127306506301770, guid: bd4fbfe5a2bc8a945ad65f32b307e79c, type: 3}
       propertyPath: m_Name
       value: Whistle
