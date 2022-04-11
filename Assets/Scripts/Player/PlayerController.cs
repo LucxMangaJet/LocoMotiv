@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,7 @@ public enum PlayerRotateLock
 public class PlayerController : MonoBehaviour
 {
     static PlayerRotateLock s_Rotatelock = PlayerRotateLock.None;
+    static MoveInputOverride moveInputOverride = null;
 
     [SerializeField] public InputModule InputModule;
     [SerializeField] public MoveModule moveModule;
@@ -20,7 +22,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GroundCheckModule groundCheckModule;
     [SerializeField] PlayerInteractionModule interactionModule;
 
-
     public void Awake()
     {
         s_Rotatelock = PlayerRotateLock.None;
@@ -28,7 +29,11 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        moveModule.Move(InputModule.GetMoveInput());
+        Vector2 moveInput = InputModule.GetMoveInput();
+        if (moveInputOverride != null)
+            moveInputOverride.Input(moveInput);
+        else
+            moveModule.Move(moveInput);
 
         if (s_Rotatelock == PlayerRotateLock.None)
             mouseLook.Look(InputModule.GetMouseInput());
@@ -60,5 +65,19 @@ public class PlayerController : MonoBehaviour
             s_Rotatelock |= _lockType;
         else
             s_Rotatelock &= ~_lockType;
+    }
+
+    public static void SetMoveInputOverride(MoveInputOverride _moveInputOverride)
+    {
+        moveInputOverride = _moveInputOverride;
+    }
+}
+
+public class MoveInputOverride
+{
+    public System.Action<Vector2> InputAction;
+    public void Input(Vector2 moveInput)
+    {
+        InputAction?.Invoke(moveInput);
     }
 }

@@ -112,6 +112,10 @@ public class TrainController : Singleton<TrainController>
 
         ShovelEventBase.Trigger += OnShovelTrigger;
     }
+    public void SwitchGear(TrainGear gear)
+    {
+        activeGear = gear;
+    }
 
     private void OnDestroy()
     {
