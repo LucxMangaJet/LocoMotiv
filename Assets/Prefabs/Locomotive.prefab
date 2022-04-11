@@ -25821,6 +25821,30 @@ PrefabInstance:
       propertyPath: m_Text
       value: Pressure
       objectReference: {fileID: 0}
+    - target: {fileID: 576424043399347640, guid: de0e291f71f18db47b15e0da85365efa, type: 3}
+      propertyPath: percentToPointerAngleCurve.m_Curve.Array.data[0].value
+      value: 190
+      objectReference: {fileID: 0}
+    - target: {fileID: 576424043399347640, guid: de0e291f71f18db47b15e0da85365efa, type: 3}
+      propertyPath: percentToPointerAngleCurve.m_Curve.Array.data[0].inSlope
+      value: -225
+      objectReference: {fileID: 0}
+    - target: {fileID: 576424043399347640, guid: de0e291f71f18db47b15e0da85365efa, type: 3}
+      propertyPath: percentToPointerAngleCurve.m_Curve.Array.data[1].inSlope
+      value: -225
+      objectReference: {fileID: 0}
+    - target: {fileID: 576424043399347640, guid: de0e291f71f18db47b15e0da85365efa, type: 3}
+      propertyPath: percentToPointerAngleCurve.m_Curve.Array.data[0].outSlope
+      value: -225
+      objectReference: {fileID: 0}
+    - target: {fileID: 576424043399347640, guid: de0e291f71f18db47b15e0da85365efa, type: 3}
+      propertyPath: percentToPointerAngleCurve.m_Curve.Array.data[1].outSlope
+      value: -225
+      objectReference: {fileID: 0}
+    - target: {fileID: 3560392333726422619, guid: de0e291f71f18db47b15e0da85365efa, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: d8fdb4678b38f814b97b0ac74614e73a, type: 2}
     - target: {fileID: 3614586509042060450, guid: de0e291f71f18db47b15e0da85365efa, type: 3}
       propertyPath: m_RootOrder
       value: -1
