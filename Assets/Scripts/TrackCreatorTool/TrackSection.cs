@@ -87,7 +87,7 @@ public class TrackSection : MonoBehaviour
         Vector3 position = (ti3 * p0) + (3 * ti2 * time * p1) + (3 * ti * t2 * p2) + (t3 * p3);
         Vector3 tangent = (3 * ti2 * (p1 - p0)) + (6 * ti * time * (p2 - p1)) + (3 * t2 * (p3 - p2));
 
-        return new TrackPoint() { Position = position, Right = Quaternion.LookRotation(tangent, Vector3.up) * Vector3.right, Tangent = tangent.normalized };
+        return new TrackPoint() { Position = position, Right = Quaternion.LookRotation(tangent, Vector3.up) * Vector3.right, Tangent = tangent.normalized, IsTunnel = IsTunnel };
     }
 }
 
@@ -96,6 +96,6 @@ public class TrackPoint
     public Vector3 Position;
     public Vector3 Right;
     public Vector3 Tangent;
-
     public Quaternion Rotation => Quaternion.LookRotation(Tangent, Vector3.Cross(Tangent, Right));
+    public bool IsTunnel;
 }

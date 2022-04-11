@@ -178,6 +178,7 @@ public class TrainController : Singleton<TrainController>
         environmentFeedbackController.Speed = speed;
         environmentFeedbackController.BeatsPerUnit = activeGear.beatsPerUnit;
         environmentFeedbackController.Slope = slope;
+        environmentFeedbackController.Tunnel = mover.CurveSample.IsTunnel;
     }
 
     private void UpdateForce()

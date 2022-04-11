@@ -18,6 +18,7 @@ namespace Train.Feedback
         [SerializeField] AnimationCurve speedToStrokeDurationCurve;
         [SerializeField, ReadOnly] float strokeDuration;
         [SerializeField] bool lidOpen;
+        [SerializeField, Range(0, 1)] float tunnel;
 
         [SerializeField] PressureRelease pressureRelease;
         [SerializeField] ChimneySmoke chimneySmoke;
@@ -37,9 +38,10 @@ namespace Train.Feedback
 
         public float PressurePercent { set => enginePressurePercent = value; }
         public float FuelPercent { set => fuelPercentage = value; }
-        public float Speed { set => trainSpeed = value; }
+        public float Speed { set => trainSpeed = Mathf.Abs(value); }
         public float Slope { set => slope = Mathf.Clamp(value, -9.9f, 9.9f); }
         public float BeatsPerUnit { set => beatsPerUnit = value; }
+        public bool Tunnel { set => tunnel = value ? 1 : 0; }
 
         private void Update()
         {
@@ -54,10 +56,12 @@ namespace Train.Feedback
             float speedPercent = trainSpeed / maxGaugeSpeed;
             speedGauge.SetPercent(speedPercent);
             slopeGauge.SetValue(slope);
+
             FMODUnity.RuntimeManager.StudioSystem.setParameterByName("trainSpeed", speedPercent);
             FMODUnity.RuntimeManager.StudioSystem.setParameterByName("beatsPerSecond", Mathf.Clamp(beatsPerSecond, 0.25f, 10f));
             FMODUnity.RuntimeManager.StudioSystem.setParameterByName("pressure", enginePressurePercent);
             FMODUnity.RuntimeManager.StudioSystem.setParameterByName("slope", slope);
+            FMODUnity.RuntimeManager.StudioSystem.setParameterByName("tunnel", tunnel);
         }
 
         [Button]

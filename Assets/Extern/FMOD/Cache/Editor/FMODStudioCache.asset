@@ -127,6 +127,54 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-5362839840656604409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Beat/tunnel
+  m_EditorClassIdentifier: 
+  Name: tunnel
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 3433738716
+    data2: 4092814021
+  Type: 0
+  IsGlobal: 1
+  Labels: []
+  Exists: 1
+--- !u!114 &-5069002497352201405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/curve
+  m_EditorClassIdentifier: 
+  Name: curve
+  StudioPath: parameter:/curve
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 744966181
+    data2: 1636105320
+  Type: 0
+  IsGlobal: 1
+  Labels: []
+  Exists: 1
 --- !u!114 &-4228687035640241000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -142,7 +190,7 @@ MonoBehaviour:
   Path: Assets/StreamingAssets/Desktop/Master.bank
   Name: Desktop/Master
   StudioPath: bank:/Master
-  lastModified: 637851955235780510
+  lastModified: 637852732844204771
   FileSizes: []
   Exists: 1
 --- !u!114 &-2305874096828697576
@@ -278,11 +326,13 @@ MonoBehaviour:
   - {fileID: -2305874096828697576}
   - {fileID: -6290429671840743480}
   - {fileID: 7711535745767631566}
+  - {fileID: -5069002497352201405}
+  - {fileID: 5418987658453779466}
   MasterBanks:
   - {fileID: -4228687035640241000}
   StringsBanks:
   - {fileID: 4000960006412787013}
-  cacheTime: 637851955235800457
+  cacheTime: 637852732844224719
   cacheVersion: 10
 --- !u!114 &444686089937029
 MonoBehaviour:
@@ -333,6 +383,8 @@ MonoBehaviour:
   IsOneShot: 0
   Parameters:
   - {fileID: 8257207291877082688}
+  - {fileID: 5117074332585948112}
+  - {fileID: 5283284227814514985}
   MinDistance: 1
   MaxDistance: 20
   Length: 0
@@ -402,10 +454,10 @@ MonoBehaviour:
   Path: Assets/StreamingAssets/Desktop/Master.strings.bank
   Name: Desktop/Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 637851955235800457
+  lastModified: 637852732844224719
   FileSizes:
   - Name: 
-    Value: 1324
+    Value: 1408
   Exists: 1
 --- !u!114 &4074930281839881781
 MonoBehaviour:
@@ -484,6 +536,78 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &5117074332585948112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Rails/curve
+  m_EditorClassIdentifier: 
+  Name: curve
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 744966181
+    data2: 1636105320
+  Type: 0
+  IsGlobal: 1
+  Labels: []
+  Exists: 1
+--- !u!114 &5283284227814514985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Rails/tunnel
+  m_EditorClassIdentifier: 
+  Name: tunnel
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 3433738716
+    data2: 4092814021
+  Type: 0
+  IsGlobal: 1
+  Labels: []
+  Exists: 1
+--- !u!114 &5418987658453779466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/tunnel
+  m_EditorClassIdentifier: 
+  Name: tunnel
+  StudioPath: parameter:/tunnel
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 3433738716
+    data2: 4092814021
+  Type: 0
+  IsGlobal: 1
+  Labels: []
+  Exists: 1
 --- !u!114 &6204595988562366707
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -511,6 +635,7 @@ MonoBehaviour:
   - {fileID: 4405988030456468843}
   - {fileID: -8353559870773865244}
   - {fileID: 4074930281839881781}
+  - {fileID: -5362839840656604409}
   MinDistance: 1
   MaxDistance: 20
   Length: 0
