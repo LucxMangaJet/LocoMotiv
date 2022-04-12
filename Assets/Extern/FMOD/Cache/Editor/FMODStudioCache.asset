@@ -75,6 +75,30 @@ MonoBehaviour:
   IsGlobal: 0
   Labels: []
   Exists: 1
+--- !u!114 &-6508465177125798660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/overheat
+  m_EditorClassIdentifier: 
+  Name: overheat
+  StudioPath: parameter:/overheat
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 158293719
+    data2: 3735034299
+  Type: 0
+  IsGlobal: 1
+  Labels: []
+  Exists: 1
 --- !u!114 &-6290429671840743480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190,9 +214,37 @@ MonoBehaviour:
   Path: Assets/StreamingAssets/Desktop/Master.bank
   Name: Desktop/Master
   StudioPath: bank:/Master
-  lastModified: 637852732844204771
+  lastModified: 637853564181776930
   FileSizes: []
   Exists: 1
+--- !u!114 &-3252908950533832271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Overheat
+  m_EditorClassIdentifier: 
+  Path: event:/Overheat
+  Guid:
+    Data1: 1830249019
+    Data2: 1292316993
+    Data3: -1275282500
+    Data4: -1265805594
+  Banks:
+  - {fileID: -4228687035640241000}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 0
+  Parameters:
+  - {fileID: 1497130958464103897}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-2305874096828697576
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -321,6 +373,7 @@ MonoBehaviour:
   - {fileID: 8770901447939479427}
   - {fileID: -1036053620630974260}
   - {fileID: 6204595988562366707}
+  - {fileID: -3252908950533832271}
   EditorParameters:
   - {fileID: -659505209414831567}
   - {fileID: -2305874096828697576}
@@ -328,11 +381,12 @@ MonoBehaviour:
   - {fileID: 7711535745767631566}
   - {fileID: -5069002497352201405}
   - {fileID: 5418987658453779466}
+  - {fileID: -6508465177125798660}
   MasterBanks:
   - {fileID: -4228687035640241000}
   StringsBanks:
   - {fileID: 4000960006412787013}
-  cacheTime: 637852732844224719
+  cacheTime: 637853564181796900
   cacheVersion: 10
 --- !u!114 &444686089937029
 MonoBehaviour:
@@ -415,6 +469,30 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1296
+--- !u!114 &1497130958464103897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Overheat/overheat
+  m_EditorClassIdentifier: 
+  Name: overheat
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 158293719
+    data2: 3735034299
+  Type: 0
+  IsGlobal: 1
+  Labels: []
+  Exists: 1
 --- !u!114 &3411815827206870537
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -454,10 +532,10 @@ MonoBehaviour:
   Path: Assets/StreamingAssets/Desktop/Master.strings.bank
   Name: Desktop/Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 637852732844224719
+  lastModified: 637853564181796900
   FileSizes:
   - Name: 
-    Value: 1408
+    Value: 1486
   Exists: 1
 --- !u!114 &4074930281839881781
 MonoBehaviour:

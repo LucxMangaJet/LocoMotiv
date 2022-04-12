@@ -16,6 +16,7 @@ namespace Train.Feedback
         [SerializeField, Range(0, 1)] float fuelPercentage;
         [SerializeField, Range(-10, 10)] float slope;
         [SerializeField, Range(0, 1)] float overheatingPercent;
+        [SerializeField] AnimationCurve pressureToOverheatingFeedback;
         [SerializeField] AnimationCurve speedToStrokeDurationCurve;
         [SerializeField, ReadOnly] float strokeDuration;
         [SerializeField] bool lidOpen;
@@ -32,7 +33,7 @@ namespace Train.Feedback
         [SerializeField] GaugeCurveBehaviour pressureGauge;
         [SerializeField] GaugeCurveBehaviour fuelGauge;
         [SerializeField] GaugeCurveBehaviour speedGauge;
-        [SerializeField] GaugeShaderBehaviour slopeGauge;
+        [SerializeField] GaugeCurveBehaviour slopeGauge;
         [SerializeField] float maxGaugeSpeed = 150;
 
         [SerializeField] MeshRenderer[] overheatingRenderers;
@@ -69,9 +70,14 @@ namespace Train.Feedback
             fuelGauge.SetPercent(fuelPercentage);
             float speedPercent = trainSpeed / maxGaugeSpeed;
             speedGauge.SetPercent(speedPercent);
-            slopeGauge.SetValue(slope);
+            slopeGauge.SetPercent(slope);
 
             foreach (Material material in overheatingMaterials) material.SetFloat("_heat", overheatingPercent);
+
+            float currentlyOverheating = overheatingPercent * pressureToOverheatingFeedback.Evaluate(enginePressurePercent);
+
+            whistle.SetOverheat(currentlyOverheating);
+            FMODUnity.RuntimeManager.StudioSystem.setParameterByName("overheat", currentlyOverheating);
 
             FMODUnity.RuntimeManager.StudioSystem.setParameterByName("trainSpeed", speedPercent);
             FMODUnity.RuntimeManager.StudioSystem.setParameterByName("beatsPerSecond", Mathf.Clamp(beatsPerSecond, 0.25f, 10f));
