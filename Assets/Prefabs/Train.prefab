@@ -984,10 +984,6 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 8344001366527130259}
     m_Modifications:
-    - target: {fileID: 119519585, guid: f17831ba810097743bb493bcb78f589b, type: 3}
-      propertyPath: onLeverMoved.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 6270358161751392399}
     - target: {fileID: 840135242, guid: f17831ba810097743bb493bcb78f589b, type: 3}
       propertyPath: trainController
       value: 
@@ -1045,29 +1041,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6270358161751392399}
     - target: {fileID: 4222863667814966276, guid: f17831ba810097743bb493bcb78f589b, type: 3}
-      propertyPath: onLeverMoved.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4222863667814966276, guid: f17831ba810097743bb493bcb78f589b, type: 3}
-      propertyPath: onLeverMoved.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4222863667814966276, guid: f17831ba810097743bb493bcb78f589b, type: 3}
       propertyPath: onLeverMoved.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 6270358161751392399}
-    - target: {fileID: 4222863667814966276, guid: f17831ba810097743bb493bcb78f589b, type: 3}
-      propertyPath: onLeverMoved.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SetThrottleAndBreak
-      objectReference: {fileID: 0}
-    - target: {fileID: 4222863667814966276, guid: f17831ba810097743bb493bcb78f589b, type: 3}
-      propertyPath: onLeverMoved.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: TrainController, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 4222863667814966276, guid: f17831ba810097743bb493bcb78f589b, type: 3}
-      propertyPath: onLeverMoved.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: f17831ba810097743bb493bcb78f589b, type: 3}
