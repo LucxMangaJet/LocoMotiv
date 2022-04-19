@@ -74,6 +74,8 @@ public class TrainController : Singleton<TrainController>
     private float pressure = 0;
     [Foldout("Debug"), SerializeField, ReadOnly, Range(0, 1)]
     private float overheat = 0;
+    [Foldout("Debug"), SerializeField, ReadOnly]
+    private bool exploded;
 
     [Foldout("Debug"), SerializeField]
     private DebugAnimationCurve pressureToForceDEBUG;
@@ -215,6 +217,13 @@ public class TrainController : Singleton<TrainController>
         OverheatPerSecondOverPressureDEBUG.Value = pressure;
 
         overheat = Mathf.Clamp(overheat + overheatPerSecondOverPressure.Evaluate(pressure) * dt, 0f, 1f);
+
+        if (!exploded && overheat >= 1f)
+        {
+            exploded = true;
+            DeathManager.Die?.Invoke();
+            environmentFeedbackController.Explode();
+        }
 
         return pressure;
     }

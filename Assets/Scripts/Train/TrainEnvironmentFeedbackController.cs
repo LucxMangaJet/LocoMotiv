@@ -36,6 +36,8 @@ namespace Train.Feedback
         [SerializeField] GaugeCurveBehaviour slopeGauge;
         [SerializeField] float maxGaugeSpeed = 150;
 
+        [SerializeField] GameObject explosionEffects;
+
         [SerializeField] MeshRenderer[] overheatingRenderers;
         private Material[] overheatingMaterials;
 
@@ -90,6 +92,12 @@ namespace Train.Feedback
         public void UseWhistle()
         {
             whistle.Use(enginePressurePercent);
+        }
+
+        [Button]
+        public void Explode()
+        {
+            explosionEffects.SetActive(true);
         }
     }
 }

@@ -413,6 +413,7 @@ MonoBehaviour:
   fuel: 0
   pressure: 0
   overheat: 0
+  exploded: 0
   pressureToForceDEBUG:
     Curve:
       serializedVersion: 2
