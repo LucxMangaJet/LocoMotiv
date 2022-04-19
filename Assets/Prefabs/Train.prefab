@@ -203,6 +203,39 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  overheatToForceCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0.995927
+      outSlope: 0.995927
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.0775712
+    - serializedVersion: 3
+      time: 0.4984717
+      value: 1.75
+      inSlope: -0.057712235
+      outSlope: -0.057712235
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.18492806
+    - serializedVersion: 3
+      time: 1
+      value: 4
+      inSlope: 2.351125
+      outSlope: 2.351125
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.09606717
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   pressureToForceCurveMultiplyer: 60000
   pressureReleaseByWhistle: 350
   pressureReleaseOverSpeed:
@@ -262,6 +295,30 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  pressureReleaseOverOverheat:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0.12702435
+      outSlope: 0.12702435
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.10901899
+    - serializedVersion: 3
+      time: 1
+      value: 1.25
+      inSlope: 0.31486747
+      outSlope: 0.31486747
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.115269005
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   rollingResistanceOverSpeedMultiplierCurve:
     serializedVersion: 2
     m_Curve:
@@ -300,7 +357,7 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: -0.05
+      value: -0.1
       inSlope: 0.000034152028
       outSlope: 0.000034152028
       tangentMode: 0
@@ -310,15 +367,15 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 750
       value: 0
-      inSlope: 0.0001639081
-      outSlope: 0.0001639081
+      inSlope: -0.0000023854345
+      outSlope: -0.0000023854345
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.08352164
-      outWeight: 0.18947795
+      outWeight: 0.39636108
     - serializedVersion: 3
       time: 1000
-      value: 0.01
+      value: 0.05
       inSlope: -0.000018629386
       outSlope: -0.000018629386
       tangentMode: 0
@@ -336,6 +393,7 @@ MonoBehaviour:
     Trottle: 0
     PressureToForce: 0
     SpeedToForce: 0
+    OverheatToForce: 0
     Direction: 0
   _force: 0
   _gravityPos: 0
@@ -1048,6 +1106,18 @@ PrefabInstance:
       propertyPath: onLeverMoved.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 6270358161751392399}
+    - target: {fileID: 5400924322153051283, guid: f17831ba810097743bb493bcb78f589b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5400924322153051283, guid: f17831ba810097743bb493bcb78f589b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5400924322153051283, guid: f17831ba810097743bb493bcb78f589b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: f17831ba810097743bb493bcb78f589b, type: 3}

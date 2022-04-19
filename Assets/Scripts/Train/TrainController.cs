@@ -27,10 +27,12 @@ public class TrainController : Singleton<TrainController>
     [Foldout("Balance"), SerializeField] AnimationCurve maxPressureOverFuelAmount;
     [Foldout("Balance"), SerializeField] AnimationCurve pressureBuildupOverFuelAmount;
     [Foldout("Balance"), SerializeField] AnimationCurve pressureToForceCurve;
+    [Foldout("Balance"), SerializeField] AnimationCurve overheatToForceCurve;
     [Foldout("Balance"), SerializeField] float pressureToForceCurveMultiplyer;
     [Foldout("Balance"), SerializeField] float pressureReleaseByWhistle;
     [Foldout("Balance"), SerializeField] AnimationCurve pressureReleaseOverSpeed;
     [Foldout("Balance"), SerializeField] AnimationCurve pressureReleaseOverPressure;
+    [Foldout("Balance"), SerializeField] AnimationCurve pressureReleaseOverOverheat;
     [Foldout("Balance"), SerializeField] AnimationCurve rollingResistanceOverSpeedMultiplierCurve;
     [Foldout("Balance"), SerializeField] AnimationCurve overheatPerSecondOverPressure;
 
@@ -198,7 +200,7 @@ public class TrainController : Singleton<TrainController>
 
         //engine uses steam to throttle up/down
         float pressureRelease = pressureReleaseOverPressure.Evaluate(pressureBefore);
-        float pressureConsumption = throttle * pressureRelease * pressureReleaseOverSpeed.Evaluate(speed);
+        float pressureConsumption = throttle * pressureRelease * pressureReleaseOverSpeed.Evaluate(speed) * pressureReleaseOverOverheat.Evaluate(overheat);
 
         if (isWhistling)
             pressureConsumption += pressureRelease * pressureReleaseByWhistle;
@@ -226,9 +228,10 @@ public class TrainController : Singleton<TrainController>
         _forceMultipliers.Trottle = throttle;
         _forceMultipliers.PressureToForce = pressureToForceCurve.Evaluate(pressure);
         _forceMultipliers.SpeedToForce = activeGear.forceOverSpeedCurve.Evaluate(speed);
+        _forceMultipliers.OverheatToForce = overheatToForceCurve.Evaluate(overheat);
         _forceMultipliers.Direction = activeGear.directionMultiplier;
         //_forceMultipliers.SpeedToForce = forceEffectivenessOverSpeed.Evaluate(speed);
-        float force = throttle * _forceMultipliers.PressureToForce * _forceMultipliers.SpeedToForce * _forceMultipliers.Direction * pressureToForceCurveMultiplyer;
+        float force = throttle * _forceMultipliers.PressureToForce * _forceMultipliers.SpeedToForce * _forceMultipliers.Direction * pressureToForceCurveMultiplyer * _forceMultipliers.OverheatToForce;
 
         forceEffectivenessOverSpeedDEBUG.Curve = activeGear.forceOverSpeedCurve;
         forceEffectivenessOverSpeedDEBUG.Value = speed;
@@ -417,6 +420,8 @@ public class Force
     public float PressureToForce;
     [ProgressBar("Speed To Force", 1, EColor.Green)]
     public float SpeedToForce;
+    [ProgressBar("Overheat To Force", 2, EColor.Green)]
+    public float OverheatToForce;
     [SerializeField, ReadOnly] public int Direction;
 }
 
