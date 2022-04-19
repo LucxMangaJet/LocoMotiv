@@ -5,7 +5,7 @@ using UnityEngine;
 public class LerpingHandObject : MonoBehaviour
 {
     [SerializeField] HandObjectTarget baseTarget;
-    protected HandObjectTarget OverrideTarget;
+    [SerializeField] protected HandObjectTarget OverrideTarget;
 
     protected virtual void Awake()
     {

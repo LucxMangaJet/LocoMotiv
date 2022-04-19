@@ -1107,18 +1107,6 @@ PrefabInstance:
       propertyPath: onLeverMoved.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 6270358161751392399}
-    - target: {fileID: 5400924322153051283, guid: f17831ba810097743bb493bcb78f589b, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5400924322153051283, guid: f17831ba810097743bb493bcb78f589b, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5400924322153051283, guid: f17831ba810097743bb493bcb78f589b, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: f17831ba810097743bb493bcb78f589b, type: 3}

@@ -7,11 +7,11 @@ public class Shovel : LerpingHandObject
 {
     private void OnEnable()
     {
-        ShovelTarget.ChangeOverrideShovel += OnChangeOverride;
+        ShovelTarget.ChangeOverride += OnChangeOverride;
     }
     private void OnDisable()
     {
-        ShovelTarget.ChangeOverrideShovel -= OnChangeOverride;
+        ShovelTarget.ChangeOverride -= OnChangeOverride;
     }
 
     private void OnChangeOverride(ShovelTarget target)

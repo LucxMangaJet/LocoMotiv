@@ -36,11 +36,11 @@ public class Bucket : LerpingHandObject
 
     private void OnEnable()
     {
-        BucketTarget.ChangeOverrideBucket += OnChangeOverride;
+        BucketTarget.ChangeOverride += OnChangeOverride;
     }
     private void OnDisable()
     {
-        BucketTarget.ChangeOverrideBucket -= OnChangeOverride;
+        BucketTarget.ChangeOverride -= OnChangeOverride;
     }
 
     private void OnChangeOverride(BucketTarget target)
