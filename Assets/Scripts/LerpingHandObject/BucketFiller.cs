@@ -9,7 +9,7 @@ public class BucketFiller : MonoBehaviour
 
     public void StartFilling()
     {
-        current = FindObjectOfType<Bucket>();
+        current = Bucket.Instance;
     }
 
     public void StopFilling()
@@ -22,5 +22,10 @@ public class BucketFiller : MonoBehaviour
         if (current == null) return;
 
         current.SetFillValue(fillValue);
+    }
+
+    public void SetFillValue(float value)
+    {
+        Bucket.Instance.SetFillValue(value);
     }
 }

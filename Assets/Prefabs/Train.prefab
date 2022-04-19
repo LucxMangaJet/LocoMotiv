@@ -988,6 +988,10 @@ PrefabInstance:
       propertyPath: trainController
       value: 
       objectReference: {fileID: 6270358161751392399}
+    - target: {fileID: 1808246097138723320, guid: f17831ba810097743bb493bcb78f589b, type: 3}
+      propertyPath: controller
+      value: 
+      objectReference: {fileID: 6270358161751392399}
     - target: {fileID: 2652356909449273100, guid: f17831ba810097743bb493bcb78f589b, type: 3}
       propertyPath: m_RootOrder
       value: -1

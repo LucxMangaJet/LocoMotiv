@@ -128,8 +128,9 @@ GameObject:
   - component: {fileID: 3054895055935366785}
   - component: {fileID: 4372924248774597429}
   - component: {fileID: 2929645644428395996}
+  - component: {fileID: 2919547638881612499}
   m_Layer: 0
-  m_Name: waterRefill_Interactable
+  m_Name: WaterRefill_Interactable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -167,6 +168,7 @@ MonoBehaviour:
   conditions: []
   animator: {fileID: 2929645644428395996}
   target: {fileID: 4738672530221921261}
+  requireFullBucket: 1
 --- !u!114 &3054895055935366785
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -213,6 +215,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &2919547638881612499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 584430388093814497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c263e931be6dc54caaadb6ef5fe7217, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fillValue: 0
 --- !u!1 &623678377776717199
 GameObject:
   m_ObjectHideFlags: 0
@@ -20698,6 +20713,8 @@ GameObject:
   - component: {fileID: 3577309162696145993}
   - component: {fileID: 5020843056522340167}
   - component: {fileID: 4643607307371347831}
+  - component: {fileID: 8156017629190486023}
+  - component: {fileID: 1808246097138723320}
   m_Layer: 0
   m_Name: Cauldron_Interactable
   m_TagString: Untagged
@@ -20737,6 +20754,7 @@ MonoBehaviour:
   conditions: []
   animator: {fileID: 5020843056522340167}
   target: {fileID: 6844585345712861081}
+  requireFullBucket: 1
 --- !u!136 &3577309162696145993
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -20784,6 +20802,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outline: {fileID: 8023108587036158203}
+--- !u!114 &8156017629190486023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5396157154664550994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c263e931be6dc54caaadb6ef5fe7217, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fillValue: 0
+--- !u!114 &1808246097138723320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5396157154664550994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f23ef6ddad56958439966f9137ffc38d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controller: {fileID: 0}
 --- !u!1 &5652671151572227164
 GameObject:
   m_ObjectHideFlags: 0

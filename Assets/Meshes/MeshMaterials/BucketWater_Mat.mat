@@ -113,7 +113,7 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     - _height_waves: 0.1
-    - _water_level: 1
+    - _water_level: 0
     m_Colors:
     - _BaseColor: {r: 0.3620506, g: 0.63969606, b: 1, a: 1}
     - _Color: {r: 0.3620506, g: 0.63969606, b: 1, a: 1}

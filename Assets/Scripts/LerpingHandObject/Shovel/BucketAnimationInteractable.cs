@@ -7,7 +7,8 @@ public class BucketAnimationInteractable : InteractableBase
 {
     [SerializeField] Animator animator;
     [SerializeField] BucketTarget target;
-    public override bool CanInteract => !animator.enabled && base.CanInteract;
+    [SerializeField] bool requireFullBucket;
+    public override bool CanInteract => !animator.enabled && base.CanInteract && requireFullBucket == Bucket.Instance.IsFull;
 
     public override bool bIsHeldInteraction => false;
 

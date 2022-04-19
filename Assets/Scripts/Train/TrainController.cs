@@ -354,6 +354,10 @@ public class TrainController : Singleton<TrainController>
     {
         fuel += _amount;
     }
+    public void ReduceOverheat()
+    {
+        overheat = Mathf.Clamp(0.1f, 0, 1);
+    }
 
     private void OnShovelTrigger(ShovelEventType _type)
     {

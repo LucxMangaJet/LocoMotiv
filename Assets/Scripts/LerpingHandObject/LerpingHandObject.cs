@@ -7,7 +7,7 @@ public class LerpingHandObject : MonoBehaviour
     [SerializeField] HandObjectTarget baseTarget;
     protected HandObjectTarget OverrideTarget;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         OverrideTarget = baseTarget;
     }
