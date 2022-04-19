@@ -215,7 +215,7 @@ public class TrackRouteEditor : Editor
         Transform transform = (end == TrackSectionEnd.Start) ? section.StartTransform : section.EndTransform;
         if (selectedTransforms == null || !selectedTransforms.Contains(transform))
         {
-            float size = HandleUtility.GetHandleSize(transform.position) / 2f;
+            float size = Mathf.Clamp(Mathf.Sqrt(HandleUtility.GetHandleSize(transform.position) * 2f), 2, 20 );
             if (Handles.Button(transform.position, Quaternion.identity, size, size, Handles.SphereHandleCap))
             {
                 if (holdingControl)
@@ -272,7 +272,7 @@ public class TrackRouteEditor : Editor
     {
         TrackPoint point = section.CalculateTrackPointAtT(0.5f);
         Handles.color = Color.green;
-        float size = HandleUtility.GetHandleSize(point.Position) / 3f;
+        float size = Mathf.Clamp(Mathf.Sqrt(HandleUtility.GetHandleSize(point.Position) * 2f), 2, 20);
         if (Handles.Button(point.Position, point.Rotation, size, size, Handles.CubeHandleCap))
         {
             ExtendRouteInbetween(section, point);
