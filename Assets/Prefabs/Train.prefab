@@ -1099,6 +1099,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Locomotive
       objectReference: {fileID: 0}
+    - target: {fileID: 4037515192111479169, guid: f17831ba810097743bb493bcb78f589b, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1d494ceae2b7b2b4e8f1b3a3a4dc2ef1, type: 2}
     - target: {fileID: 4060611770585542471, guid: f17831ba810097743bb493bcb78f589b, type: 3}
       propertyPath: train
       value: 
@@ -1107,6 +1111,10 @@ PrefabInstance:
       propertyPath: onLeverMoved.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 6270358161751392399}
+    - target: {fileID: 6665789541625462120, guid: f17831ba810097743bb493bcb78f589b, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: f17831ba810097743bb493bcb78f589b, type: 3}
