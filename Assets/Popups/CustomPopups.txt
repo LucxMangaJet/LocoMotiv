@@ -1,0 +1,3 @@
+I though it might be cool to keep each other up-to-speed if we write update-popups when we add something new.
+Simply create and commit a new text file in the Assets/Popups folder.
+:) -Luca

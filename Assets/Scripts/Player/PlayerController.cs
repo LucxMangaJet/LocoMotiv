@@ -59,6 +59,13 @@ public class PlayerController : MonoBehaviour
             interactionModule.StartInteracting();
     }
 
+#if UNITY_EDITOR
+    private void OnDrawGizmos()
+    {
+        UnityEditor.Handles.Label(transform.position, "Player");
+    }
+#endif
+
     public static void SetRotateLock(PlayerRotateLock _lockType, bool _on)
     {
         if (_on)

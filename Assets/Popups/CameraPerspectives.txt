@@ -1,0 +1,1 @@
+I added the support for swapping to different camera perspectives by using Tab. -Luca

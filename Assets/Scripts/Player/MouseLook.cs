@@ -1,15 +1,18 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MouseLook : MonoBehaviour
+public class MouseLook : MonoBehaviour, ICameraPerspective
 {
-
+    [SerializeField] new Cinemachine.CinemachineVirtualCamera camera;
     [SerializeField] Transform playerTransform;
     [SerializeField] Transform handOriginTransform;
     [SerializeField] float handOriginRotationMultiplier = 0.5f;
     float xRotation = 0f;
     [SerializeField] float mouseSensitivity = 100f;
+    
+    public string PerspectiveName => "Player";
 
     // Start is called before the first frame update
     void Start()
@@ -29,5 +32,10 @@ public class MouseLook : MonoBehaviour
         handOriginTransform.localRotation = Quaternion.Euler(xRotation * handOriginRotationMultiplier, 0f, 0f);
 
         playerTransform.Rotate(Vector3.up * mouse.x * Time.deltaTime);
+    }
+
+    public CinemachineVirtualCamera UpdateCameraTarget()
+    {
+        return camera;
     }
 }
